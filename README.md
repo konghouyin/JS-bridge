@@ -1,7 +1,7 @@
 # JS-bridge
 ## 一、项目简介
 
-​	本项目为H5内嵌APP，通过混合开发（H5与Native之间进行通信），使web不再受限于浏览器，可以通过寄生app来获取系统权限，扩展H5的功能，为web应用带来更多可能。项目核心在于对混合开发的web端进行封装，提升其易用性和可维护性。为便于测试，开发基于VUE框架的演示页面，并将相关交互功能入植入项目中。
+本项目为H5内嵌APP，通过混合开发（H5与Native之间进行通信），使web不再受限于浏览器，可以通过寄生app来获取系统权限，扩展H5的功能，为web应用带来更多可能。项目核心在于对混合开发的web端进行封装，提升其易用性和可维护性。为便于测试，开发基于VUE框架的演示页面，并将相关交互功能入植入项目中。
 
 ## 二、技术分析
 
@@ -21,11 +21,13 @@
 
 ### 1.项目规划
 
-​	通过之前的原型测试，发现目前移动端两大操作系统Android 和iOS，关于H5-Native通信之间存在一些差别。所以本次项目开发基于webpack的vue多页应用，即Android一套页面，iOS一套页面，通过对Android 和  iOS 的 js-bridge封装，实现对外暴露统一的应用开发接口。
-
-​	在开发中，只需要引入不同 js-bridge模块，即可实现统一的开发。
+通过之前的原型测试，发现目前移动端两大操作系统Android 和iOS，关于H5-Native通信之间存在一些差别。所以本次项目开发基于webpack的vue多页应用，即Android一套页面，iOS一套页面，通过对Android 和  iOS 的 js-bridge封装，实现对外暴露统一的应用开发接口。
+	
+在开发中，只需要引入不同 js-bridge模块，即可实现统一的开发。
 
 ### 2.项目目录
+
+
 
 ### 3.分支管理
 
@@ -39,8 +41,22 @@
 
 
 
-## 六、使用手册
+## 六、使用手册 
+
+### Build Setup
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
+```
 
 
-
-## 七、问题记录与总结
