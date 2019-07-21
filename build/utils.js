@@ -120,10 +120,8 @@ exports.entries = function() {
     var entryFiles = glob.sync(PAGE_PATH + '/*/*.js')
     var map = {}
     entryFiles.forEach((filePath) => {
-        var filename = filePath.substring(filePath.lastIndexOf('\/') + 1, filePath.lastIndexOf('.'))
-        while(map[filename]!=undefined){
-            filename+='_'
-        }
+        var filename =filePath.split('\/')[filePath.split('\/').length-2]+
+        '_'+filePath.substring(filePath.lastIndexOf('\/') + 1, filePath.lastIndexOf('.'))
         map[filename] = filePath
     })
     return map
@@ -140,9 +138,9 @@ exports.htmlPlugin = function() {
         let entryFiles = glob.sync(PAGE_PATH + '/' + filename + '/*.js')
         let addJs = [];
         entryFiles.forEach((filePath) => {
-            var filename = filePath.substring(filePath.lastIndexOf('\/') + 1, filePath.lastIndexOf(
+            var name = filename+'_'+filePath.substring(filePath.lastIndexOf('\/') + 1, filePath.lastIndexOf(
                 '.'))
-            addJs.push(filename)
+            addJs.push(name)
         })
         let conf = {
             // 模板来源

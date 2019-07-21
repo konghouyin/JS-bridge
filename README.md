@@ -16,17 +16,17 @@
 
 ## 三、项目框架
 
+本项目以web页面为核心，通过引入不同操作系统的库，实现在不同操作系统下的统一开发。相关信息如下图所示。
 
-
-
+![](system_pic/系统架构.png)
 
 ## 四、开发规范
 
 ### 1.项目规划
 
-通过原型测试，发现目前移动端两大操作系统Android 和iOS，关于H5-Native通信之间存在一些差别。所以本次项目开发基于webpack的vue多页应用，即Android一套页面，iOS一套页面，通过对Android 和  iOS 的 js-bridge封装，实现对外暴露统一的应用开发接口。在开发中，只需要引入不同 js-bridge模块，即可实现统一的开发。
+通过原型测试，发现目前移动端两大操作系统Android 和iOS，关于H5-Native通信之间存在一些差别。所以本次项目开发基于webpack的vue多页应用，即Android一套页面，iOS一套页面，通过对Android 和  iOS 的 js-bridge封装，实现对外暴露统一的应用开发接口。在未来开发中，只需要引入不同 js-bridge模块，即可实现统一的开发。
 
-后期可以使用webview客户端检测，再次封装。使用按需加载，再次统一接口。
+后期可以使用webview客户端检测，再次封装。自动检测操作系统按需加载，再次统一接口，真正实现一套代码，两端同时发布。
 
 ### <span id="ml">2.项目目录</span>
 
@@ -44,12 +44,12 @@
 			├── Android_module #js-bridge模块文件夹
 			├── Android.html #Android端页面
 			├── index.js #webpack打包js文件1
-			├── Android.js #webpack打包js文件2（便于后期生成单独js）
+			├── Android.js #webpack打包js文件2（便于后期生成CDN）
 		├── iOS
 			├── iOS_module #js-bridge模块文件夹
 			├── iOS.html #iOS端页面
 			├── index.js #webpack打包js文件1
-			├── iOS.js #webpack打包js文件2（便于后期生成单独js）
+			├── iOS.js #webpack打包js文件2（便于后期生成CDN）
 		 #由于两套页面内容完全相同，共用router、App.vue
 		├── router 
 		├── App.vue
@@ -64,6 +64,10 @@
 - master：主分支，保证主分支内容随时可用
 - dev：开发分支，日常开发分支
 - fix：紧急修复分支，当主分支内容出现紧急问题时，使用fix分支进行修复
+
+### 4.js-bridge接口定义
+
+
 
 ## 五、开发记录
 
@@ -113,7 +117,7 @@ npm run build --report
      - github：
      - 运行：在github下载代码，使用Xcode真机调试
 - Android
-     - github
+     - github：
      - apk：
 
 ## 七、问题记录
@@ -237,3 +241,25 @@ npm run build --report
 5. 修改文件目录
 
      详情请参考，<a href='#ml'>本项目目录</a>
+
+### 2.打包中vendor.js较大
+
+在使用npm run build时，webpack会把页面依赖的第三方库进行打包进入vendor文件。而第三方库体积相对较大，如果将它配置在自己的服务器上这样进行访问，会非常慢，影响用户体验。
+
+可以在webpack中配置禁止打包一些主要的第三方库，通过CDN引入进网页。采用cdn加速去从别的服务器上加载第三方库而非自己的服务器，这样就会快很多，并且能节省自己服务器的带宽。
+
+```json
+externals:{
+	'Vue':'Vue'
+	...
+}
+```
+
+### 3.webpack文件重名打包问题
+
+由于本次配置webpack是多页应用，在pages文件夹下面有若干文件，当出现文件路径不同但文件重名的现象时，就会导致打包出现覆盖的现象。这里记录一下这个问题的解决方案。
+
+1. 在webpack的入口文件，entry中接收的是一个对象，属性名将会成为打包的模块名，属性值是打包入口文件的路径。这里的模块名很重要，会影响后面的HtmlWebpackPlugin
+2. HtmlWebpackPlugin中的chunks接收一个数组，数组中是需要注入html的模块名
+3. 在解决打包问题时，将文件模块名改为多层结构即可。如Android/index —> Android_index，而不是index
+
