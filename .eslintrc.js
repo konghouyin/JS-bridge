@@ -28,5 +28,6 @@ module.exports = {
 	'indent': 'off',
     'no-undef': 'off',
     'space-before-function-paren': 'off',
+	'space-before-blocks': 'off'
   }
 }

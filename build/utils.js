@@ -155,8 +155,8 @@ exports.htmlPlugin = function() {
             // 页面模板需要加对应的js脚本，如果不加这行则每个页面都会引入所有的js脚本
             chunks: ['manifest', 'vendor', ...head,...body],
             inject: {
-				body: ['manifest', 'vendor',...body],
-				head: [...head]
+				body: ['manifest', 'vendor',...head,...body],
+				head: []
 			}
         }
         if (process.env.NODE_ENV === 'production') {

@@ -5,9 +5,9 @@ export default function (obj) {
     let type = 'getSystemInfo'
     let send = {
         type: type,
-        data: obj.asd,
-        callback_id: callbackId
+        data: null,
+        callbackId: callbackId
     }
-    addCallback(this,callbackId,type,obj.success,obj.fail,obj.complete)
+    addCallback(this, callbackId, type, obj.success, obj.fail, obj.complete)
     this.jsCallAndroid(send)
 }

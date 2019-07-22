@@ -12,7 +12,7 @@ function addCallback(context, callbackId, type, success, fail, complete) {
         if (now == 0) {
             timer = setInterval(timerCheck(context), context.time * 1000)
         }
-        callbackPool[callbackId] = {
+        callbackPool[callbackId.toString()] = {
             success,
             fail,
             type,
@@ -33,12 +33,16 @@ function timerCheck(context) {
     }
     for (each in callbackPool) {
         if (new Date().getTime() - callbackPool[each].point.getTime() > context.time * 1000) {
-            callbackPool[each].fail({err: '请求超时'}, {
+            callbackPool[each].fail({
+                err: '请求超时'
+            }, {
                 style: 0,
                 each,
                 type: callbackPool[each].type
             })
-            callbackPool[each].complete({err: '请求超时'}, {
+            callbackPool[each].complete({
+                err: '请求超时'
+            }, {
                 style: 0,
                 each,
                 type: callbackPool[each].type
@@ -53,31 +57,37 @@ function timerCheck(context) {
 
 function callbackApply(msg) {
     let {
-        callback_id: id,
+        callbackId: id,
         message: res,
         style
     } = msg
-    if (callbackPool[id]) {
+    if (!callbackPool[id]) {
         throw `Error 未找到id:${id}对应的回调事件`
     } else {
         if (style == 1) {
-            callbackPool[id].success(res, {
-                style,
-                id,
-                type: callbackPool[id].type
-            })
+            if (callbackPool[id].success) {
+                callbackPool[id].success(res, {
+                    style,
+                    id,
+                    type: callbackPool[id].type
+                })
+            }
         } else {
-            callbackPool[id].fail(res, {
+            if (callbackPool[id].fail) {
+                callbackPool[id].fail(res, {
+                    style,
+                    id,
+                    type: callbackPool[id].type
+                })
+            }
+        }
+        if (callbackPool[id].complete) {
+            callbackPool[id].complete(res, {
                 style,
                 id,
                 type: callbackPool[id].type
             })
         }
-        callbackPool[id].complete(res, {
-            style,
-            id,
-            type: callbackPool[id].type
-        })
         callbackPool[id] = null
         now--
     }

@@ -7,8 +7,6 @@ export default function JSBridge(length, time) {
 }
 window.JSBridge = JSBridge
 window.jsCallBack = function (message){
-    console.log(message)
-    callbackApply(JSON.parse(message))
+    callbackApply(message)
 }
-
 JSBridge.prototype.getSystemInfo = getSystemInfo
