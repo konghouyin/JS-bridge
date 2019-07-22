@@ -66,11 +66,15 @@
 - dev：开发分支，日常开发分支
 - fix：紧急修复分支，当主分支内容出现紧急问题时，使用fix分支进行修复
 
-### 4.js-bridge接口定义
+### 4.交互流程
+
+本项目主要针对于，App内嵌H5，即业务逻辑在H5中，所有的交互请求都是由H5发起，Native进行处理，并根据接口规则，选择是否进行回调。
+
+### 5.js-bridge接口定义
 
 JsCallNative:
 
-- ios：window.webkit.messageHandlers.JSObject.postMessage()
+- iOS：window.webkit.messageHandlers.JSObject.postMessage()
 - Android：window._android.postMessage()
 - 参数：
 
@@ -93,6 +97,22 @@ NativeCallJs:
   | message     | JSON       | 具体参数                     |
 
 ## 五、开发记录
+
+### 1.构建js-bridge对象实例
+
+- 相关代码路径：/pages/public_module/index
+
+- 组合使用 **构造函数模式和原型模式** 进行js-bridge对象的初始化。
+
+js-bridge实例中的callbackPoll属性是回调等待数组。其他暴露给应用层的方法，全部写在构造函数的原型上。
+
+### 2.引入回调等待数组过长判断机制
+
+### 3.获取系统权限
+
+
+
+
 
 
 
@@ -134,7 +154,7 @@ npm run build --report
      - Android：https://www.konghouy.cn/H5-app/Android.html#/
      - iOS：https://www.konghouy.cn/H5-app/iOS.html#/
 
-### 3.配套App连接
+### 3.配套App链接
 
 - iOS
      - github：
@@ -142,6 +162,18 @@ npm run build --report
 - Android
      - github：
      - apk：
+
+### 4.CDN使用说明
+
+项目已经将相关库文件打包处理好了，使用者可以按需使用Android、iOS、通用模块。
+
+Android：
+
+iOS：
+
+通用：
+
+**注意** 在使用本库时，需要将js文件引入在业务逻辑模块之前，否则业务模块中同步的代码可能不会正常执行。
 
 ## 七、问题记录
 
@@ -284,4 +316,51 @@ externals:{
 1. 在webpack的入口文件，entry中接收的是一个对象，属性名将会成为打包的模块名，属性值是打包入口文件的路径。这里的模块名很重要，会影响后面的HtmlWebpackPlugin
 2. HtmlWebpackPlugin中的chunks接收一个数组，数组中是需要注入html的模块名
 3. 在解决打包问题时，将文件模块名改为多层结构即可。如Android/index —> Android_index，而不是index
+
+### 4.HtmlWebpackPlugin 控制某个 chunks 的 inject 位置
+
+在项目开发中，遇到了这样一个问题，为了便于后期获取单独的js-bridge模块，每个页面导入了两个js文件，一个是业务逻辑模块，一个是js-bridge模块，但是在打包的过程中，出现了一种情况，就是业务模块在html中的位置，写在了js-bridge的前面。业务模块中同步的js-bridge功能无法使用。
+
+解决方案就是，进js-bridge模块放入head中加载，其余模块放在body中。保证业务模块中的内容一定可以被执行。
+
+修改配置：
+
+```
+inject: {
+    head: ['chunks2'],
+    body: ['chunks1', 'chunks3', 'vendor']
+},
+```
+
+修改HtmlWebpackPlugin 源码：
+
+```js
+// 如果 inject 传入参数为对象则区分打包.
+if (typeof this.options.inject === 'object') {
+  this.options.inject.head.forEach(value => {
+    var injectScripts = scripts.filter(script => script.attributes.src.indexOf(value) > -1)
+    head = head.concat(injectScripts)
+  })
+
+  this.options.inject.body.forEach(value => {
+    var injectScripts = scripts.filter(script => script.attributes.src.indexOf(value) > -1)
+    body = body.concat(injectScripts)
+  })
+} else {
+  // 原版逻辑.
+  if (this.options.inject === 'head') {
+    head = head.concat(scripts);
+  } else {
+    body = body.concat(scripts);
+  }
+}
+```
+
+
+
+
+
+
+
+
 

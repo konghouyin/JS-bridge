@@ -136,20 +136,30 @@ exports.htmlPlugin = function() {
         let filename = filePath.split('\/')[filePath.split('\/').length-2];
 
         let entryFiles = glob.sync(PAGE_PATH + '/' + filename + '/*.js')
-        let addJs = [];
+        let head = [];
+        let body = [];
         entryFiles.forEach((filePath) => {
             var name = filename+'_'+filePath.substring(filePath.lastIndexOf('\/') + 1, filePath.lastIndexOf(
                 '.'))
-            addJs.push(name)
+            if(/index/.test(filePath)){
+                 body.push(name)
+            }else{
+                 head.push(name)
+            }
         })
+		console.log(head);
+        console.log(body);
         let conf = {
             // 模板来源
             template: filePath,
             // 文件名称
             filename: filename + '.html',
             // 页面模板需要加对应的js脚本，如果不加这行则每个页面都会引入所有的js脚本
-            chunks: ['manifest', 'vendor', ...addJs],
-            inject: true
+            chunks: ['manifest', 'vendor', ...head,...body],
+            inject: {
+				body: ['manifest', 'vendor',...body],
+				head: [...head]
+			}
         }
         if (process.env.NODE_ENV === 'production') {
             conf = merge(conf, {
