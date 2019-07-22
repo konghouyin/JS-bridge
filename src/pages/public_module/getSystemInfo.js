@@ -1,4 +1,3 @@
-
 import {addCallback} from './callbackPool'
 
 export default function (obj) {
@@ -9,6 +8,6 @@ export default function (obj) {
         data: obj.asd,
         callback_id: callbackId
     }
-    addCallback(this,callbackId,type,obj.success);
+    addCallback(this,callbackId,type,obj.success,obj.fail,obj.complete)
     this.jsCallAndroid(send)
 }

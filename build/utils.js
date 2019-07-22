@@ -147,8 +147,6 @@ exports.htmlPlugin = function() {
                  head.push(name)
             }
         })
-		console.log(head);
-        console.log(body);
         let conf = {
             // 模板来源
             template: filePath,

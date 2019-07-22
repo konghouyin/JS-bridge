@@ -86,7 +86,7 @@ JsCallNative:
 
 NativeCallJs:
 
-- JsCallBack()
+- jsCallBack()
 
 - 参数：
 
