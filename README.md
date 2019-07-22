@@ -94,11 +94,11 @@ NativeCallJs:
   | ---------- | ---------- | ---------------------------- |
   | callbackId | String     | 从请求部分获取的回调函数id号 |
   | style      | Number     | 1表示成功，0表示失败         |
-  | `message`  | JSON       | 具体参数                     |
+  | message    | JSON       | 具体参数                     |
 
 ## 五、开发记录
 
-### 1.构建js-bridge对象实例
+### 1.构建js-bridge构造函数
 
 - 相关代码路径：/pages/public_module/index
 
@@ -361,6 +361,17 @@ if (typeof this.options.inject === 'object') {
 由于项目选择了回调id的形式，作为交互的依据。所以这时就要对通过回调id进行回调函数的管理。为保证效率，一定要实现回调函数的随机存取。适合的方案一共有两种，一种是map，一种是Object。通过测试，发现Object存储无论是在添加还是在查询中，速度都明显优于map。为保证系统效率，在js-bridge的回调管理选用Object作为存储结构。
 
 ### 6. webpackJsonp is not defined
+
+在webpack打包过程中出现了这个报错，出现原因是公共文件必须在自己引用的js文件之前引用。
+
+修改HtmlWebpackPlugin配置
+
+```json
+ inject: {
+     body: ['manifest', 'vendor',...head,...body],
+     head: []
+ }
+```
 
 
 
