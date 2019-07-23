@@ -120,8 +120,8 @@ exports.entries = function() {
     var entryFiles = glob.sync(PAGE_PATH + '/*/*.js')
     var map = {}
     entryFiles.forEach((filePath) => {
-        var filename =filePath.split('\/')[filePath.split('\/').length-2]+
-        '_'+filePath.substring(filePath.lastIndexOf('\/') + 1, filePath.lastIndexOf('.'))
+        var filename = filePath.split('\/')[filePath.split('\/').length - 2] +
+            '_' + filePath.substring(filePath.lastIndexOf('\/') + 1, filePath.lastIndexOf('.'))
         map[filename] = filePath
     })
     return map
@@ -133,18 +133,19 @@ exports.htmlPlugin = function() {
     let entryHtml = glob.sync(PAGE_PATH + '/*/*.html');
     let arr = []
     entryHtml.forEach((filePath) => {
-        let filename = filePath.split('\/')[filePath.split('\/').length-2];
+        let filename = filePath.split('\/')[filePath.split('\/').length - 2];
 
         let entryFiles = glob.sync(PAGE_PATH + '/' + filename + '/*.js')
         let head = [];
         let body = [];
         entryFiles.forEach((filePath) => {
-            var name = filename+'_'+filePath.substring(filePath.lastIndexOf('\/') + 1, filePath.lastIndexOf(
-                '.'))
-            if(/index/.test(filePath)){
-                 body.push(name)
-            }else{
-                 head.push(name)
+            var name = filename + '_' + filePath.substring(filePath.lastIndexOf('\/') + 1, filePath
+                .lastIndexOf(
+                    '.'))
+            if (/index/.test(filePath)) {
+                body.push(name)
+            } else {
+                head.push(name)
             }
         })
         let conf = {
@@ -153,11 +154,11 @@ exports.htmlPlugin = function() {
             // 文件名称
             filename: filename + '.html',
             // 页面模板需要加对应的js脚本，如果不加这行则每个页面都会引入所有的js脚本
-            chunks: ['manifest', 'vendor', ...head,...body],
+            chunks: ['manifest', 'vendor', ...head, ...body],
             inject: {
-				body: ['manifest', 'vendor',...head,...body],
-				head: []
-			}
+                body: ['manifest', 'vendor', ...head, ...body],
+                head: []
+            }
         }
         if (process.env.NODE_ENV === 'production') {
             conf = merge(conf, {
