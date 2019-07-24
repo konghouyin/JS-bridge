@@ -10,11 +10,13 @@ Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
+    el: '#app',
+    router,
+    components: {
+        App
+    },
+    template: '<App/>'
 })
 
-window.HN = new JSBridge(100, 5) // HN-->'H5-Native'
-// 创建实例,设置交互队列长度，以及交互超时时间
+window.HN = new JSBridge(10000) // HN-->'H5-Native'
+// 创建实例,设置交互队列长度，以及交互超时

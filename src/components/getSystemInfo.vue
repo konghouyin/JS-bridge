@@ -87,9 +87,9 @@
         data() {
             return {
                 err: false,
-                errMessage: "",
+                errMessage: '',
                 show: false,
-                msg: ""
+                msg: ''
             }
         },
         methods: {
@@ -98,14 +98,13 @@
                 HN.getSystemInfo({
                     success: (res, style) => {
                         this.msg = Object.assign({}, res)
-                        console.log(this)
                     },
                     fail: (res, style) => {
                         this.err = true
                         this.errMessage = res.err
                     },
                     complete: (res, style) => {
-                        console.log("complete")
+                        console.log('complete')
                     }
                 })
             }
@@ -157,7 +156,6 @@
         width: 100%;
     }
 
-
     .list-complete-enter {
         opacity: 0;
         transform: translateY(100px);
@@ -170,7 +168,6 @@
     .list-complete-leave-active {
         position: absolute;
     }
-
 
     .list-complete-leave-to {
         opacity: 0;

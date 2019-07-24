@@ -18,7 +18,5 @@ new Vue({
     template: '<App/>'
 })
 
-console.log(123)
-
-window.HN = new JSBridge(100, 5) // HN-->'H5-Native'
+window.HN = new JSBridge(10000) // HN-->'H5-Native'
 // 创建实例,设置交互队列长度，以及交互超时时间

@@ -28,6 +28,10 @@ module.exports = {
 	'indent': 'off',
     'no-undef': 'off',
     'space-before-function-paren': 'off',
-	'space-before-blocks': 'off'
+	'space-before-blocks': 'off',
+    'no-throw-literal': 'off',
+    'eqeqeq': 'off',
+    'no-useless-return': 'off',
+    'no-unreachable' :'off'
   }
 }

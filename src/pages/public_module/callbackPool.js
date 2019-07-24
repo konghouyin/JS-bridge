@@ -1,4 +1,3 @@
-let timer
 let callbackPool = {} // 回调集合管理
 let now = 0 // 当前注册回调个数
 
@@ -7,17 +6,25 @@ export {
     callbackApply
 }
 
+/**
+ * 函数功能
+ * @name addCallback
+ * @author fzb 1360234119@qq.com
+ * @description 暂存回调函数
+ * @const 无
+ * @global callbackPool:回调对象,now:当前回调存储个数
+ * @param context:js-bridge实例, callbackId:回调ID号, type:回调类型, success, fail, complete:传入的回调函数
+ * @return 无
+ * @throws 无
+ */
+
 function addCallback(context, callbackId, type, success, fail, complete) {
     if (now < context.length) {
-        if (now == 0) {
-            timer = setInterval(timerCheck(context), context.time * 1000)
-        }
         callbackPool[callbackId.toString()] = {
             success,
             fail,
             type,
-            complete,
-            point: new Date()
+            complete
         }
         now++
     } else {
@@ -25,36 +32,17 @@ function addCallback(context, callbackId, type, success, fail, complete) {
     }
 }
 
-
-function timerCheck(context) {
-    if (now == 0) {
-        clearInterval(timer)
-        return
-    }
-    for (each in callbackPool) {
-        if (new Date().getTime() - callbackPool[each].point.getTime() > context.time * 1000) {
-            callbackPool[each].fail({
-                err: '请求超时'
-            }, {
-                style: 0,
-                each,
-                type: callbackPool[each].type
-            })
-            callbackPool[each].complete({
-                err: '请求超时'
-            }, {
-                style: 0,
-                each,
-                type: callbackPool[each].type
-            })
-            now--
-            callbackPool[each] = null
-            throw `Error 回调函数超时:${callbackPool[each].type}-${each}`
-        }
-    }
-}
-
-
+/**
+ * 函数功能
+ * @name callbackApply
+ * @author fzb 1360234119@qq.com
+ * @description 相应回调函数
+ * @const 无
+ * @global callbackPool:回调对象,now:当前回调存储个数
+ * @param msg<Object>:Native层传入的信息,msg.style:回调状态
+ * @return 无
+ * @throws 未找到id:${id}对应的回调事件
+ */
 function callbackApply(msg) {
     let {
         callbackId: id,
@@ -89,6 +77,7 @@ function callbackApply(msg) {
             })
         }
         callbackPool[id] = null
+        console.log(callbackPool)
         now--
     }
 }

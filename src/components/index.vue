@@ -2,7 +2,7 @@
     <div class="wrap">
         <img src="@/assets/cardLogo.png" alt="芯片图标" class="logo">
         <div class="message">以下将演示H5-Native接口能力</div>
-		<div class="message">具体属性参数见</div>
+        <div class="message">具体属性参数见</div>
         <a class="link" href="">JS-Bridge开发文档</a>
         <div class="list" v-if="list.length!=0">
             <router-link :to="'/show?id='+each.id" tag='div' class="each" v-for="each in list" v-bind:key="each.id">
@@ -21,13 +21,13 @@
                 list: []
             }
         },
-        methods:{
-            getList(){
+        methods: {
+            getList() {
                 let data = require('@/assets/interface.js')
-                this.list=data.default.list
+                this.list = data.default.list
             }
         },
-        mounted(){
+        mounted() {
             this.getList()
         }
     }
@@ -51,12 +51,13 @@
     .list {
         margin-top: 40px;
     }
-    .tittle{
+
+    .tittle {
         font-size: 14px
     }
 
     .each {
-		text-align: left;
+        text-align: left;
         background-color: #fff;
         padding: 14px 20px;
         margin: 8px;

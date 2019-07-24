@@ -13,8 +13,8 @@
         name: 'show',
         data() {
             return {
-                component: "",
-                title: ""
+                component: '',
+                title: ''
             }
         },
         methods: {
@@ -30,7 +30,7 @@
         },
         components: {
             getSystemInfo: components.getSystemInfo,
-            showModal: components.showModal,
+            showModal: components.showModal
         }
     }
 </script>

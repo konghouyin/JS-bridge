@@ -24,7 +24,7 @@ export default {
         {
             name: '蓝牙',
             icon: require('@/assets/blueteeth.png'),
-            id: '4',
+            id: '4'
         }
     ]
 }
