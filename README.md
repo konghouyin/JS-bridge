@@ -75,7 +75,9 @@
 JsCallNative:
 
 - iOS：window.webkit.messageHandlers.JSObject.postMessage()
+
 - Android：window._android.postMessage()
+
 - 参数：
 
     | 属性名     | 属性值类型 | 说明                       |
@@ -95,6 +97,18 @@ NativeCallJs:
   | callbackId | String     | 从请求部分获取的回调函数id号 |
   | style      | Number     | 1表示成功，0表示失败         |
   | message    | JSON       | 具体参数                     |
+  
+- jsContinuousCallBack()
+
+- 参数：
+
+     | 属性名     | 属性值类型 | 说明                         |
+     | ---------- | ---------- | ---------------------------- |
+     | callbackId | String     | 从请求部分获取的回调函数id号 |
+     | style      | Number     | 1表示成功，0表示失败         |
+     | message    | JSON       | 具体参数                     |
+
+     
 
 ## 五、开发记录
 

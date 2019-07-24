@@ -9,6 +9,7 @@
 
 <script>
     import components from '@/components/allDemoTemplate'
+
     export default {
         name: 'show',
         data() {
@@ -19,8 +20,8 @@
         },
         methods: {
             getTitle() {
-                let id = this.$route.query.id
                 let data = require('@/assets/interface.js')
+                let id = this.$route.query.id
                 this.title = data.default.list[id].title
                 this.component = data.default.list[id].title
             }
