@@ -8,7 +8,7 @@
                     </div>
                 </div>
                 <div class="right">
-                    <div>hsldhsldhl</div>
+                    <div>safdasf</div>
                 </div>
             </v-touch>
         </div>
@@ -26,7 +26,7 @@
     export default {
         data() {
             return {
-                boxWidth:0,
+                boxWidth: 0,
                 leftstyle: 0,
                 acceleration: {
                     x: 0,
@@ -56,24 +56,10 @@
                     z: this.acceleration.z.toFixed(2)
                 }
             },
-            speedChange() {
-                console.log("speed")
-                this.speed.x = this.acceleration.x * (new Date().getTime() - this.time) + this.speed.x
-                this.speed.y = this.acceleration.y * (new Date().getTime() - this.time) + this.speed.y
-            },
-            moveChange() {
-                console.log("changemoved")
-                this.move.x += this.speed.x * (new Date().getTime() - this.time)
-                this.move.y += this.speed.y * (new Date().getTime() - this.time)
-                this.move.x= this.move.x>this.boxWidth?this.boxWidth:(this.move.x<0?0:this.move.x);
-                this.move.y= this.move.y>300?300:(this.move.y<0?0:this.move.y);
-                this.time = new Date().getTime()
-            }
         },
-        mounted(){
-            this.boxWidth=this.$el.offsetWidth-20
+        mounted() {
+            this.boxWidth = this.$el.offsetWidth - 20
         },
-
         methods: {
             swiperleft: function() {
                 this.leftstyle = "-100%";
@@ -81,9 +67,9 @@
             swiperright: function() {
                 this.leftstyle = "0";
             },
-            startAccelerometer() {
-
+            startAccelerometer: function() {
                 HN.startAccelerometer({
+                    interval:'fastest',
                     success: (res) => {
                         console.log(res)
                         this.time = new Date().getTime();
@@ -97,13 +83,13 @@
                     change: (res) => {
                         console.log(res)
                         this.acceleration = res
-                        // this.timeChanges()
-                        // this.speedChange()
-                        // this.moveChange()
+                        //this.timeChanges()
+                        this.speedChange()
+                        this.moveChange()
                     }
                 })
             },
-            stopAccelerometer() {
+            stopAccelerometer: function() {
                 HN.stopAccelerometer({
                     success(res) {
                         console.log(res)
@@ -115,11 +101,23 @@
                         console.log(res)
                     }
                 })
+            },
+            speedChange() {
+                this.speed.x = -this.acceleration.x * (new Date().getTime() - this.time)/50000 + this.speed.x
+                this.speed.y = this.acceleration.y * (new Date().getTime() - this.time)/50000 + this.speed.y
+            },
+            moveChange() {
+
+                this.move.x += this.speed.x * (new Date().getTime() - this.time)
+                this.move.y += this.speed.y * (new Date().getTime() - this.time)
+                this.move.x = this.move.x > this.boxWidth ? (this.speed.x = 0, this.boxWidth) : (this.move.x < 0 ? (
+                    this.speed.x = 0, 0) : this.move.x);
+                this.move.y = this.move.y > 280 ? (this.speed.y = 0, 280) : (this.move.y < 0 ? (this.speed.y = 0, 0) :
+                    this.move.y);
+                console.log(this.speed, this.move)
+                this.time = new Date().getTime()
             }
-
-
         }
-
     }
 </script>
 
@@ -130,6 +128,7 @@
         height: 20px;
         border-radius: 50%;
         position: absolute;
+        transition: all 0.1s;
     }
 
     .middle p {
@@ -139,20 +138,16 @@
 
     .middle {
         width: 300px;
-        margin: 0 auto;
-
-        margin-bottom: 20px;
+        margin: 20px auto;
     }
 
     .left,
     .right {
         display: inline-block;
         width: 50%;
+        height: 300px;
         transition: .5s;
-    }
-
-    .left {
-        background-color: red;
+        vertical-align:text-bottom
     }
 
     .right {
@@ -176,5 +171,6 @@
         padding: 10px;
         margin-right: 10px;
         background-color: transparent;
+        outline: none;
     }
 </style>
