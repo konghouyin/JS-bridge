@@ -29,7 +29,7 @@ function startAccelerometer(obj) {
         callbackId: callbackId
     }
     if (obj.interval != undefined) {
-        if (obj.interval != 'game' && obj.interval != 'ui' && obj.interval != 'normal'&& obj.interval != 'fastest') {
+        if (obj.interval != 'game' && obj.interval != 'ui' && obj.interval != 'normal') {
             throw 'startAccelerometer:interval格式错误'
             return
         }

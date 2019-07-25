@@ -393,7 +393,7 @@ if (typeof this.options.inject === 'object') {
  }
 ```
 
-### 7.
+### 7.安卓重力感应最快功能有问题
 
 
 

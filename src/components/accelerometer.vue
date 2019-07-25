@@ -45,10 +45,6 @@
             }
         },
         computed: {
-            // timeChanges(){
-            //     let timeChange=new Date().getTime()-this.time;  
-            //     this.time=this.time+timeChange
-            // },
             accelerationComputed() {
                 return {
                     x: this.acceleration.x.toFixed(2),
@@ -69,7 +65,7 @@
             },
             startAccelerometer: function() {
                 HN.startAccelerometer({
-                    interval:'fastest',
+                    interval:'ui',
                     success: (res) => {
                         console.log(res)
                         this.time = new Date().getTime();
@@ -103,8 +99,8 @@
                 })
             },
             speedChange() {
-                this.speed.x = -this.acceleration.x * (new Date().getTime() - this.time)/50000 + this.speed.x
-                this.speed.y = this.acceleration.y * (new Date().getTime() - this.time)/50000 + this.speed.y
+                this.speed.x = -this.acceleration.x * (new Date().getTime() - this.time)/20000 + this.speed.x
+                this.speed.y = this.acceleration.y * (new Date().getTime() - this.time)/20000 + this.speed.y
             },
             moveChange() {
 
