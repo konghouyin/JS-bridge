@@ -35,12 +35,12 @@ function startAccelerometer(obj) {
         }
         send.data.normal = obj.interval
     }
-    if(obj.change == undefined || !obj.change instanceof Function){
+    if (obj.change == undefined || !obj.change instanceof Function) {
         throw 'startAccelerometer:change错误'
         return
     }
     if (checkFunction(type, obj)) {
-        addContinuousCallback(this, callbackId, continuousCallbackId, type, obj.success, obj.fail, obj.complete,obj.change)
+        addContinuousCallback(this, callbackId, continuousCallbackId, type, obj.success, obj.fail, obj.complete, obj.change)
         this.jsCallNative(send)
     }
 }
@@ -70,4 +70,7 @@ function stopAccelerometer(obj) {
         this.jsCallNative(send)
     }
 }
-export {startAccelerometer,stopAccelerometer}
+export {
+    startAccelerometer,
+    stopAccelerometer
+}
