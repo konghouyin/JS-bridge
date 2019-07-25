@@ -5,6 +5,7 @@ import '@/assets/all.css'
 import Vue from 'vue'
 import App from '../App'
 import router from '../router'
+import VueTouch from 'vue-touch'
 
 Vue.config.productionTip = false
 
@@ -17,7 +18,7 @@ new Vue({
     },
     template: '<App/>'
 })
-
+Vue.use(VueTouch, {name: 'v-touch'})
 window.HN = new JSBridge(10000) // HN-->'H5-Native'
 // 创建实例,设置交互队列长度，以及交互超时
 

@@ -12,6 +12,7 @@ export default {
             id: '1'
         },
         {
+            title: 'accelerometer',
             name: '重力感应',
             icon: require('@/assets/weight.png'),
             id: '2'

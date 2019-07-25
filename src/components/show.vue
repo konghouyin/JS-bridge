@@ -31,7 +31,8 @@
         },
         components: {
             getSystemInfo: components.getSystemInfo,
-            showModal: components.showModal
+            showModal: components.showModal,
+            accelerometer: components.accelerometer
         }
     }
 </script>
