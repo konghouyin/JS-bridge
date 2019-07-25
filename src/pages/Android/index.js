@@ -37,6 +37,23 @@ HN.startAccelerometer({
     }
 })
 
+setTimeout(function(){
+    HN.startAccelerometer({
+        success(res) {
+            console.log(res)
+        },
+        fail(res) {
+            console.log(res)
+        },
+        complete(res) {
+            console.log(res)
+        },
+        change(res) {
+            console.log(res)
+        }
+    })
+},2000)
+
 
 setTimeout(function() {
     HN.stopAccelerometer({

@@ -82,6 +82,9 @@ function callbackApply(msg) {
         if (callbackPool[id].end) {
             callbackPool[id].end(res.continuousCallbackId);
         }
+        if (callbackPool[id].test) {
+            callbackPool[id].test(id, style)
+        }
     }
     callbackPool[id] = null
     now--
@@ -104,20 +107,22 @@ function addContinuousCallback(context, callbackId, continuousCallbackId, type, 
             success,
             fail,
             type,
-            complete
+            complete,
+            change,
+            continuousCallbackId,
+            test: function(id, style) {
+                if (style == 1) {
+                    let temporary = callbackPool[id];
+                    changePool[temporary.continuousCallbackId.toString()] = {
+                        type: temporary.type,
+                        change: temporary.change
+                    }
+                }
+            }
         }
         now++
     } else {
         throw 'Error 回调数组超限'
-    }
-    if (nowChange < context.length) {
-        changePool[continuousCallbackId.toString()] = {
-            type,
-            change
-        }
-        nowChange++
-    } else {
-        throw 'Error change回调数组超限'
     }
 }
 
@@ -137,7 +142,6 @@ function continuousCallbackApply(msg) {
         callbackId: id,
         message: res,
     } = msg
-    console.log(changePool, msg)
     if (!changePool[id]) {
         throw `Error 未找到id:${id}对应的回调事件`
     } else {
