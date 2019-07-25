@@ -1,7 +1,10 @@
 import getSystemInfo from './getSystemInfo'
 import showModal from './showModal'
+import {startAccelerometer,stopAccelerometer} from './accelerometer'
+
 import {
-    callbackApply
+    callbackApply,
+    continuousCallbackApply
 } from './callbackPool'
 
 export default function JSBridge(length) {
@@ -26,6 +29,21 @@ window.jsCallBack = function(message) {
 
 /**
  * 函数功能
+ * @name jsContinuousCallBack
+ * @author fzb 1360234119@qq.com
+ * @description 全局注册回调，给Native层暴露接口
+ * @const 无
+ * @global 无
+ * @param message<Object>:Native层传入的信息
+ * @return 无
+ * @throws 无
+ */
+window.jsContinuousCallBack = function(message) {
+    continuousCallbackApply(message)
+}
+
+/**
+ * 函数功能
  * @name jsCallNative
  * @author fzb 1360234119@qq.com
  * @description 判断webview类型，分发到不同的通信层
@@ -45,3 +63,5 @@ JSBridge.prototype.jsCallNative = function(send) {
 
 JSBridge.prototype.getSystemInfo = getSystemInfo
 JSBridge.prototype.showModal = showModal
+JSBridge.prototype.startAccelerometer = startAccelerometer
+JSBridge.prototype.stopAccelerometer = stopAccelerometer

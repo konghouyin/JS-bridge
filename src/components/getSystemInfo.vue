@@ -97,6 +97,7 @@
                 this.show = true
                 HN.getSystemInfo({
                     success: (res, style) => {
+                        console.log(res)
                         this.msg = Object.assign({}, res)
                     },
                     fail: (res, style) => {

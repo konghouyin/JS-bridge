@@ -1,5 +1,7 @@
-import {addCallback} from './callbackPool'
-
+import {
+    addCallback
+} from './callbackPool'
+import checkFunction from './checkFunction'
 /**
  * 函数功能
  * @name getSystemInfo
@@ -11,7 +13,7 @@ import {addCallback} from './callbackPool'
  * @return 无
  * @throws 无
  */
-export default function (obj) {
+export default function(obj) {
     let callbackId = Math.floor(Math.random() * 2000000000)
     let type = 'getSystemInfo'
     let send = {
@@ -19,6 +21,8 @@ export default function (obj) {
         data: null,
         callbackId: callbackId
     }
-    addCallback(this, callbackId, type, obj.success, obj.fail, obj.complete)
-    this.jsCallNative(send)
+    if (checkFunction(type, obj)) {
+        addCallback(this, callbackId, type, obj.success, obj.fail, obj.complete)
+        this.jsCallNative(send)
+    }
 }

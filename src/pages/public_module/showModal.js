@@ -1,6 +1,7 @@
 import {
     addCallback
 } from './callbackPool'
+import checkFunction from './checkFunction'
 
 /**
  * 函数功能
@@ -79,7 +80,8 @@ export default function(obj) {
         send.data.cancelColor = letterArr[0] + letterArr[1] + letterArr[1] + letterArr[2] + letterArr[2] + letterArr[3] +
             letterArr[3]
     }
-
-    addCallback(this, callbackId, type, obj.success, obj.fail, obj.complete)
-    this.jsCallNative(send)
+    if (checkFunction(type, obj)) {
+        addCallback(this, callbackId, type, obj.success, obj.fail, obj.complete)
+        this.jsCallNative(send)
+    }
 }

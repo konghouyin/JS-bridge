@@ -16,7 +16,7 @@
 
 <style scoped lang="scss">
     #app {
-        padding: 12px 15px 20px 15px;
+        padding: 12px 15px 30px 15px;
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         text-align: center;
         color: #2c3e50;
