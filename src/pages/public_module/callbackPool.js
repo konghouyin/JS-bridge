@@ -6,7 +6,8 @@ export {
     addCallback,
     callbackApply,
     addContinuousCallback,
-    continuousCallbackApply
+    continuousCallbackApply,
+    clearContinuousCallback
 }
 
 /**
@@ -136,16 +137,14 @@ function continuousCallbackApply(msg) {
         callbackId: id,
         message: res,
     } = msg
+    console.log(changePool, msg)
     if (!changePool[id]) {
         throw `Error 未找到id:${id}对应的回调事件`
     } else {
-        if (changePool[id].complete) {
-            changePool[id].complete(res, {
-                style,
-                id,
-                type: changePool[id].type
-            })
-        }
+        changePool[id].change(res, {
+            id,
+            type: changePool[id].type
+        })
     }
 }
 
@@ -160,7 +159,7 @@ function continuousCallbackApply(msg) {
  * @return 无
  * @throws 无
  */
-function clearContinuousCallback(context, callbackId, continuousCallbackId, type, success, fail, complete, change) {
+function clearContinuousCallback(context, callbackId, type, success, fail, complete, change) {
     if (now < context.length) {
         callbackPool[callbackId.toString()] = {
             success,

@@ -95,7 +95,6 @@
         methods: {
             getSystemInfo() {
                 this.show = true
-                console.log("123")
                 HN.getSystemInfo({
                     success: (res, style) => {
                         console.log(res)

@@ -40,7 +40,7 @@ function startAccelerometer(obj) {
         return
     }
     if (checkFunction(type, obj)) {
-        addContinuousCallback(this, callbackId, continuousCallbackId, type, obj.success, obj.fail, obj.complete)
+        addContinuousCallback(this, callbackId, continuousCallbackId, type, obj.success, obj.fail, obj.complete,obj.change)
         this.jsCallNative(send)
     }
 }
@@ -66,7 +66,7 @@ function stopAccelerometer(obj) {
         callbackId: callbackId
     }
     if (checkFunction(type, obj)) {
-        clearContinuousCallback(this, callbackId, continuousCallbackId, type, obj.success, obj.fail, obj.complete)
+        clearContinuousCallback(this, callbackId, type, obj.success, obj.fail, obj.complete)
         this.jsCallNative(send)
     }
 }

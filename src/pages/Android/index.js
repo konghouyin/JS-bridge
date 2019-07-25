@@ -20,3 +20,34 @@ new Vue({
 
 window.HN = new JSBridge(10000) // HN-->'H5-Native'
 // 创建实例,设置交互队列长度，以及交互超时
+
+
+HN.startAccelerometer({
+    success(res) {
+        console.log(res)
+    },
+    fail(res) {
+        console.log(res)
+    },
+    complete(res) {
+        console.log(res)
+    },
+    change(res) {
+        console.log(res)
+    }
+})
+
+
+setTimeout(function() {
+    HN.stopAccelerometer({
+        success(res) {
+            console.log(res)
+        },
+        fail(res) {
+            console.log(res)
+        },
+        complete(res) {
+            console.log(res)
+        },
+    })
+}, 4000);
