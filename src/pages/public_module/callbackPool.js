@@ -112,7 +112,7 @@ function addContinuousCallback(context, callbackId, continuousCallbackId, type, 
             continuousCallbackId,
             test: function(id, style) {
                 if (style == 1) {
-                    let temporary = callbackPool[id];
+                    let temporary = callbackPool[id]
                     changePool[temporary.continuousCallbackId.toString()] = {
                         type: temporary.type,
                         change: temporary.change
@@ -172,7 +172,7 @@ function clearContinuousCallback(context, callbackId, type, success, fail, compl
             complete,
             end: function(continuousCallbackId) {
                 changePool[continuousCallbackId] = null
-                nowChange--;
+                nowChange--
             }
         }
         now++
