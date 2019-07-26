@@ -8,7 +8,7 @@
                     </div>
                 </div>
                 <div class="right">
-                    <div>safdasf</div>
+                    <canvas id='baseLine' v-bind:width="boxWidth+20" height="300"></canvas>
                 </div>
             </v-touch>
         </div>
@@ -17,8 +17,8 @@
             <p>y: {{accelerationComputed.y}}<span></span></p>
             <p>z: {{accelerationComputed.z}}<span></span></p>
         </div>
-        <button @click="startAccelerometer()">开始监听</button>
-        <button @click="stopAccelerometer()">停止监听</button>
+        <button :class="start?'stop-use':''" @click="startAccelerometer()">开始监听</button>
+        <button :class="start?'':'stop-use'" @click="stopAccelerometer()">停止监听</button>
     </div>
 </template>
 
@@ -26,6 +26,7 @@
     export default {
         data() {
             return {
+                start: false,
                 boxWidth: 0,
                 leftstyle: 0,
                 acceleration: {
@@ -41,7 +42,9 @@
                 move: {
                     x: 0,
                     y: 0
-                }
+                },
+                accelerationList: [],
+                num: 0
             }
         },
         computed: {
@@ -55,20 +58,23 @@
         },
         mounted() {
             this.boxWidth = this.$el.offsetWidth - 20
+            this.stopAccelerometer()
         },
         methods: {
             swiperleft: function() {
-                this.leftstyle = "-100%";
+                this.leftstyle = '-100%'
             },
             swiperright: function() {
-                this.leftstyle = "0";
+                this.leftstyle = '0'
             },
             startAccelerometer: function() {
                 HN.startAccelerometer({
-                    interval:'ui',
+                    interval: 'ui',
                     success: (res) => {
                         console.log(res)
                         this.time = new Date().getTime();
+                        this.initCanvas()
+                        this.start = true
                     },
                     fail(res) {
                         console.log(res)
@@ -79,9 +85,16 @@
                     change: (res) => {
                         console.log(res)
                         this.acceleration = res
-                        //this.timeChanges()
-                        this.speedChange()
-                        this.moveChange()
+                        this.accelerationList.push(res)
+                        if (this.accelerationList.length == 250) {
+                            this.accelerationList.shift()
+                        }
+                        if (this.leftstyle == '-100%') {
+                            this.paint()
+                        } else {
+                            this.speedChange()
+                            this.moveChange()
+                        }
                     }
                 })
             },
@@ -97,21 +110,45 @@
                         console.log(res)
                     }
                 })
+                this.start = false
             },
             speedChange() {
-                this.speed.x = -this.acceleration.x * (new Date().getTime() - this.time)/20000 + this.speed.x
-                this.speed.y = this.acceleration.y * (new Date().getTime() - this.time)/20000 + this.speed.y
+                this.speed.x = -this.acceleration.x * (new Date().getTime() - this.time) / 20000 + this.speed.x
+                this.speed.y = this.acceleration.y * (new Date().getTime() - this.time) / 20000 + this.speed.y
             },
             moveChange() {
-
                 this.move.x += this.speed.x * (new Date().getTime() - this.time)
                 this.move.y += this.speed.y * (new Date().getTime() - this.time)
                 this.move.x = this.move.x > this.boxWidth ? (this.speed.x = 0, this.boxWidth) : (this.move.x < 0 ? (
                     this.speed.x = 0, 0) : this.move.x);
                 this.move.y = this.move.y > 280 ? (this.speed.y = 0, 280) : (this.move.y < 0 ? (this.speed.y = 0, 0) :
                     this.move.y);
-                console.log(this.speed, this.move)
                 this.time = new Date().getTime()
+            },
+            initCanvas() {
+                let canvas = document.getElementById('baseLine')
+                var ctx = canvas.getContext("2d");
+                this.canvas = ctx
+            },
+            paint() {
+                console.log(this.accelerationList)
+                let ctx = this.canvas
+                this.clearPaint(ctx)
+                let eachWidth = (this.boxWidth + 20) / 250;
+                this.paintEachLine(ctx, 'x', eachWidth, '#1AAC19')
+                this.paintEachLine(ctx, 'y', eachWidth, '#1AAC19')
+                this.paintEachLine(ctx, 'z', eachWidth, '#1AAC19')
+            },
+            paintEachLine(ctx, type, each,color) {
+                ctx.moveTo(0, this.accelerationList[0][type]);
+                for (let i = 1; i < this.accelerationList.length; i++) {
+                    ctx.lineTo(i * each, this.accelerationList[i][type] * 10 + 150);
+                }
+                ctx.strokeStyle = color;
+                ctx.stroke();
+            },
+            clearPaint(ctx) {
+                document.getElementById('baseLine').width = document.getElementById('baseLine').width
             }
         }
     }
@@ -119,7 +156,7 @@
 
 <style scoped>
     .little-box {
-        background-color: #2C3E50;
+        background-color: #1AAC19;
         width: 20px;
         height: 20px;
         border-radius: 50%;
@@ -143,20 +180,19 @@
         width: 50%;
         height: 300px;
         transition: .5s;
-        vertical-align:text-bottom
+        vertical-align: text-bottom
     }
 
     .right {
-        background-color: #1AAC19;
+        background-color: #fff;
         margin-left: -5px;
     }
 
     .main {
-        /* width: 300px; */
         height: 300px;
         margin: 0 auto;
         margin-bottom: 20px;
-        background-color: #1AAC19;
+        background-color: #fff;
         position: relative;
     }
 
@@ -168,5 +204,9 @@
         margin-right: 10px;
         background-color: transparent;
         outline: none;
+    }
+
+    .stop-use {
+        color: #CCCCCC
     }
 </style>
