@@ -1,10 +1,10 @@
 <template>
     <div>
         <div class="interface">{{title}}</div>
-        <router-link :to="'/#'" tag='div' class="back">返回</router-link>
-        <div class="message"></div>
-        <component v-bind:is="component"></component>
-    </div>
+        <div class="back" @click="windowBack">返回</div>
+            <div class="message"></div>
+            <component v-bind:is="component"></component>
+        </div>
 </template>
 
 <script>
@@ -24,6 +24,9 @@
                 let id = this.$route.query.id
                 this.title = data.default.list[id].title
                 this.component = data.default.list[id].title
+            },
+            windowBack() {
+                window.history.back()
             }
         },
         mounted() {
