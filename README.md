@@ -171,8 +171,8 @@ npm run build --report
 - 服务器：nginx
 - 连接类型：https
 - 链接地址：
-     - Android：https://www.konghouy.cn/H5-app/Android.html#/
-     - iOS：https://www.konghouy.cn/H5-app/iOS.html#/
+     - 基础页面：https://www.konghouy.cn/H5-app/#/
+     - 网易音乐：https://www.konghouy.cn/H5-app/wangyi.html#/
 
 ### 3.配套App链接
 

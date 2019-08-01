@@ -1,6 +1,7 @@
 import getSystemInfo from './getSystemInfo'
 import showModal from './showModal'
 import {startAccelerometer,stopAccelerometer} from './accelerometer'
+import webviewConnect from './webviewConnect'
 
 import {
     callbackApply,
@@ -61,7 +62,15 @@ JSBridge.prototype.jsCallNative = function(send) {
     }
 }
 
+JSBridge.prototype.jsCallAndroid = function (msg) {9
+    window._android.postMessage(JSON.stringify(msg))
+}
+JSBridge.prototype.jsCalliOS = function (msg) {
+    window.webkit.messageHandlers.JSObject.postMessage(msg)
+}
+
 JSBridge.prototype.getSystemInfo = getSystemInfo
 JSBridge.prototype.showModal = showModal
 JSBridge.prototype.startAccelerometer = startAccelerometer
 JSBridge.prototype.stopAccelerometer = stopAccelerometer
+JSBridge.prototype.webviewConnect = webviewConnect
