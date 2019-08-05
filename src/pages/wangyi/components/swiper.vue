@@ -52,6 +52,9 @@
             let domEnd = this.$el.children[0].children[this.allNum - 1].cloneNode(true);
             this.$el.children[0].appendChild(domStart);
             this.$el.children[0].insertBefore(domEnd, this.$el.children[0].firstElementChild);
+            setInterval(()=>{
+                this.end(undefined,1);
+            },this.interval)
         },
         methods: {
             move(e, start, x) {
