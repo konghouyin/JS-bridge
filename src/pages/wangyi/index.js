@@ -6,9 +6,15 @@ import '@/pages/public_module'
 import Vue from 'vue'
 import App from './App'
 import router from './router.js'
-
+import VueTouch from './components/swiper.js'
 
 Vue.config.productionTip = false
+
+Vue.directive("swiper", {
+    bind: function(el, binding) {
+        new VueTouch(el, binding, "swiper");
+    }
+});
 
 /* eslint-disable no-new */
 new Vue({
