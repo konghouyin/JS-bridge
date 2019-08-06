@@ -7,7 +7,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import VueTouch from './components/swiper.js'
-
+import store from './vuex/store.js'; //vuex
 
 Vue.config.productionTip = false
 
@@ -21,6 +21,7 @@ Vue.directive("swiper", {
 new Vue({
     el: '#app',
     router,
+    store,
     components: {
         App
     },

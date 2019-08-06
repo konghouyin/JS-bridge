@@ -4,7 +4,7 @@
             <ul>
                 <li name="mine" v-bind:class="click=='mine'?'active':''" value="1" @click="switchVue($event)">我的</li>
                 <li name="find" v-bind:class="click=='find'?'active':''" value="2" @click="switchVue($event)">发现</li>
-                 <li name="recommendSong" v-bind:class="click=='recommendSong'?'active':''" value="3" @click="switchVue($event)">推荐</li>
+                <li name="recommendSong" v-bind:class="click=='recommendSong'?'active':''" value="3" @click="switchVue($event)">推荐</li>
                 <li name="rankingList" v-bind:class="click=='rankingList'?'active':''" value="4" @click="switchVue($event)">热度</li>
                 <li><img src="../assets/搜索-灰.svg" /></li>
             </ul>
@@ -18,37 +18,28 @@
 </template>
 
 <script>
-    import store from '../vuex/store.js'; //vuex
     import Axios from 'axios'
     import songSheet from "./songSheet"
     export default {
         data() {
             return {
-
-                click:"find",  //当前学则路由的名字
-                value:"2",     //当前的选取路由的id值
-                transName:"slide-left",  //当前动画的名称
-                allData:{},
-
                 click: "find", //当前学则路由的名字
                 value: "2", //当前的选取路由的id值
-                transName: "slide-left" //当前动画的名称
-
+                transName: "slide-left", //当前动画的名称
+                allData: {},
             }
         },
-        store,
+
         methods: {
             switchVue(event) {
 
-                 //console.log(event.currentTarget.getAttribute("value") ,this.value)
-                if(event.currentTarget.getAttribute("value") > this.value)
-                {
-                    this.transName="slide-left"//左转
+                //console.log(event.currentTarget.getAttribute("value") ,this.value)
+                if (event.currentTarget.getAttribute("value") > this.value) {
+                    this.transName = "slide-left" //左转
+                } else {
+                    this.transName = "slide-right" //右转
                 }
-                else{
-                    this.transName="slide-right"//右转
-                }
-                this.value=event.currentTarget.getAttribute("value");
+                this.value = event.currentTarget.getAttribute("value");
 
                 this.click = (event.currentTarget.getAttribute("name"));
 
@@ -74,13 +65,13 @@
 
         },
         mounted() {
-            var api="http://192.168.1.35:1531/path/getMainMessage"
-            Axios.get(api).then(res=>{
-                //console.log(res);
-                this.allData=res.data;
-                 this.$store.dispatch('putMainData',res.data)//执行该方法
-            }).catch(error=>{
-                console.log('Error',error.message);
+            var api = "http://localhost:1531/path/getMainMessage"
+            Axios.get(api).then(res => {
+                console.log(res);
+                this.allData = res.data;
+                this.$store.commit('setData', {'mainMessage':res.data}) //执行该方法
+            }).catch(error => {
+                console.log('Error', error.message);
             })
         },
         components: {

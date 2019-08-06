@@ -14,34 +14,33 @@ Vue.use(Router)
 
 export default new Router({
     routes: [{
-            path: '/',
-            name: 'main',
-            component: main,
-            children: [{
-                path: "mine", //我的
-                name: "mine",
-                component: mine,
-            }, {
-                path: "find", //歌单
-                name: "find",
-                component: find,
-            }, {
-                path: "rankingList", //排行榜
-                name: "rankingList",
-
-            },{
-                path:"recommendSong",  //排行榜
-                name:"recommendSong",
-                component: recommendSong,
-            },{
-                path:"rankingList",  //排行榜
-                name:"rankingList",
-                component: rankingList,
-            }]
+        path: '/',
+        name: 'main',
+        component: main,
+        children: [{
+            path: "mine", //我的
+            name: "mine",
+            component: mine,
         }, {
-            path: '/songList',
-            name: 'songList',
-            component: songList,
-        }
-    ]
+            path: "find", //歌单
+            name: "find",
+            component: find,
+        }, {
+            path: "rankingList", //排行榜
+            name: "rankingList",
+
+        }, {
+            path: "recommendSong", //排行榜
+            name: "recommendSong",
+            component: recommendSong,
+        }, {
+            path: "rankingList", //排行榜
+            name: "rankingList",
+            component: rankingList,
+        }]
+    }, {
+        path: '/songList',
+        name: 'songList',
+        component: songList,
+    }]
 })

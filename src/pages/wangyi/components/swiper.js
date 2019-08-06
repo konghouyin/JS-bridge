@@ -12,7 +12,7 @@ export default class VueTouch {
         }
         g.firstTouchTime = 0
         g.callBack = binding.value
-        console.log(binding.value)
+
         g.moved = false
         g.leaved = false
         g.longTouched = false
