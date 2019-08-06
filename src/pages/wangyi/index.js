@@ -5,6 +5,7 @@ import '@/assets/all.css'
 import '@/pages/public_module'
 import Vue from 'vue'
 import App from './App'
+import router from './router'
 import VueTouch from './components/swiper.js'
 
 

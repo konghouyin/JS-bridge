@@ -1,7 +1,5 @@
 <template>
-    <div style="background-color: skyblue; height: 62.5rem">
-
-
+    <div :style="{backgroundColor: skyblue}">
 
         <div class="bg-blur" :style="{backgroundImage:'url('+title.pic+')'}"></div>   <!-- 假的遮罩 -->
 
@@ -34,7 +32,7 @@
 </template>
 
 <script>
-    import songSheet from "./songSheet"
+    import songTable from "./songTable"
     import {
         Base64
     } from 'js-base64';
@@ -42,12 +40,13 @@
         data() {
             return {
                 upSlide: true,
+                heighttop:"",
                 out: [{
                     num: 1,
                     name: "hah",
                     long: "3.2",
                     singer: "hah",
-                    album: "xiaoming"
+                    album: "xiaoming",
                 }],
                 title: {
                     pic: "https:ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2802409799,1306440791&fm=26&gp=0.jpg",
@@ -58,19 +57,19 @@
             }
         },
         components: {
-            songSheet
+            songTable
         },
-        mounted() {
-
+        mounted(){
+           //this.heighttop=(window.screen.availHeight)/16+18.75+"rem";
+            //console.log(this.heighttop)
             window.onscroll = () => {
+                // if(document.body.offsetHeight+)
                 if (window.scrollY > 60) { //文档当前垂直滚动的像素
                     this.upSlide = false
                 } else {
                     this.upSlide = true
                 }
             }
-
-
         },
         methods: {
 
