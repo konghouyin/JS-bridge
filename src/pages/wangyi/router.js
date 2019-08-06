@@ -16,6 +16,7 @@ export default new Router({
     routes: [{
         path: '/',
         name: 'main',
+        redirect:'/find',
         component: main,
         children: [{
             path: "mine", //我的

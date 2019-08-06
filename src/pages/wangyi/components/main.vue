@@ -18,7 +18,6 @@
 </template>
 
 <script>
-    import Axios from 'axios'
     import songSheet from "./songSheet"
     export default {
         data() {
@@ -32,19 +31,6 @@
 
         methods: {
             switchVue(event) {
-
-                //console.log(event.currentTarget.getAttribute("value") ,this.value)
-                if (event.currentTarget.getAttribute("value") > this.value) {
-                    this.transName = "slide-left" //左转
-                } else {
-                    this.transName = "slide-right" //右转
-                }
-                this.value = event.currentTarget.getAttribute("value");
-
-                this.click = (event.currentTarget.getAttribute("name"));
-
-
-
                 console.log(event.target.getAttribute("value"), this.value)
                 if (event.target.getAttribute("value") > this.value) {
                     this.transName = "slide-left" //左转
@@ -65,18 +51,9 @@
 
         },
         mounted() {
-            var api = "http://localhost:1531/path/getMainMessage"
-            Axios.get(api).then(res => {
-                console.log(res);
-                this.allData = res.data;
-                this.$store.commit('setData', {'mainMessage':res.data}) //执行该方法
-            }).catch(error => {
-                console.log('Error', error.message);
-            })
+
         },
-        components: {
-            songSheet
-        }
+        components: {}
     }
 </script>
 
