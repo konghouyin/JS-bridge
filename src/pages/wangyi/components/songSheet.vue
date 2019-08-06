@@ -19,46 +19,20 @@
                 title: {
                     
                 },
-                messageList: [{
-                    pic: 'http://p3.music.126.net/C1C3F8NRscVG3cIbGGA-HQ==/109951164244445003.jpg?param=200y200',
-                    name: '春天应该暗恋一个人，然后夏天和他私奔',
-                    num: '544'
-                }, {
-                    pic: 'http://p3.music.126.net/C1C3F8NRscVG3cIbGGA-HQ==/109951164244445003.jpg?param=200y200',
-                    name: '春天应该暗恋一个人，然后夏天和他私奔',
-                    num: '544'
-                }, {
-                    pic: 'http://p3.music.126.net/C1C3F8NRscVG3cIbGGA-HQ==/109951164244445003.jpg?param=200y200',
-                    name: '春天应该暗恋一个人，然后夏天和他私奔',
-                    num: '544'
-                }, {
-                    pic: 'http://p3.music.126.net/C1C3F8NRscVG3cIbGGA-HQ==/109951164244445003.jpg?param=200y200',
-                    name: '春天应该暗恋一个人，然后夏天和他私奔',
-                    num: '544'
-                }, {
-                    pic: 'http://p3.music.126.net/C1C3F8NRscVG3cIbGGA-HQ==/109951164244445003.jpg?param=200y200',
-                    name: '春天应该暗恋一个人，然后夏天和他私奔',
-                    num: '544'
-                }, {
-                    pic: 'http://p3.music.126.net/C1C3F8NRscVG3cIbGGA-HQ==/109951164244445003.jpg?param=200y200',
-                    name: '春天应该暗恋一个人，然后夏天和他私奔',
-                    num: '544'
-                }, {
-                    pic: 'http://p3.music.126.net/C1C3F8NRscVG3cIbGGA-HQ==/109951164244445003.jpg?param=200y200',
-                    name: '春天应该暗恋一个人，然后夏天和他私奔',
-                    num: '544'
-                }, {
-                    pic: 'http://p3.music.126.net/C1C3F8NRscVG3cIbGGA-HQ==/109951164244445003.jpg?param=200y200',
-                    name: '春天应该暗恋一个人，然后夏天和他私奔',
-                    num: '544'
-                },{
-                    pic: 'http://p3.music.126.net/C1C3F8NRscVG3cIbGGA-HQ==/109951164244445003.jpg?param=200y200',
-                    name: '春天应该暗恋一个人，然后夏天和他私奔',
-                    num: '544'
-                }] 
-               
+                messageList:[]           
             }
         },
+        mounted(){
+           console.log(this.$store.getters.getMainMessage)
+            // console.log(this.type,this.$store.state.mainMessage)
+            // console.log(this.$store.state.mainMessage[this.type])
+        },
+        // computed:{
+        //      getMessageList(){
+        //          console.log(this.$store.state.mainMessage)
+        //           this.messageList=this.$store.state.mainMessage[this.type]
+        //      } 
+        // },
         props: {
             titleLeft: {
                 type: String,
@@ -67,6 +41,10 @@
             titleRight: {
                 type: String,
                 default: '更多'
+            },
+            type:{
+                type: String,
+                default: '类型'
             }
             //messageList: {}
         },components:{

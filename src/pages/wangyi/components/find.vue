@@ -8,14 +8,15 @@
             <div class="swiper_item" style="backgroundImage:url(http://p1.music.126.net/zND5qCgEuSnC_v7G6L1Tjw==/109951164267179824.jpg);"></div>
         </swiper>
         <hr>
-        <songSheet titleLeft="推荐歌单" titleRight="歌单广场"></songSheet>
+        <songSheet titleLeft="推荐歌单" titleRight="歌单广场" type="playList"></songSheet>
         <hr>
-        <songSheet titleLeft="专辑" titleRight="更多专辑"></songSheet>
+        <songSheet titleLeft="专辑" titleRight="更多专辑" type="getAlbum"></songSheet>
 
     </div>
 </template>
 
 <script>
+    import Axios from 'axios'
     import songSheet from './songSheet'
     import swiper from './swiper.vue'
     export default {
@@ -27,6 +28,20 @@
         components: {
             songSheet,
             swiper
+        },
+        mounted(){
+            if(!this.$store.state.mainMessage){
+               var api = "http://192.168.1.35:1531/path/getMainMessage"
+               Axios.get(api).then(res => {
+                   this.allData = res.data;
+                   this.$store.commit('setData', {'mainMessage':res.data}) //执行该方法
+               }).catch(error => {
+                   console.log('Error', error.message);
+               })
+            }else{
+                this.allData = this.$store.state.mainMessage;
+            }
+
         }
     }
 </script>

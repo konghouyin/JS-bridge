@@ -18,7 +18,6 @@
 </template>
 
 <script>
-    import Axios from 'axios'
     import songSheet from "./songSheet"
     export default {
         data() {
@@ -52,19 +51,9 @@
 
         },
         mounted() {
-            var api = "http://192.168.1.35:1531/path/getMainMessage"
-            Axios.get(api).then(res => {
-                // console.log(res);
-                this.allData = res.data;
-                this.$store.commit('setData', {'mainMessage':res.data}) //执行该方法
-                // console.log({'mainMessage':res.data})
-            }).catch(error => {
-                console.log('Error', error.message);
-            })
+
         },
-        components: {
-            songSheet
-        }
+        components: {}
     }
 </script>
 
