@@ -11,12 +11,13 @@
         <songSheet titleLeft="推荐歌单" titleRight="歌单广场"></songSheet>
         <hr>
         <songSheet titleLeft="专辑" titleRight="更多专辑"></songSheet>
+
     </div>
 </template>
 
 <script>
-    import songSheet from "./songSheet"
-    import swiper from "./swiper.vue"
+    import songSheet from './songSheet'
+    import swiper from './swiper.vue'
     export default {
         data() {
             return {

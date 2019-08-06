@@ -25,9 +25,14 @@
                 </div>
             </div>
         </div>
-            
+
         </div>
     </div>
+
+    <!--
+         <v-touch @click="">
+
+         </v-touch> -->
 
 </template>
 

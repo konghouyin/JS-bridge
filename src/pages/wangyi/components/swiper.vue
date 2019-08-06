@@ -16,7 +16,7 @@
         data() {
             return {
                 allNum: 0,
-                index: 1,
+                index: 1
             }
         },
         props: {
@@ -26,11 +26,11 @@
             },
             indicatorColor: {
                 type: String,
-                default: "rgba(0, 0, 0, .3)"
+                default: 'rgba(0, 0, 0, .3)'
             },
             indicatorActiveColor: {
                 type: String,
-                default: "#000000"
+                default: '#000000'
             },
             autoplay: {
                 type: Boolean,
@@ -43,50 +43,54 @@
             duration: {
                 type: Number,
                 default: 500
-            },
+            }
         },
         mounted() {
             this.allNum = this.$el.children[0].children.length
             this.$el.children[0].style.width = (this.$el.children[0].children.length + 2) * 100 + 'vw'
-            let domStart = this.$el.children[0].children[0].cloneNode(true);
-            let domEnd = this.$el.children[0].children[this.allNum - 1].cloneNode(true);
-            this.$el.children[0].appendChild(domStart);
-            this.$el.children[0].insertBefore(domEnd, this.$el.children[0].firstElementChild);
-            setInterval(()=>{
-                this.end(undefined,1);
-            },this.interval)
+            let domStart = this.$el.children[0].children[0].cloneNode(true)
+            let domEnd = this.$el.children[0].children[this.allNum - 1].cloneNode(true)
+            this.$el.children[0].appendChild(domStart)
+            this.$el.children[0].insertBefore(domEnd, this.$el.children[0].firstElementChild)
+            setInterval(() => {
+                this.end(undefined, 1)
+            }, this.interval)
         },
         methods: {
             move(e, start, x) {
-                if(this.flag){
-                    retrun;
+                if (this.flag) {
+                    return
                 }
                 this.$refs.swiper_wrap.style.transition = 'none'
                 this.$refs.swiper_wrap.style.marginLeft = (this.index) * (-100) + (x / document.body.offsetWidth) *
                     100 + 'vw'
             },
             end(e, num) {
-                if(this.flag){
-                    this.index = this.index;
-                    retrun;
+                if (this.flag) {
+                    this.index = this.index
+                    return
                 }
-                this.index += num;
+                this.index += num
                 this.$refs.swiper_wrap.style.transition = 'all ' + this.duration + 'ms'
                 this.$refs.swiper_wrap.style.marginLeft = (this.index) * (-100) + 'vw'
                 if (this.index > this.allNum) {
-                    this.flag=1;
-                    this.$refs.swiper_wrap.addEventListener('transitionend', ()=>{
-                        this.flag=0;
-                        this.$refs.swiper_wrap.style.transition = 'none';
-                        this.index = 1;
-                    }, {once:true})
+                    this.flag = 1
+                    this.$refs.swiper_wrap.addEventListener('transitionend', () => {
+                        this.flag = 0
+                        this.$refs.swiper_wrap.style.transition = 'none'
+                        this.index = 1
+                    }, {
+                        once: true
+                    })
                 } else if (this.index == 0) {
-                    this.flag=1;
-                    this.$refs.swiper_wrap.addEventListener('transitionend', ()=>{
-                        this.flag=0;
-                        this.$refs.swiper_wrap.style.transition = 'none';
-                        this.index = this.allNum;
-                    }, {once:true})
+                    this.flag = 1
+                    this.$refs.swiper_wrap.addEventListener('transitionend', () => {
+                        this.flag = 0
+                        this.$refs.swiper_wrap.style.transition = 'none'
+                        this.index = this.allNum
+                    }, {
+                        once: true
+                    })
                 }
             }
         },

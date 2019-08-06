@@ -12,8 +12,8 @@
         <transition v-bind:name="transName">
             <router-view></router-view>
         </transition>
-        
-        
+
+
     </div>
 </template>
 
@@ -24,34 +24,54 @@
     export default {
         data() {
             return {
+
                 click:"find",  //当前学则路由的名字
                 value:"2",     //当前的选取路由的id值
                 transName:"slide-left",  //当前动画的名称
-                allData:{}
+                allData:{},
+
+                click: "find", //当前学则路由的名字
+                value: "2", //当前的选取路由的id值
+                transName: "slide-left" //当前动画的名称
+
             }
         },
         store,
         methods: {
             switchVue(event) {
+
                  //console.log(event.currentTarget.getAttribute("value") ,this.value)
-                if(event.currentTarget.getAttribute("value") > this.value) 
+                if(event.currentTarget.getAttribute("value") > this.value)
                 {
                     this.transName="slide-left"//左转
                 }
                 else{
                     this.transName="slide-right"//右转
                 }
-                this.value=event.currentTarget.getAttribute("value");  
+                this.value=event.currentTarget.getAttribute("value");
 
                 this.click = (event.currentTarget.getAttribute("name"));
-               
+
+
+
+                console.log(event.target.getAttribute("value"), this.value)
+                if (event.target.getAttribute("value") > this.value) {
+                    this.transName = "slide-left" //左转
+                } else {
+                    this.transName = "slide-right" //右转
+                }
+                this.value = event.target.getAttribute("value");
+
+                this.click = (event.target.getAttribute("name"));
+
+
                 this.$router.push({
                     path: this.click
                 })
             }
         },
         computed: {
-            
+
         },
         mounted() {
             var api="http://192.168.1.35:1531/path/getMainMessage"
@@ -63,7 +83,7 @@
                 console.log('Error',error.message);
             })
         },
-        components:{
+        components: {
             songSheet
         }
     }
@@ -73,61 +93,70 @@
     .nav {
         margin: 4px 10px;
     }
+
     .nav ul {
         display: flex;
         color: #AAAAAA;
         justify-content: center;
         height: 40px;
     }
+
     .nav li {
         display: inline-block;
         margin: auto 10px;
 
     }
+
     .nav img {
         margin-left: 20px;
         width: 20px;
     }
-    .active{
+
+    .active {
         font-size: 18px;
         font-weight: 700;
         color: black;
     }
-    .slide-right-enter{
+
+    .slide-right-enter {
         transform: translateX(-400px);
         position: absolute;
-        opacity: 0; 
+        opacity: 0;
     }
-    
+
     .slide-right-enter-active {
-       
+
         transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
     }
-    .slide-left-enter-active{
-         transition: all .5s ease;
+
+    .slide-left-enter-active {
+        transition: all .5s ease;
     }
-    .slide-right-leave-to
-        {
-       transform: translateX(400px);
-       position: absolute;
-        opacity: 0;  
+
+    .slide-right-leave-to {
+        transform: translateX(400px);
+        position: absolute;
+        opacity: 0;
     }
+
     .slide-left-leave-active {
         transition: all .5s ease;
     }
-    .slide-right-leave-active{
-        
+
+    .slide-right-leave-active {
+
         transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
     }
-     .slide-left-leave-to
-        {
-       transform: translateX(-400px);
-       position: absolute;
-        opacity: 0;  
+
+    .slide-left-leave-to {
+        transform: translateX(-400px);
+        position: absolute;
+        opacity: 0;
     }
-    .slide-left-enter{
-       transform: translateX(400px);
-       position: absolute;
-       opacity: 0; 
-   }
+
+    .slide-left-enter {
+        transform: translateX(400px);
+        position: absolute;
+        opacity: 0;
+    }
 </style>

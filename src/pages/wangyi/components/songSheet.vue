@@ -22,9 +22,7 @@
         data() {
             return {
                 title: {
-                    titleName: "推荐歌单",
-                    titleDeile: "",
-                    titleMore: "歌单广场"
+
                 },
                 messageList: [{
                     pic: 'http://p3.music.126.net/C1C3F8NRscVG3cIbGGA-HQ==/109951164244445003.jpg?param=200y200',
@@ -64,12 +62,12 @@
         props: {
             titleLeft: {
                 type: String,
-                default: "推荐"
+                default: '推荐'
             },
             titleRight: {
                 type: String,
-                default: "更多"
-            },
+                default: '更多'
+            }
             //messageList: {}
         }
     }
