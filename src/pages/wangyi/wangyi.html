@@ -19,10 +19,12 @@
                     dpr = isIOS ? Math.min(win.devicePixelRatio, 3) : 1,
                     dpr = window.top === window.self ? dpr : 1, //被iframe引用时，禁止缩放
                     dpr = 1,
-                    
+
                     scale = 1 / dpr,
                     resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
-                    
+                    scale = 1 / dpr,
+                    resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+
                 docEl.dataset.dpr = dpr;
                 var metaEl = doc.createElement('meta');
                 metaEl.name = 'viewport';
