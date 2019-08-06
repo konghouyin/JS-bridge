@@ -7,22 +7,17 @@
             <div class="right">{{titleRight}}</div>
         </div>
         <div class="show" v-if="messageList.length==0">抱歉---暂无数据---请检查网络连接</div>
-        <div class="main">
-            <div class="item" v-for="(each,index) in messageList" :key="index">
-                <div class="pic" :style="'background-image: url('+ each.pic +');'"></div>
-                <div class="name">{{each.name}}</div>
-                <div class="num">▷ {{each.num}}</div>
-            </div>
-        </div>
+        <songsBlock v-bind:messageList="messageList"></songsBlock>
     </div>
 </template>
 
 <script>
+    import songsBlock from "./songsBlock"
     export default {
         data() {
             return {
                 title: {
-
+                    
                 },
                 messageList: [{
                     pic: 'http://p3.music.126.net/C1C3F8NRscVG3cIbGGA-HQ==/109951164244445003.jpg?param=200y200',
@@ -56,7 +51,12 @@
                     pic: 'http://p3.music.126.net/C1C3F8NRscVG3cIbGGA-HQ==/109951164244445003.jpg?param=200y200',
                     name: '春天应该暗恋一个人，然后夏天和他私奔',
                     num: '544'
-                }]
+                },{
+                    pic: 'http://p3.music.126.net/C1C3F8NRscVG3cIbGGA-HQ==/109951164244445003.jpg?param=200y200',
+                    name: '春天应该暗恋一个人，然后夏天和他私奔',
+                    num: '544'
+                }] 
+               
             }
         },
         props: {
@@ -69,6 +69,8 @@
                 default: '更多'
             }
             //messageList: {}
+        },components:{
+            songsBlock
         }
     }
 </script>
