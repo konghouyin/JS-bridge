@@ -4,7 +4,9 @@ import main from './components/main'
 import mine from './components/mine'
 import find from './components/find'
 import rankingList from './components/rankingList'
+import recommendSong from './components/recommendSong'
 import songList from './components/songList'
+
 
 Vue.use(Router)
 
@@ -22,6 +24,10 @@ export default new Router({
                 path:"find",  //歌单
                 name:"find",
                 component: find,
+            },{
+                path:"recommendSong",  //排行榜
+                name:"recommendSong",
+                component: recommendSong,
             },{
                 path:"rankingList",  //排行榜
                 name:"rankingList",

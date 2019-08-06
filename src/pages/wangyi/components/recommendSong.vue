@@ -1,19 +1,19 @@
 <template>
     <div>
-        rankList
-        <!-- {{this.$store.state.mainData}} -->
+       
+        recommendSong
     </div>
 </template>
 
 <script>
-    import songSheet from "./songSheet"
+    // import songSheet from "./songSheet"
     export default{
         data(){
             return{
                 
             }
         },components:{
-            songSheet
+          
         },
         mounted(){
             
@@ -24,8 +24,9 @@
 
 <style scoped>
      div{
-        background-color: pink;
+        background-color: lightyellow;
         width: 100%;
+        
     }    
 </style>
 
