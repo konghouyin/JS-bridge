@@ -6,7 +6,7 @@
             <div class="left">{{titleLeft}}</div>
             <div class="right">{{titleRight}}</div>
         </div>
-        <div class="show" v-if="getMessageList.length==0">抱歉---暂无数据---请检查网络连接</div>
+       <div class="show" v-if="getMessageList.length==0">loading...</div>
         <songsBlock v-bind:messageList="getMessageList"></songsBlock>
     </div>
 </template>
@@ -16,26 +16,16 @@
     export default {
         data() {
             return {
-                title: {
-                    mainMessage: []
-                },
+                mainMessage: []
             }
         },
         mounted() {
 
-            // this.getMessageList()
-            // this.mainMessage = this.$store.state.mainMessage[this.type]
-            // console.log(this.$store.getters.getMainMessage)
-            // console.log(this.type,this.$store.state.mainMessage)
-            // console.log(this.$store.state.mainMessage[this.type])
         },
         computed: {
-            getMessageList(){
-                //console.log(this.$store.state.mainMessage)
-                // console.log("sasa",this.$store.state.mainMessage[this.type])
+            getMessageList() {
                 return this.$store.state.mainMessage[this.type]
-                // console.log("aaa")
-            } 
+            }
 
         },
         props: {
@@ -51,15 +41,9 @@
                 type: String,
                 default: ''
             }
-            //messageList: {}
         },
         components: {
             songsBlock
-        },
-        watch: {
-            '$store.state.mainMessage': function(){
-                console.log("1111")
-            }
         }
     }
 </script>

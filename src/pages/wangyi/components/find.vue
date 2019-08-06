@@ -29,13 +29,12 @@
             songSheet,
             swiper
         },
-
-        created() {
-            if (!this.$store.state.mainMessage) {
-                var api = "http://192.168.1.35:1531/path/getMainMessage"
-                Axios.send(api,'get').then(res => {
-                    // console.log(res)
-                    this.allData = res.data;
+        mounted() {
+            if (!this.$store.state.mainMessage.swiper.length) {
+                var api = "http://localhost:1531/path/getMainMessage"
+                Axios.send(api, 'get').then(res => {
+                    console.log(res)
+                    this.allData = res
                     this.$store.commit('setData', {
                         'mainMessage': res
                     }) //执行该方法
@@ -43,10 +42,8 @@
                     console.log('Error', error.message);
                 })
             } else {
-
                 this.allData = this.$store.state.mainMessage;
             }
-
         }
     }
 </script>
