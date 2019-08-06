@@ -63,7 +63,6 @@
         mounted() {
 
             window.onscroll = () => {
-               
                 if (window.scrollY > 60) { //文档当前垂直滚动的像素
                     this.upSlide = false
                 } else {
