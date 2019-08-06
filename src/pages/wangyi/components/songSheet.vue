@@ -6,8 +6,8 @@
             <div class="left">{{titleLeft}}</div>
             <div class="right">{{titleRight}}</div>
         </div>
-        <div class="show" v-if="messageList.length==0">抱歉---暂无数据---请检查网络连接</div>
-        <songsBlock v-bind:messageList="messageList"></songsBlock>
+        <div class="show" v-if="getMessageList.length==0">抱歉---暂无数据---请检查网络连接</div>
+        <songsBlock v-bind:messageList="getMessageList"></songsBlock>
     </div>
 </template>
 
@@ -17,22 +17,27 @@
         data() {
             return {
                 title: {
-                    
+                    mainMessage: []
                 },
-                messageList:[]           
             }
         },
-        mounted(){
-           console.log(this.$store.getters.getMainMessage)
+        mounted() {
+
+            // this.getMessageList()
+            // this.mainMessage = this.$store.state.mainMessage[this.type]
+            // console.log(this.$store.getters.getMainMessage)
             // console.log(this.type,this.$store.state.mainMessage)
             // console.log(this.$store.state.mainMessage[this.type])
         },
-        // computed:{
-        //      getMessageList(){
-        //          console.log(this.$store.state.mainMessage)
-        //           this.messageList=this.$store.state.mainMessage[this.type]
-        //      } 
-        // },
+        computed: {
+            getMessageList(){
+                //console.log(this.$store.state.mainMessage)
+                // console.log("sasa",this.$store.state.mainMessage[this.type])
+                return this.$store.state.mainMessage[this.type]
+                // console.log("aaa")
+            } 
+
+        },
         props: {
             titleLeft: {
                 type: String,
@@ -42,13 +47,19 @@
                 type: String,
                 default: '更多'
             },
-            type:{
+            type: {
                 type: String,
-                default: '类型'
+                default: ''
             }
             //messageList: {}
-        },components:{
+        },
+        components: {
             songsBlock
+        },
+        watch: {
+            '$store.state.mainMessage': function(){
+                console.log("1111")
+            }
         }
     }
 </script>

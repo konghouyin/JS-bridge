@@ -10,13 +10,13 @@
         <hr>
         <songSheet titleLeft="推荐歌单" titleRight="歌单广场" type="playList"></songSheet>
         <hr>
-        <songSheet titleLeft="专辑" titleRight="更多专辑" type="getAlbum"></songSheet>
+        <songSheet titleLeft="专辑" titleRight="更多专辑" type="album"></songSheet>
 
     </div>
 </template>
 
 <script>
-    import Axios from 'axios'
+    import Axios from '../axios'
     import songSheet from './songSheet'
     import swiper from './swiper.vue'
     export default {
@@ -29,16 +29,21 @@
             songSheet,
             swiper
         },
-        mounted(){
-            if(!this.$store.state.mainMessage){
-               var api = "http://192.168.1.35:1531/path/getMainMessage"
-               Axios.get(api).then(res => {
-                   this.allData = res.data;
-                   this.$store.commit('setData', {'mainMessage':res.data}) //执行该方法
-               }).catch(error => {
-                   console.log('Error', error.message);
-               })
-            }else{
+
+        created() {
+            if (!this.$store.state.mainMessage) {
+                var api = "http://192.168.1.35:1531/path/getMainMessage"
+                Axios.send(api,'get').then(res => {
+                    // console.log(res)
+                    this.allData = res.data;
+                    this.$store.commit('setData', {
+                        'mainMessage': res
+                    }) //执行该方法
+                }).catch(error => {
+                    console.log('Error', error.message);
+                })
+            } else {
+
                 this.allData = this.$store.state.mainMessage;
             }
 

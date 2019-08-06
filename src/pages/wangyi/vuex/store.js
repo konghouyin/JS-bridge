@@ -11,10 +11,10 @@ var state = {
 
 //优点类似于计算属性  改变state里面的count数据的时候就会触发getters里面的方法  获取新的值
 var getters = {
-	getMainMessage() {
-        console.log(Object.keys(state),state.mainMessage)
-		return state.mainMessage
-	}
+	// getMainMessage() {
+ //        console.log(Object.keys(state),state.mainMessage)
+	// 	return state.mainMessage
+	// }
 }
 // mutations 里面放的是方法，主要用于改变state里面的数据
 var mutations = {
@@ -24,7 +24,7 @@ var mutations = {
         list.forEach(item=>{
             state[item] = msg[item]
         })
-        // console.log(state)
+         console.log(state)
 	}
 }
 

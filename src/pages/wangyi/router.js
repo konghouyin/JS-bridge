@@ -4,7 +4,7 @@ import main from './components/main'
 import mine from './components/mine'
 import find from './components/find'
 import rankingList from './components/rankingList'
-import recommendSong from './components/recommendSong'
+import taste from './components/taste'
 import songList from './components/songList'
 import swiper from './components/swiper.vue'
 
@@ -27,13 +27,9 @@ export default new Router({
             name: "find",
             component: find,
         }, {
-            path: "rankingList", //排行榜
-            name: "rankingList",
-
-        }, {
-            path: "recommendSong", //排行榜
-            name: "recommendSong",
-            component: recommendSong,
+            path: "taste", //推荐歌曲
+            name: "taste",
+            component: taste,
         }, {
             path: "rankingList", //排行榜
             name: "rankingList",
