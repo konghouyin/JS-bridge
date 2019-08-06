@@ -3,7 +3,7 @@
 
 <template>
     <div class="main">
-        <div class="item" v-for="(each,index) in messageList" :key="index">
+        <div class="item" v-for="(each,index) in messageList" :key="index" @click="routerSongList(each.link)">
             <div class="pic" :style="'background-image: url('+ each.pic +');'"></div>
             <div class="name">{{each.name}}</div>
             <div class="num">▷ {{each.num}}</div>
@@ -27,9 +27,20 @@
                 default:"歌单"
             }
         },
+        methods:{
+            routerSongList(target){
+                // console.log(target)
+                 this.$router.replace({path:'/songList',query:{id:target}});
+            }
+        },
         mounted(){
             
             
+        },props:{
+            out:{
+                type: String,
+                default: ''
+            }
         }
     }
 </script>
@@ -50,13 +61,14 @@
          width: 28vw;
          height: 28vw;
          border-radius: 0.4rem;
+         background-size: 100%;
      }
      
      .name {
          overflow: hidden;
          text-overflow: ellipsis;
          display: -webkit-box;
-     
+          font-size: 0.875rem;
          /* 几行后显示省略号 */
          -webkit-line-clamp: 2;
          -webkit-box-orient: vertical;

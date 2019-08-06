@@ -1,9 +1,10 @@
 <template>
-    <div :style="{backgroundColor: skyblue}">
+    <div>
 
-        <div class="bg-blur" :style="{backgroundImage:'url('+title.pic+')'}"></div>   <!-- 假的遮罩 -->
+        <div class="bg-blur" :style="{backgroundImage:'url('+title.pic+')'}"></div> <!-- 假的遮罩 -->
 
-        <div class="content content-front"> <!-- 真正的内容 -->
+        <div class="content content-front">
+            <!-- 真正的内容 -->
             <div class="nav">
                 <img src="../assets/箭头-左.svg" />
                 <span v-if="upSlide==true">歌单</span>
@@ -13,7 +14,7 @@
 
             <div class="top">
                 <div class="titlePic" :style="{backgroundImage:'url('+title.pic+')'}">
-                    <span>{{title.playbackVolume}}</span>
+                    <span>{{title.num}}</span>
                     <img src="../assets/播放.svg" />
                 </div>
 
@@ -26,18 +27,16 @@
             </div>
         </div>
 
-        </div>
+
+        <songTable :out="out"></songTable>
     </div>
-
-    <!--
-         <v-touch @click="">
-
-         </v-touch> -->
+  
 
 </template>
 
 <script>
     import songTable from "./songTable"
+    import Axios from '../axios'
     import {
         Base64
     } from 'js-base64';
@@ -45,28 +44,18 @@
         data() {
             return {
                 upSlide: true,
-                heighttop:"",
-                out: [{
-                    num: 1,
-                    name: "hah",
-                    long: "3.2",
-                    singer: "hah",
-                    album: "xiaoming",
-                }],
-                title: {
-                    pic: "https:ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2802409799,1306440791&fm=26&gp=0.jpg",
-                    name: "ahahhaha撒大苏打萨达萨达",
-                    playbackVolume: 1000
-                }
-
+                heighttop: "",
+                out: "",
+                title: "",
+                allSend: ""
             }
         },
         components: {
             songTable
         },
-        mounted(){
-           //this.heighttop=(window.screen.availHeight)/16+18.75+"rem";
-            //console.log(this.heighttop)
+        mounted() {
+            this.send(this.$route.query.id) //发送请求
+
             window.onscroll = () => {
                 // if(document.body.offsetHeight+)
                 if (window.scrollY > 60) { //文档当前垂直滚动的像素
@@ -77,11 +66,21 @@
             }
         },
         methods: {
+            send(str) {
 
+                var api = "http://192.168.1.35:1531/path/getPlayListMain?link=" + str
+                Axios.send(api, 'get').then(res => {
+                    this.out = res.taste.out;
+                    this.title = res.title;
+                    console.log(res);
+                }).catch(error => {
+                    console.log('Error', error.message);
+                })
+            }
         }
     }
 </script>
 
 <style scoped>
-   @import "../css/songList.css";
+    @import "../css/songList.css";
 </style>

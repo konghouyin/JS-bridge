@@ -2,8 +2,9 @@
 
 <template>
     <div>
-     
-      萨拉的骄傲
+     <div>
+        
+     </div>
     </div>
 </template>
 
