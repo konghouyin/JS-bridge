@@ -16,7 +16,7 @@
 </template>
 
 <script>
-    import Axios from 'axios'
+    import Axios from '../axios'
     import songSheet from './songSheet'
     import swiper from './swiper.vue'
     export default {
@@ -29,16 +29,19 @@
             songSheet,
             swiper
         },
-        mounted(){
-            if(!this.$store.state.mainMessage){
-               var api = "http://localhost:1531/path/getMainMessage"
-               Axios.get(api).then(res => {
-                   this.allData = res.data;
-                   this.$store.commit('setData', {'mainMessage':res.data}) //执行该方法
-               }).catch(error => {
-                   console.log('Error', error.message);
-               })
-            }else{
+        mounted() {
+            if (!this.$store.state.mainMessage) {
+                var api = "http://localhost:1531/path/getMainMessage"
+                Axios.send(api,'get').then(res => {
+                    console.log(res)
+                    this.allData = res.data;
+                    this.$store.commit('setData', {
+                        'mainMessage': res.data
+                    }) //执行该方法
+                }).catch(error => {
+                    console.log('Error', error.message);
+                })
+            } else {
                 this.allData = this.$store.state.mainMessage;
             }
 
