@@ -6,8 +6,8 @@
             <div class="left">{{titleLeft}}</div>
             <div class="right">{{titleRight}}</div>
         </div>
-       <div class="show" v-if="getMessageList.length==0">loading...</div>
-        <songsBlock v-bind:messageList="getMessageList"></songsBlock>
+        <div class="show" v-if="getMessageList.length==0">loading...</div>
+        <songsBlock v-bind:messageList="getMessageList" :showNum="showNum"></songsBlock>
     </div>
 </template>
 
@@ -26,7 +26,6 @@
             getMessageList() {
                 return this.$store.state.mainMessage[this.type]
             }
-
         },
         props: {
             titleLeft: {
@@ -36,6 +35,10 @@
             titleRight: {
                 type: String,
                 default: '更多'
+            },
+            showNum: {
+                type: Boolean,
+                default: true
             },
             type: {
                 type: String,

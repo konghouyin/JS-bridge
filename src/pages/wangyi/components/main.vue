@@ -10,10 +10,10 @@
             </ul>
         </div>
         <transition v-bind:name="transName">
-            <router-view></router-view>
+            <keep-alive>
+                <router-view></router-view>
+            </keep-alive>
         </transition>
-
-
     </div>
 </template>
 

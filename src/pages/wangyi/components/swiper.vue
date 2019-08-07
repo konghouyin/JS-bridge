@@ -46,17 +46,11 @@
             }
         },
         mounted() {
-            this.allNum = this.$el.children[0].children.length
-            this.$el.children[0].style.width = (this.$el.children[0].children.length + 2) * 100 + 'vw'
-            let domStart = this.$el.children[0].children[0].cloneNode(true)
-            let domEnd = this.$el.children[0].children[this.allNum - 1].cloneNode(true)
-            this.$el.children[0].appendChild(domStart)
-            this.$el.children[0].insertBefore(domEnd, this.$el.children[0].firstElementChild)
             this.timer = setInterval(() => {
                 this.end(undefined, 1)
             }, this.interval)
         },
-        beforeDestroy(){
+        beforeDestroy() {
             clearInterval(this.timer)
         },
         methods: {
@@ -100,6 +94,21 @@
         computed: {
             swiperLeft() {
                 return (this.index) * (-100) + 'vw'
+            },
+            getSwiperList() {
+                return this.$store.state.mainMessage.swiper
+            }
+        },
+        watch: {
+            getSwiperList() {
+               this.$nextTick(() => {
+                   this.allNum = this.$el.children[0].children.length
+                   this.$el.children[0].style.width = (this.$el.children[0].children.length + 2) * 100 + 'vw'
+                   let domStart = this.$el.children[0].children[0].cloneNode(true)
+                   let domEnd = this.$el.children[0].children[this.allNum - 1].cloneNode(true)
+                   this.$el.children[0].appendChild(domStart)
+                   this.$el.children[0].insertBefore(domEnd, this.$el.children[0].firstElementChild)
+               });
             }
         }
 
