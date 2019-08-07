@@ -28,7 +28,6 @@
                 allData: {},
             }
         },
-
         methods: {
             switchVue(event) {
                 console.log(event.target.getAttribute("value"), this.value)

@@ -60,6 +60,9 @@
         width: 9.375rem;
         height: 9.375rem;
         display: inline-block;
+        /* background-size: 0 auto; */
+        background-size:100% 100%;
+        
     }
 
     .titlePic img {

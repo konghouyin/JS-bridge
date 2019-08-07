@@ -16,7 +16,7 @@
     export default {
         data() {
             return {
-                mainMessage: []
+                // mainMessage: []
             }
         },
         mounted() {
@@ -24,6 +24,7 @@
         },
         computed: {
             getMessageList() {
+                console.log(this.$store.state.mainMessage[this.type])
                 return this.$store.state.mainMessage[this.type]
             }
 

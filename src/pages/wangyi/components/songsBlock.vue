@@ -24,7 +24,7 @@
         props:{
             messageList:{
                 type:Array,
-                default:"歌单"
+                default:new Array()
             }
         },
         methods:{
@@ -36,11 +36,6 @@
         mounted(){
             
             
-        },props:{
-            out:{
-                type: String,
-                default: ''
-            }
         }
     }
 </script>
