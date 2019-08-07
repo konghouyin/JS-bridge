@@ -12,7 +12,6 @@
 </template>
 
 <script>
-    // import songSheet from "./songSheet"
     export default {
         data() {
             return {
@@ -68,7 +67,7 @@
         -webkit-box-orient: vertical;
         width: 28vw;
         color: #666;
-        margin: 0.4rem 0 0.6rem 0;
+        margin: 0.4rem 0 1.2rem 0;
         line-height: 1.2rem;
     }
 
