@@ -9,16 +9,20 @@
                 <li><img src="../assets/搜索-灰.svg" /></li>
             </ul>
         </div>
-        <transition v-bind:name="transName">
-            <keep-alive>
-                <router-view></router-view>
-            </keep-alive>
-        </transition>
+		<div class="wrap">
+			<transition v-bind:name="transName">
+			    <keep-alive>
+			        <router-view></router-view>
+			    </keep-alive>
+			</transition>
+		</div>
+        <playMin></playMin>
     </div>
 </template>
 
 <script>
     import songSheet from "./songSheet"
+    import playMin from "./play_min"
     export default {
         data() {
             return {
@@ -28,7 +32,6 @@
                 allData: {},
             }
         },
-
         methods: {
             switchVue(event) {
                 console.log(event.target.getAttribute("value"), this.value)
@@ -53,13 +56,19 @@
         mounted() {
 
         },
-        components: {}
+        components: {
+            playMin
+        }
     }
 </script>
 
 <style scoped>
     .nav {
-        margin: 4px 10px;
+        position: fixed;
+        top:0;
+        width:100vw;
+        background-color: #f8f8f8;
+        z-index: 2;
     }
 
     .nav ul {
@@ -127,4 +136,7 @@
         position: absolute;
         opacity: 0;
     }
+	.wrap{
+		margin: 2.5rem 0;
+	}
 </style>
