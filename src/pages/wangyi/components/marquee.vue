@@ -15,7 +15,6 @@
                 left: 0,
                 wrapWidth: 0,
                 textWidth: 0,
-                distance: 100
             }
         },
         props: {
@@ -25,7 +24,11 @@
             },
             direction: {
                 type: String,
-                default: 'scroll'
+                default: 'left'
+            },
+            distance: {
+                type: Number,
+                default: 100
             },
             starttype: {
                 type: String,
@@ -48,9 +51,11 @@
             this.wrapWidth = this.$el.scrollWidth
             this.textWidth = this.$refs.text.scrollWidth
             if (this.starttype == 'none') {
+                this.distance = 1000;
                 return;
             }
             if (this.wrapWidth >= this.textWidth) {
+                this.distance = 1000;
                 return
             }
             this.startTimer();
@@ -100,7 +105,7 @@
         },
         computed: {
             getAll() {
-                return this.textWidth * 2 + this.distance
+                return this.textWidth * 2 + this.distance + 10
             }
         }
     }

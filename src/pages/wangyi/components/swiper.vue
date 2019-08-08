@@ -46,9 +46,11 @@
             }
         },
         mounted() {
-            this.timer = setInterval(() => {
-                this.end(undefined, 1)
-            }, this.interval)
+            if(this.autoplay){
+                this.timer = setInterval(() => {
+                    this.end(undefined, 1)
+                }, this.interval)
+            }
         },
         beforeDestroy() {
             clearInterval(this.timer)

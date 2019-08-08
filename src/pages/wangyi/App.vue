@@ -4,19 +4,23 @@
         <transition name="component-fade" mode="out-in">
             <router-view />
         </transition>
-
+        <player></player>
     </div>
 </template>
 
 <script>
+    import player from './components/player'
     export default {
-        name: 'App'
+        name: 'App',
+        components: {
+            player
+        }
     }
 </script>
 
 <style scoped lang="scss">
-    #app{
-        padding:4px 0;
+    #app {
+        padding: 4px 0;
     }
 
     .component-fade-enter-active,

@@ -1,13 +1,12 @@
 <template>
     <div>
-        <swiper :indicatorDots="true" indicatorActiveColor="#f40">
+        <swiper :indicatorDots="true" indicatorActiveColor="#f40" :autoplay="true">
             <div class="swiper_item" v-for="each in allData.swiper" :style="'background-image: url('+each.picUrl+');'"></div>
         </swiper>
         <hr>
         <songSheet titleLeft="推荐歌单" titleRight="歌单广场" type="playList"></songSheet>
         <hr>
         <songSheet titleLeft="专辑" titleRight="更多专辑" type="album" :showNum="false"></songSheet>
-
     </div>
 </template>
 
@@ -33,7 +32,7 @@
                     this.allData = res;
                     this.$store.commit('setData', {
                         'mainMessage': res
-                    }) //执行该方法
+                    })
                 }).catch(error => {
                     console.log('Error', error.message);
                 })
