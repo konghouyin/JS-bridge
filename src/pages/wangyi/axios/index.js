@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-axios.defaults.timeout = 2000
+axios.defaults.timeout = 20000
 
 axios.interceptors.response.use(function(response) {
     if (response.data.style == 1) {

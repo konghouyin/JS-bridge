@@ -6,7 +6,30 @@ Vue.use(Vuex)
 //state在vuex中存储数据 类似于组件中的data
 var state = {
     // mainData:{}   //发现首页的数据
-    mainMessage:{swiper:[],playList:[],album:[]}
+    mainMessage:{swiper:[],playList:[],album:[]},
+     // playNow: {
+    //     pic: "",
+    //     url: "",
+    //     name: "",
+    //     albun: "",
+    //     singer: "",
+    //     link: "",
+    //     backgroundColor:""
+    // },
+    // playStyle:{
+    //     playStatus: false,
+    //     playDuration:0,
+    //     now:0,
+    //     num:0, //!!!!!
+    //     playType:1
+    // },
+    playList: [{
+        name: 'Remember (Original Mix)',
+        singer: 'Sensitive ',
+        album: 'Remember',
+        link: 'https://music.163.com/#/song?id=27644359'
+    }]
+
 }
 
 //优点类似于计算属性  改变state里面的count数据的时候就会触发getters里面的方法  获取新的值

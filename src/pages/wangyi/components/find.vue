@@ -31,7 +31,7 @@
         },
         mounted() {
             if (!this.$store.state.mainMessage.swiper.length) {
-                var api = "http://192.168.1.35:1531/path/getMainMessage"
+                var api = "http://132.232.169.227:1531/path/getMainMessage"
                 Axios.send(api, 'get').then(res => {
                     console.log(res)
                     this.allData = res
