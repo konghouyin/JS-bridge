@@ -12,12 +12,28 @@ var state = {
         album: []
     },
     topAllList: [],
-    playNow: {
-        pic:'http://p4.music.126.net/T2ZI7x0FYqlWKMacXLQNsQ==/1379887098137843.jpg?param=200y200',
-        url: 'https://m801.music.126.net/20190808111512/df19e769ce3c6483bbeb2115102c920c/jdyyaac/015b/015d/025d/61cbe9f45a67592d81a45740dd85980f.m4a',
-        playStatus: false
-    },
-    playList: []
+    // playNow: {
+    //     pic: "",
+    //     url: "",
+    //     name: "",
+    //     albun: "",
+    //     singer: "",
+    //     link: "",
+    //     backgroundColor:""
+    // },
+    // playStyle:{
+    //     playStatus: false,
+    //     playDuration:0,
+    //     now:0,
+    //     num:0,
+    //     playType:1
+    // },
+    playList: [{
+        name: 'Remember (Original Mix)',
+        singer: 'Sensitive ',
+        album: 'Remember',
+        link: 'https://music.163.com/#/song?id=27644359'
+    }]
 }
 
 //优点类似于计算属性  改变state里面的count数据的时候就会触发getters里面的方法  获取新的值

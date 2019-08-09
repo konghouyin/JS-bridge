@@ -15,6 +15,7 @@
                 left: 0,
                 wrapWidth: 0,
                 textWidth: 0,
+				distance:1000,
             }
         },
         props: {
@@ -26,7 +27,7 @@
                 type: String,
                 default: 'left'
             },
-            distance: {
+            distanceProp: {
                 type: Number,
                 default: 100
             },
@@ -58,6 +59,7 @@
                 this.distance = 1000;
                 return
             }
+            this.distance = this.distanceProp;
             this.startTimer();
 
         },

@@ -1,9 +1,9 @@
 <template>
     <div class="wrap-btn">
         <div class="item">
-            <div class="pic" :style="'backgroundImage:url('+playNow.pic+')'"></div>
-            <marquee class="name message" text="dfsdf法"></marquee>
-            <marquee class="album message" text="十案说1231231s ss dfs 23sdfsf dfsdf法"></marquee>
+            <div class="pic" :style="'backgroundImage:url('+playPic+')'"></div>
+            <marquee class="name message" :text="playName"></marquee>
+            <marquee class="album message" :text="playSinger"></marquee>
         </div>
         <div class="list"></div>
         <div class="btn" @click="playerCtrl" :style="'backgroundImage:url('+playerCtrlBtn+')'"></div>
@@ -18,6 +18,9 @@
 
             }
         },
+        mounted(){
+            window.localStorage.getItem('playList')
+        },
         computed: {
             playNow() {
                 return this.$store.state.playNow;
@@ -28,6 +31,18 @@
                 } else {
                     return require('../assets/play_btn_min.svg')
                 }
+            },
+            playPic() {
+                return this.$store.state.playNow.pic == "" ? require('../assets/music_logo.svg') : this.$store.state.playNow
+                    .pic;
+            },
+            playName() {
+                return this.$store.state.playNow.name == "" ? 'H5-Native播放器' : this.$store.state.playNow
+                    .name;
+            },
+            playSinger() {
+                return this.$store.state.playNow.singer == "" ? '享受音乐，感悟生活' : this.$store.state.playNow
+                    .singer;
             }
         },
         methods: {
@@ -56,7 +71,7 @@
     }
 
     .pic {
-        margin: 0 0.4rem;
+        margin-right: 0.7rem;
         width: 10vw;
         height: 10vw;
         background-size: 100%;
@@ -88,13 +103,13 @@
 
     .name {
         color: #333;
-        font-size: 1.2rem;
+        font-size: 1rem;
         margin-bottom: 0.4rem;
     }
 
     .album {
         color: #999;
-        font-size: 0.9rem;
+        font-size: 0.8rem;
     }
 
     .item {
