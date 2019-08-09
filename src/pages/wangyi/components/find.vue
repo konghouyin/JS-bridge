@@ -48,7 +48,7 @@
         background-size: 100%;
         box-sizing: border-box;
         width: 92vw !important;
-        width:40vw;
+        height:40vw !important;
         margin: 0 4vw;
         border-radius: 0.5rem;
         background-clip: padding-box;

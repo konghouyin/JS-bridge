@@ -11,23 +11,22 @@ var state = {
         album: []
     },
     topAllList: [],
-
-     // playNow: {
-    //     pic: "",
-    //     url: "",
-    //     name: "",
-    //     albun: "",
-    //     singer: "",
-    //     link: "",
-    //     backgroundColor:""
-    // },
-    // playStyle:{
-    //     playStatus: false,
-    //     playDuration:0,
-    //     now:0,
-    //     num:0,
-    //     playType:1
-    // },
+    playNow: {
+        pic: "",
+        url: "",
+        name: "",
+        albun: "",
+        singer: "",
+        link: "",
+        backgroundColor: ""
+    },
+    playStyle: {
+        playStatus: false,
+        playDuration: 0,
+        now: 0,
+        num: 0,
+        playType: 1
+    },
     playList: [{
         name: 'Remember (Original Mix)',
         singer: 'Sensitive ',

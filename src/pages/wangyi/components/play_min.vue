@@ -1,5 +1,5 @@
 <template>
-    <!-- <div class="wrap-btn">
+    <div class="wrap-btn">
         <div class="item">
             <div class="pic" :style="'backgroundImage:url('+playPic+')'"></div>
             <marquee class="name message" :text="playName"></marquee>
@@ -7,7 +7,7 @@
         </div>
         <div class="list"></div>
         <div class="btn" @click="playerCtrl" :style="'backgroundImage:url('+playerCtrlBtn+')'"></div>
-    </div> -->
+    </div>
 </template>
 
 <script>
@@ -18,39 +18,34 @@
 
             }
         },
-        mounted(){
-            window.localStorage.getItem('playList')
-        },
         computed: {
             playNow() {
                 return this.$store.state.playNow;
             },
             playerCtrlBtn() {
-                if (this.$store.state.playNow.playStatus) {
+                if (this.$store.state.playStyle.playStatus) {
                     return require('../assets/pause_btn_min.svg')
                 } else {
                     return require('../assets/play_btn_min.svg')
                 }
             },
             playPic() {
-                return this.$store.state.playNow.pic == "" ? require('../assets/music_logo.svg') : this.$store.state.playNow
-                    .pic;
+                return this.$store.state.playNow.pic != "" ? this.$store.state.playNow.pic : require(
+                    '../assets/music_logo.svg')
             },
             playName() {
-                return this.$store.state.playNow.name == "" ? 'H5-Native播放器' : this.$store.state.playNow
-                    .name;
+                return this.$store.state.playNow.name != "" ? this.$store.state.playNow.name : 'H5-Native播放器'
             },
             playSinger() {
-                return this.$store.state.playNow.singer == "" ? '享受音乐，感悟生活' : this.$store.state.playNow
-                    .singer;
+                return this.$store.state.playNow.singer != "" ? this.$store.state.playNow.singer : '享受音乐，感悟生活'
             }
         },
         methods: {
             playerCtrl() {
-                let obj = this.$store.state.playNow;
-                obj.playStatus = !this.$store.state.playNow.playStatus
+                let obj = this.$store.state.playStyle;
+                obj.playStatus = !obj.playStatus
                 this.$store.commit('setData', {
-                    'playNow': obj
+                    'playStyle': obj
                 })
             }
         },

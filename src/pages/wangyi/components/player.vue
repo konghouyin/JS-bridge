@@ -1,46 +1,58 @@
 <template>
-   <!-- <audio :src="getUrl.url" controls></audio> -->
+    <audio :src="getUrl" controls></audio>
 </template>
 
 <script>
+    import Axios from '../axios'
     export default {
         data() {
             return {
-
+                playnum: -1
             }
         },
         mounted() {
             this.initStore() // 初始化vuex
-            this.changeSong() // 切歌
-            this.$el.src = this.$store.state.playNow.url;
         },
         methods: {
-            changeSong() {
-                if (this.$store.state.playList[this.$store.state.playStyle.num]) {
+            async changeSong() {
+                if (this.$store.state.playList[Math.floor(this.$store.state.playStyle.num)]) {
                     //确保歌曲列表中有此音乐
-
-                    // 进行js-bridge 通信
-
+                    let music = this.$store.state.playList[Math.floor(this.$store.state.playStyle.num)];
+                    let string = await this.JSgetString() // 进行js-bridge 通信
+                    let api = "http://132.232.169.227:1531/path/getSongMain"
+                    Axios.send(api, 'post', {
+                        link: music.link,
+                        string: JSON.parse(string).data
+                    }).then(res => {
+                        this.$store.commit('setData', {
+                            'playNow': {
+                                pic: res.pic,
+                                url: res.url,
+                                name: music.name,
+                                albun: music.album,
+                                singer: music.singer,
+                                link: music.link,
+                                backgroundColor: ""
+                            }
+                        });
+                    }).catch(error => {
+                        console.log('Error', error.message);
+                    })
+                }
+            },
+            JSgetString() {
+                return new Promise(function(resolve, reject) {
                     HN.webviewConnect({
                         num: 2,
                         msg: `jx("songMain",1325897190,0)`,
                         success: function(res, type) {
-                            console.log(res, type)
+                            resolve(res, type)
                         },
                         fail: function(res, type) {
                             console.log(res, type)
                         }
                     })
-//
-//                     Axios.send(api, 'get').then(res => {
-//                         console.log(res)
-//                     }).catch(error => {
-//                         console.log('Error', error.message);
-//                     })
-//                     //网络请求
-
-
-                }
+                })
             },
             initStore() {
                 // if (localStorage.playList) {
@@ -98,7 +110,6 @@
                     setTimeout(() => {
                         this.$el.play()
                     }, 1)
-
                 } else {
                     setTimeout(() => {
                         this.$el.pause()
@@ -108,7 +119,7 @@
         },
         computed: {
             getUrl() {
-                return this.$store.state.playNow;
+                return this.$store.state.playNow.url ? this.$store.state.playNow.url : ""
             },
             getStyle() {
                 return this.$store.state.playStyle;
@@ -117,7 +128,10 @@
         watch: {
             getStyle() {
                 this.playCtrl()
-                this.changeSong()
+                if (this.$store.state.playStyle.num != this.playnum) {
+                    this.playnum = this.$store.state.playStyle.num
+                    this.changeSong()
+                }
             }
             // 是否可以监控具体的某个变量
         }

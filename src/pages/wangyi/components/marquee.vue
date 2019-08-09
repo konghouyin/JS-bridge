@@ -15,7 +15,7 @@
                 left: 0,
                 wrapWidth: 0,
                 textWidth: 0,
-				distance:1000,
+                distance: 1000,
             }
         },
         props: {
@@ -106,8 +106,18 @@
             }
         },
         computed: {
+            watchtext(){
+                return this.text
+            },
             getAll() {
                 return this.textWidth * 2 + this.distance + 10
+            }
+        },
+        watch:{
+            watchtext(){
+                this.$nextTick(()=>{
+                     this.textWidth = this.$refs.text.scrollWidth
+                })
             }
         }
     }
