@@ -3,7 +3,7 @@
 
 <template>
     <div class="main">
-        <div class="item" v-for="(each,index) in messageList" :key="index">
+        <div class="item" v-for="(each,index) in messageList" :key="index" @click="routerSongList(each.link)">
             <div class="pic" :style="'background-image: url('+ each.pic +');'"></div>
             <div class="name">{{each.name}}</div>
             <div v-if="showNum" class="num">▷ {{each.num}}</div>
@@ -21,6 +21,7 @@
         components: {
             // songSheet
         },
+
         props: {
             messageList: {
                 type: Array,
@@ -29,6 +30,17 @@
             showNum: {
                 type: Boolean,
                 default: true
+            }
+        },
+        methods: {
+            routerSongList(target) {
+                // console.log(target)
+                this.$router.replace({
+                    path: '/songList',
+                    query: {
+                        id: target
+                    }
+                });
             }
         },
         mounted() {

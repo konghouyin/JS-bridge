@@ -1,5 +1,5 @@
 <template>
-    <audio :src="getUrl.url" controls></audio>
+  <!--  <audio :src="getUrl.url" controls></audio> -->
 </template>
 
 <script>
@@ -21,23 +21,23 @@
 
                     // 进行js-bridge 通信
 
-                    HN.webviewConnect({
-                        num: 2,
-                        msg: `jx("songMain",1325897190,0)`,
-                        success: function(res, type) {
-                            console.log(res, type)
-                        },
-                        fail: function(res, type) {
-                            console.log(res, type)
-                        }
-                    })
-
-                    Axios.send(api, 'get').then(res => {
-                        console.log(res)
-                    }).catch(error => {
-                        console.log('Error', error.message);
-                    })
-                    //网络请求
+//                     HN.webviewConnect({
+//                         num: 2,
+//                         msg: `jx("songMain",1325897190,0)`,
+//                         success: function(res, type) {
+//                             console.log(res, type)
+//                         },
+//                         fail: function(res, type) {
+//                             console.log(res, type)
+//                         }
+//                     })
+//
+//                     Axios.send(api, 'get').then(res => {
+//                         console.log(res)
+//                     }).catch(error => {
+//                         console.log('Error', error.message);
+//                     })
+//                     //网络请求
 
 
                 }

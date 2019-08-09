@@ -9,6 +9,7 @@
         font-size: 1.125rem;
         justify-content: center;
         width: 100%;
+        z-index: 10;
     }
 
     .nav span,
@@ -19,7 +20,7 @@
     }
 
     .nav img {
-        width: 6%;
+        width: 1.25rem;
         z-index: 5;
         vertical-align: center;
     }
@@ -33,13 +34,14 @@
         height: 18.75rem;
         width: 100%;
         background-repeat: no-repeat;
+         /* background-color: rgba(0,0,0,1); */
         background-position: center;
         background-size: cover;
-        -webkit-filter: blur(0.9375rem);
-        -moz-filter: blur(0.9375rem);
-        -o-filter: blur(0.9375rem);
-        -ms-filter: blur(0.9375rem);
-        filter: blur(0.9375rem);
+        -webkit-filter: blur(0.733rem);
+        -moz-filter: blur(0.733rem);
+        -o-filter: blur(0.733rem);
+        -ms-filter: blur(0.733rem);
+        filter: blur(0.733rem);
     }
 
     .top {
@@ -47,19 +49,25 @@
         display: flex;
         align-items: flex-start;
         justify-content: space-around;
+        margin-top:3.75rem
     }
 
     .content-front {
         position: absolute;
         width: 100%;
-        height: 14.5625rem;
-        top: 2.7875rem;
+        height: 19.75rem;
+        background-color: rgba(0,0,0,.05);
+        top: 0rem;
+       
     }
 
     .titlePic {
         width: 9.375rem;
         height: 9.375rem;
         display: inline-block;
+        /* background-size: 0 auto; */
+        background-size:100% 100%;
+        
     }
 
     .titlePic img {
@@ -94,4 +102,5 @@
     .title p {
         font-size: 1.05rem;
         color: white;
+       line-height: 1.75rem;
     }

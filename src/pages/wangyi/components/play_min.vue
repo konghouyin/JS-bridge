@@ -1,5 +1,5 @@
 <template>
-    <div class="wrap-btn">
+    <!-- <div class="wrap-btn">
         <div class="item">
             <div class="pic" :style="'backgroundImage:url('+playPic+')'"></div>
             <marquee class="name message" :text="playName"></marquee>
@@ -7,7 +7,7 @@
         </div>
         <div class="list"></div>
         <div class="btn" @click="playerCtrl" :style="'backgroundImage:url('+playerCtrlBtn+')'"></div>
-    </div>
+    </div> -->
 </template>
 
 <script>
