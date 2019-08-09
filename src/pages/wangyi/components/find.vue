@@ -1,6 +1,6 @@
 <template>
     <div>
-        <swiper :indicatorDots="true" indicatorActiveColor="#f40" :autoplay="true">
+        <swiper :indicatorDots="true" indicatorActiveColor="#f40" :autoplay="true" :interval="3000">
             <div class="swiper_item" v-for="each in allData.swiper" :style="'background-image: url('+each.picUrl+');'"></div>
         </swiper>
         <hr>
@@ -48,6 +48,7 @@
         background-size: 100%;
         box-sizing: border-box;
         width: 92vw !important;
+        width:40vw;
         margin: 0 4vw;
         border-radius: 0.5rem;
         background-clip: padding-box;

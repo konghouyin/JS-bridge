@@ -41,9 +41,9 @@ export default class VueTouch {
         _listener.end = _listen('end')
         _listener.move = _listen('move')
 
-        this.obj.addEventListener('touchstart', _listener.start, false)
-        this.obj.addEventListener('touchend', _listener.end, false)
-        this.obj.addEventListener('touchmove', _listener.move, false)
+        this.obj.ontouchstart = _listener.start
+        document.body.ontouchend= _listener.end
+        this.obj.ontouchmove= _listener.move
     }
 
     start(e) {
@@ -76,15 +76,15 @@ export default class VueTouch {
         let _disY = y - g.firstTouchPosition.y
         let _dis = Math.sqrt(_disX * _disX + _disY * _disY)
         let _timeDis = e.timeStamp - g.firstTouchTime
-
         clearTimeout(g.time)
         let _angle = this.getAngle(_disX, _disY)
         if ((_dis > 60 && _timeDis < 350) || _dis > 200) {
             if (_angle <= 20 && _angle >= -20){
                   g.callBack.end(e, -1)
-            }
-            if ((_angle <= -160 && _angle > -180) || (_angle >= 160 && _angle <= 180)){
+            }else if ((_angle <= -160 && _angle > -180) || (_angle >= 160 && _angle <= 180)){
                 g.callBack.end(e, 1)
+            }else{
+                g.callBack.end(e, 0)
             }
         } else {
             g.callBack.end(e, 0)

@@ -11,6 +11,8 @@ import store from './vuex/store.js'; //vuex
 
 Vue.config.productionTip = false
 
+window.HN = new JSBridge(10000) // HN-->'H5-Native'
+
 Vue.directive("swiper", {
     bind: function(el, binding) {
         new VueTouch(el, binding, "swiper");
@@ -27,5 +29,5 @@ new Vue({
     },
     template: '<App/>'
 })
-window.HN = new JSBridge(10000) // HN-->'H5-Native'
+
 // 创建实例,设置交互队列长度，以及交互超时

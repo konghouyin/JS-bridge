@@ -46,17 +46,29 @@
             }
         },
         mounted() {
-            if(this.autoplay){
-                this.timer = setInterval(() => {
+            if (this.autoplay) {
+                this.timer = setTimeout(() => {
                     this.end(undefined, 1)
                 }, this.interval)
             }
-        },
-        beforeDestroy() {
-            clearInterval(this.timer)
+            if(this.$store.state.mainMessage.swiper!=0){
+                this.init();
+            }
         },
         methods: {
+            init() {
+                this.$nextTick(() => {
+                    this.allNum = this.$el.children[0].children.length
+                    this.$el.children[0].style.width = (this.$el.children[0].children.length + 2) * 100 + 'vw'
+                    let domStart = this.$el.children[0].children[0].cloneNode(true)
+                    let domEnd = this.$el.children[0].children[this.$el.children[0].children.length - 1].cloneNode(
+                        true)
+                    this.$el.children[0].appendChild(domStart)
+                    this.$el.children[0].insertBefore(domEnd, this.$el.children[0].firstElementChild)
+                });
+            },
             move(e, start, x) {
+                clearTimeout(this.timer)
                 if (this.flag) {
                     return
                 }
@@ -65,6 +77,12 @@
                     100 + 'vw'
             },
             end(e, num) {
+                clearTimeout(this.timer)
+                if (this.autoplay) {
+                    this.timer = setTimeout(() => {
+                        this.end(undefined, 1)
+                    }, this.interval)
+                }
                 if (this.flag) {
                     this.index = this.index
                     return
@@ -103,14 +121,7 @@
         },
         watch: {
             getSwiperList() {
-               this.$nextTick(() => {
-                   this.allNum = this.$el.children[0].children.length
-                   this.$el.children[0].style.width = (this.$el.children[0].children.length + 2) * 100 + 'vw'
-                   let domStart = this.$el.children[0].children[0].cloneNode(true)
-                   let domEnd = this.$el.children[0].children[this.allNum - 1].cloneNode(true)
-                   this.$el.children[0].appendChild(domStart)
-                   this.$el.children[0].insertBefore(domEnd, this.$el.children[0].firstElementChild)
-               });
+                this.init()
             }
         }
 
