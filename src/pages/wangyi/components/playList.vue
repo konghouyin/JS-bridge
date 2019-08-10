@@ -54,9 +54,7 @@
 
         },
         computed: {
-            // displaycom(){
-            //     return this.displayed;
-            // }
+
         },
         methods: {
             disappear(e) {
@@ -71,11 +69,7 @@
                 event = e.currentTarget;
                 let num = event.getAttribute("value"); //歌曲的序号 从1开始
                 console.log(num, parseInt(this.$store.state.playStyle.num)) //
-                // if (num >= parseInt(this.$store.state.playStyle.num)||parseInt(this.$store.state.playStyle.num)==0) {   //删除了正在播放的歌曲 或者当前状态没有歌曲播放
-                //      this.playList.splice(num-1, 1);
-                // }else if(num == parseInt(this.$store.state.playStyle.num)){
-                //     
-                // }
+
                 this.playList.splice(num - 1, 1);
 
                 if (this.$store.state.playList.length == 0) { //当前列表没有歌曲播放
@@ -84,22 +78,15 @@
                     this.$store.state.playStyle.num = 1;
                 } else if (num > parseInt(this.$store.state.playStyle.num) || parseInt(this.$store.state.playStyle.num) ==
                     0) { //删除了正在播放的歌曲 或者当前状态没有歌曲播放
-                    // this.playList.splice(num-1, 1);
                 } else if (num < parseInt(this.$store.state.playStyle.num)) { //删除正在播放歌曲后面的歌曲
-                    // this.playList.splice(num-1, 1);
                     this.$store.state.playStyle.num--;
-
                 }
-                //else{
-                // this.playList.splice(num-1, 1);
-                //}
-                // var array = this.$store.state.playList;
+
             },play(e){   //在播放列表中改变播放曲目
                 event = e.currentTarget;
                 let num = event.getAttribute("value"); //歌曲的序号 从0开始
-                // console.log( Math.random(),num)
+
                 this.$store.state.playStyle.num=(Math.random()+parseInt(num));
-                // console.log(this.$store.state.playStyle.num,num);
             }
         },
         props: {

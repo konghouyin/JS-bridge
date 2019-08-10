@@ -186,8 +186,6 @@
         display: inline-block;
         font-size: 1rem;
         color: #CCCCCC;
-        /* margin-bottom: 0.625rem; */
-        /* line-height: 1.25rem; */
     }
 
     .item {
@@ -210,8 +208,6 @@
         width: 17rem;
         display: inline-block;
         overflow: hidden;
-        /* margin-left: 0.825rem; */
-
     }
 
     .middle p {
