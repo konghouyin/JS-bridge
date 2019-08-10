@@ -6,11 +6,11 @@
             <div class="content content-front">
                 <!-- 真正的内容 -->
                 <div class="nav">
-                    <img src="../assets/箭头-左.svg" @click="$router.go(-1)"/>
+                    <img src="../assets/箭头-左.svg" @click="$router.go(-1)" />
                     <span v-if="upSlide==true">歌单</span>
                     <marquee v-else> <span direction=left scrollamount=.1 scrolldelay=500>{{title.name}}</span>
                     </marquee>
-                    <img src="../assets/搜索-白.svg" />
+                    <img src="../assets/搜索-白.svg" @click="showSongList=true"/>
                 </div>
 
                 <div class="top">
@@ -28,10 +28,13 @@
                 </div>
             </div>
 
-            <songTable :lazyloaded="lazyloaded" :out="out" v-on:getPage="handlePage"></songTable> <!-- 子组件 -->
+            <songTable :lazyloaded="lazyloaded" :out="out" :songListNum="title.all" v-on:getPage="handlePage"></songTable> <!-- 子组件 -->
         </div>
 
         <div v-else style="text-align: center;">...loading</div> <!-- 未加载出来时 的动画效果 -->
+        
+        <!-- 父元素向子元素传值，控制显隐 子元素传值通知父元素 -->
+        <playList v-if="showSongList" :displayed="showSongList" v-on:displayChange="changedisplay($event)"></playList>
     </div>
 
 
@@ -39,6 +42,7 @@
 
 <script>
     import songTable from "./songTable"
+    import playList from "./playList"
     import Axios from '../axios'
     import {
         Base64
@@ -55,41 +59,40 @@
                     start: 1,
                     end: 10,
                 },
-                lazyloaded: true
+                lazyloaded: true,
+                showSongList:false,
             }
         },
         mounted() {
 
             this.send(this.$route.query.id) //发送请求
 
-            window.addEventListener('scroll', this.scrollhandle);  //走马灯
+            window.addEventListener('scroll', this.scrollhandle); //走马灯
 
         },
         beforeDestroy() {
             window.removeEventListener('scroll', this.scrollhandle);
         },
-        components: {
-            songTable
-        },
+
         methods: {
-            scrollhandle() {    //走马灯效果的监听
+            scrollhandle() { //走马灯效果的监听
                 if (window.scrollY > 60) { //文档当前垂直滚动的像素
                     this.upSlide = false
                 } else {
                     this.upSlide = true
                 }
             },
-            handlePage(data) {  //懒加载监听page的改变
+            handlePage(data) { //懒加载监听page的改变
                 this.page = Object.assign({}, data); //重构对象
             },
-            send(str) {         //发送数据请求
+            send(str) { //发送数据请求
                 if (this.page.end >= this.title.all) { //请求的最大页 超出
                     this.page.end = this.title.all
                     this.lazyloaded = false; //阻止了懒加载滑动事件的监听
                 }
                 var api = "http://132.232.169.227:1531/path/getPlayListMain?link=" + str + "&start=" + this.page.start +
                     "&end=" + this.page.end
-                    console.log(api)
+                console.log(api)
                 Axios.send(api, 'get').then(res => {
                     console.log(res);
                     res.list.forEach((data) => {
@@ -99,11 +102,19 @@
                 }).catch(error => {
                     console.log('Error', error.message);
                 })
-            },
-   
+            },changedisplay(e){
+                // console.log(e)
+                this.showSongList=false
+            }
+                
+
         },
         computed: {
 
+        },
+        components: {
+            songTable,
+            playList,
         },
         watch: {
             page: {

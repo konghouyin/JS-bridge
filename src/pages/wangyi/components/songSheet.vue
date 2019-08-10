@@ -24,7 +24,7 @@
         },
         computed: {
             getMessageList() {
-                console.log(this.$store.state.mainMessage[this.type])
+                // console.log(this.$store.state.mainMessage[this.type])
                 return this.$store.state.mainMessage[this.type]
             }
         },

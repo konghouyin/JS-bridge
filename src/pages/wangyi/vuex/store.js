@@ -12,28 +12,23 @@ var state = {
     },
     topAllList: [],
 
-     // playNow: {
-    //     pic: "",
-    //     url: "",
-    //     name: "",
-    //     albun: "",
-    //     singer: "",
-    //     link: "",
-    //     backgroundColor:""
-    // },
-    // playStyle:{
-    //     playStatus: false,
-    //     playDuration:0,
-    //     now:0,
-    //     num:0,
-    //     playType:1
-    // },
-    playList: [{
-        name: 'Remember (Original Mix)',
-        singer: 'Sensitive ',
-        album: 'Remember',
-        link: 'https://music.163.com/#/song?id=27644359'
-    }]
+    playNow: {
+        pic: "",
+        url: "",
+        name: "",
+        albun: "",
+        singer: "",
+        link: "",
+        backgroundColor: ""
+    },
+    playStyle: {
+        playStatus: false,
+        playDuration: 0,
+        now: 0,
+        num: ".123", //当前播放的歌曲
+        playType: 1
+    },
+    playList: []
 
 }
 
@@ -51,8 +46,19 @@ var mutations = {
         list.forEach(item => {
             state[item] = Object.assign({}, msg[item])
         })
-        console.log(state)
-    }
+        // console.log(state)
+    },
+    addPlayList: function(content, msg) { //添加到正在播放歌曲的后面，并设置为正在播放
+        //console.log(msg)
+       // if(parseInt(state.playStyle.num)==0){
+       //     state.playList.splice(parseInt(state.playStyle.num)+1,0,msg);
+       //     state.playStyle.num=parseInt(state.playStyle.num)+1+Math.random();
+       // }
+        state.playList.splice(parseInt(state.playStyle.num),0,msg);
+        state.playStyle.num=parseInt(state.playStyle.num)+1+Math.random();
+        // console.log(state.playList,state.playStyle.num);
+    },
+ 
 }
 
 var actions = {
