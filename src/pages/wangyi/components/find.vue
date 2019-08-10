@@ -45,7 +45,7 @@
 
 <style scoped>
     .swiper_item {
-        background-size: 100%;
+        background-size: 100% 100% !important;
         box-sizing: border-box;
         width: 92vw !important;
         height:40vw !important;

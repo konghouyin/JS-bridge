@@ -70,10 +70,11 @@
     }
 
     .name {
+        text-align: center;
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
-
+        font-size: 0.8rem;
         /* 几行后显示省略号 */
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;

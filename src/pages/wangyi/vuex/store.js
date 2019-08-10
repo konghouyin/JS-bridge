@@ -29,9 +29,14 @@ var state = {
     },
     playList: [{
         name: 'Remember (Original Mix)',
-        singer: 'Sensitive ',
+        singer: 'Sensitive',
         album: 'Remember',
-        link: 'https://music.163.com/#/song?id=27644359'
+        link: 'https://music.163.com/song?id=27644359'
+    },{
+        name: '超喜欢你',
+        singer: '沈以诚',
+        album: '超喜欢你',
+        link: 'https://music.163.com/song?id=1380262830'
     }]
 
 }

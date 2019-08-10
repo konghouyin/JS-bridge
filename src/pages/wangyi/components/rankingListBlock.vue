@@ -34,7 +34,6 @@
     }
 
     .pic {
-        /* margin: 4vw; */
         width: 28vw;
         height: 28vw;
         background-size: 100%;
@@ -43,7 +42,8 @@
     }
 
     .message {
-        /* margin: 4vw; */
+        box-sizing: border-box;
+        padding: 2vw 0;
         float: right;
         height: 28vw;
         width: 60vw;

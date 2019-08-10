@@ -67,8 +67,8 @@
 
     .pic {
         margin-right: 0.7rem;
-        width: 10vw;
-        height: 10vw;
+        width: 9vw;
+        height: 9vw;
         background-size: 100%;
         float: left;
         border-radius: 5rem;
@@ -76,15 +76,15 @@
 
     .message {
         float: left;
-        width: 50vw;
+        width: 55vw;
         overflow: hidden;
     }
 
     .btn,
     .list {
         float: right;
-        width: 10vw;
-        height: 10vw;
+        width: 9vw;
+        height: 9vw;
         background-size: 80%;
         background-position: center;
         background-repeat: no-repeat;
@@ -93,18 +93,17 @@
 
     .btn {
         background-size: 90%;
-
     }
 
     .name {
         color: #333;
-        font-size: 1rem;
-        margin-bottom: 0.4rem;
+        font-size: 0.9rem;
+        margin-bottom: 0.2rem;
     }
 
     .album {
         color: #999;
-        font-size: 0.8rem;
+        font-size: 0.7rem;
     }
 
     .item {
