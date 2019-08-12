@@ -42,7 +42,7 @@ export default class VueTouch {
         _listener.move = _listen('move')
 
         this.obj.ontouchstart = _listener.start
-        document.body.ontouchend= _listener.end
+        this.obj.ontouchend= _listener.end
         this.obj.ontouchmove= _listener.move
     }
 

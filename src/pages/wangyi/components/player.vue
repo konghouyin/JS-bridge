@@ -7,21 +7,13 @@
     export default {
         data() {
             return {
-                playnum: 0,
+                playnum: -1,
                 firstTime: 0
             }
         },
         mounted() {
             this.initStore() // 初始化vuex
             this.initPlayer() // 初始化播放器
-
-            setTimeout(() => {
-                let obj = this.$store.state.playStyle;
-                obj.num = 2
-                this.$store.commit('setData', {
-                    'playStyle': obj
-                })
-            }, 5000);
         },
         methods: {
             async changeSong() {
@@ -109,15 +101,15 @@
                 })
             },
             initStore() {
-                // if (localStorage.playList) {
-                //     this.$store.commit('setData', {
-                //         'playList': localStorage.playList
-                //     });
-                // } else {
-                //     this.$store.commit('setData', {
-                //         'playList': []
-                //     });
-                // }
+                if (localStorage.playList) {
+                    this.$store.commit('setData', {
+                        'playList': localStorage.playList
+                    });
+                } else {
+                    this.$store.commit('setData', {
+                        'playList': []
+                    });
+                }
 
                 if (localStorage.playNow) {
                     this.$store.commit('setData', {
