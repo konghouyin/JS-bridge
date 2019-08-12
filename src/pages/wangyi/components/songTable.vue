@@ -63,66 +63,60 @@
         methods: {
             lazyLoad(e) { //懒加载
                 event = e.currentTarget
-                var scrollTop = event.scrollTop;
+                var scrollTop = event.scrollTop
 
                 if (event.scrollHeight == event.clientHeight + scrollTop) {
-                    this.page.start += 10;
-                    this.page.end += 10;
-                    this.$emit('getPage', this.page);
+                    this.page.start += 10
+                    this.page.end += 10
+                    this.$emit('getPage', this.page)
                 }
             },
             scrollhandle() { //监听屏幕滚动效果
                 if (window.scrollY < 13.7 * 16) {
-                    this.style.overflow = "hidden"
-                    this.style.overflowY = ""
+                    this.style.overflow = 'hidden'
+                    this.style.overflowY = ''
 
                 } else if (window.scrollY > 13.7 * 16) {
-                    this.style.overflow = ""
-                    this.style.overflowY = "auto"
+                    this.style.overflow = ''
+                    this.style.overflowY = 'auto'
                 }
             },
             getScrollHeight() { //获取记算滚动区的高度
                 var h = document.documentElement.clientHeight || document.body.clientHeight;
-                this.divHeight = h - 3.045 * 16;
+                this.divHeight = h - 3.045 * 16
             },
 
             addList(e) { //点击歌曲播放添加到歌单列表
-                event = e.currentTarget;
-                let value = event.getAttribute("value");
-                this.clickElement = value;
+                event = e.currentTarget
+                let value = event.getAttribute('value')
+                this.clickElement = value
 
                 var array = this.$store.state.playList
-                let flag = -1;
+                let flag = -1
                 for (let i = 0; i < array.length; i++) {
                     if (array[i].link == this.out[value].link) {
-                        flag = i;
-                        break;
+                        flag = i
+                        break
                     }
                 }
-                console.log(parseInt(this.$store.state.playStyle.num))
+                console.log(this.$store.state.playStyle.num)
                 if (flag != -1) { //之前已经存在
                     if (parseInt(this.$store.state.playStyle.num) == flag) {
-                        return;
+                        return
                     }
                     if (parseInt(this.$store.state.playStyle.num) > flag) {
-                        this.$store.state.playStyle.num--;
+                        this.$store.state.playStyle.num--
                     }
-                    array.splice(flag, 1);
+                    array.splice(flag, 1)
                 }
-                //console.log(this.$store.state.playList.length);
+                this.$store.state.playStyle.playStatus = true
                 let song = {
                     name: this.out[value].name,
                     singer: this.out[value].singer,
                     album: this.out[value].album,
                     link: this.out[value].link
                 }
-                this.$store.commit('addPlayList', song);
-
-
-                // let obj = this.$store.state.playStyle;
-                // obj.num = 1+Math.random()
-                // this.$store.commit('setData', {playStyle:obj});
-
+                this.$store.commit('addPlayList', song)
             }
         },
         computed: {

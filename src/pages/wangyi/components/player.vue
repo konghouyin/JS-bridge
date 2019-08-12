@@ -8,7 +8,8 @@
         data() {
             return {
                 playnum: -1,
-                firstTime: 0
+                playLink: '',
+                firstTime: 0,
             }
         },
         mounted() {
@@ -29,6 +30,29 @@
                         link: music.link,
                         string: JSON.parse(string).data
                     }).then(res => {
+                        if (res.url == null) {
+                            HN.showModal({
+                                title: '没有这首歌的资源',
+                                content: '我们正在全力获取这首歌的资源，敬请期待',
+                                showCancel: false,
+                                confirmText: '知道了',
+                                confirmColor: '#07c160',
+                                success: (res, style) => {
+                                    this.playList.splice(this.$store.state.playStyle.num - 1, 1);
+                                    if(this.$store.state.playList.length!=0){
+                                         this.playNext()
+                                    }else{
+                                        this.$store.state.playStyle.num = Math.random()
+                                    }
+                                },
+                                fail: (res, style) => {
+                                    console.log(res)
+                                },
+                                complete: (res, style) => {
+                                    console.log('complete')
+                                }
+                            })
+                        }
                         this.$store.commit('setData', {
                             'playNow': {
                                 pic: res.pic,
@@ -40,16 +64,15 @@
                                 backgroundColor: ""
                             }
                         });
-                        if (this.firstTime != 0) {
+                        try {
                             let obj = this.$store.state.playStyle;
                             obj.playStatus = true
                             this.$store.commit('setData', {
                                 'playStyle': obj
                             })
+                        } catch (e) {
+                            //TODO handle the exception
                         }
-                        this.firstTime = 1;
-
-
 
                         // localStorage.setItem('playNow', {
                         //     pic: res.pic,
@@ -93,12 +116,31 @@
                 })
             },
             initPlayer() {
-                this.$el.addEventListener('timeupdate',(e)=>{
-                    console.log(e)
+                this.$el.addEventListener('timeupdate', (e) => {
+                    this.$store.state.playStyle.now = e.timeStamp
                 })
-                this.$el.addEventListener('ended',(e)=>{
-                    console.log(e)
+                this.$el.addEventListener('ended', (e) => {
+                    this.playNext()
                 })
+            },
+            playNext() {
+                if (this.$store.state.playStyle.playType == 1) {
+                    if (Math.floor(this.$store.state.playStyle.num) == this.$store.state.playList.length) {
+                        this.$store.state.playStyle.num = 1 + Math.random()
+                    } else {
+                        this.$store.state.playStyle.num = Math.floor(this.$store.state.playStyle.num) + 1 + Math.random()
+                    }
+                } else if (this.$store.state.playStyle.playType == 2) {
+                    this.$store.state.playStyle.num = Math.random() * (this.$store.state.playList.length + 1)
+                } else if (this.$store.state.playStyle.playType == 3) {
+                    this.$store.state.playStyle.playStatus = true
+                } else if (this.$store.state.playStyle.playType == 4) {
+                    if (this.$store.state.playStyle.num == this.$store.state.playList.length) {
+                        this.$store.state.playStyle.num = 0 + Math.random()
+                    } else {
+                        this.$store.state.playStyle.num = this.$store.state.playStyle.num + 1 + Math.random()
+                    }
+                }
             },
             initStore() {
                 if (localStorage.playList) {
@@ -168,18 +210,34 @@
                 return this.$store.state.playNow.url ? this.$store.state.playNow.url : ""
             },
             getStyle() {
-                return this.$store.state.playStyle;
+                return this.$store.state.playStyle.num
+            },
+            getStatus() {
+                return this.$store.state.playStyle.playStatus
             }
         },
         watch: {
-            getStyle() {
-                this.playCtrl()
-                if (this.$store.state.playStyle.num != this.playnum) {
-                    this.playnum = this.$store.state.playStyle.num
-                    this.changeSong()
+            getStatus: {
+                deep: true,
+                handler() {
+                    this.playCtrl()
+                }
+            },
+            getStyle: {
+                deep: true,
+                handler() {
+                    console.log('changeernum')
+                    if (this.$store.state.playStyle.num != this.playnum &&
+                        this.$store.state.playList.length > 0 &&
+                        this.playLink != this.$store.state.playList[Math.floor(this.$store.state.playStyle.num) - 1].link
+                    ) {
+                        this.playnum = this.$store.state.playStyle.num
+                        this.playLink = this.$store.state.playList[Math.floor(this.$store.state.playStyle.num) - 1].link
+                        this.changeSong()
+                    }
+
                 }
             }
-            // 是否可以监控具体的某个变量
         }
     }
 </script>

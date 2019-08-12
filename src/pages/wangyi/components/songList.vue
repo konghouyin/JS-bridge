@@ -10,7 +10,7 @@
                     <span v-if="upSlide==true">歌单</span>
                     <marquee v-else> <span direction=left scrollamount=.1 scrolldelay=500>{{title.name}}</span>
                     </marquee>
-                    <img src="../assets/搜索-白.svg" @click="showSongList=true"/>
+                    <img src="../assets/搜索-白.svg"/>
                 </div>
 
                 <div class="top">
@@ -27,14 +27,13 @@
                     </div>
                 </div>
             </div>
-
             <songTable :lazyloaded="lazyloaded" :out="out" :songListNum="title.all" v-on:getPage="handlePage"></songTable> <!-- 子组件 -->
         </div>
 
         <div v-else style="text-align: center;">...loading</div> <!-- 未加载出来时 的动画效果 -->
 
         <!-- 父元素向子元素传值，控制显隐 子元素传值通知父元素 -->
-        <playList v-if="showSongList" :displayed="showSongList" v-on:displayChange="changedisplay($event)"></playList>
+
         <playMin></playMin>
     </div>
 
@@ -44,7 +43,6 @@
 <script>
     import playMin from "./play_min"
     import songTable from "./songTable"
-    import playList from "./playList"
     import Axios from '../axios'
     import {
         Base64
@@ -61,8 +59,7 @@
                     start: 1,
                     end: 10,
                 },
-                lazyloaded: true,
-                showSongList:false,
+                lazyloaded: true
             }
         },
         mounted() {
@@ -104,19 +101,13 @@
                 }).catch(error => {
                     console.log('Error', error.message);
                 })
-            },changedisplay(e){
-                // console.log(e)
-                this.showSongList=false
             }
-
-
         },
         computed: {
 
         },
         components: {
             songTable,
-            playList,
             playMin
         },
         watch: {
