@@ -96,7 +96,7 @@
                     "&end=" + this.page.end
                 console.log(api)
                 Axios.send(api, 'get').then(res => {
-                    console.log(res);
+                    // console.log(res);
                     res.list.forEach((data) => {
                         this.out.push(data)
                     })

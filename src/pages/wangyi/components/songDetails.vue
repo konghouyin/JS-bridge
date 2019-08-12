@@ -16,7 +16,7 @@
                     亲。。暂无数据
                 </div> -->
                 <div class="content">
-                    <div>
+                    <div @click="playNextSong()">
                         <img src="../assets/nextSong.svg"/>
                         <p>下一首播放</p>
                     </div>
@@ -55,7 +55,7 @@
         },
         mounted() {
             
-            console.log(this.song)
+            // console.log(this.song)
             this.playList = this.$store.state.playList
 
         },
@@ -66,35 +66,85 @@
             
             disappear(e) {
                 event = e.currentTarget;
-                console.log(event)
+                // console.log(event)
                 let value = event.getAttribute("class");
                 if (value == "block") {
                     this.$emit("displayChange", false)
                 }
             },
-            deleteSong(e) { //在列表中删除歌曲
-                event = e.currentTarget;
-                let num = event.getAttribute("value"); //歌曲的序号 从1开始
-                console.log(num, parseInt(this.$store.state.playStyle.num)) //
-
-                this.playList.splice(num - 1, 1);
-
-                if (this.$store.state.playList.length == 0) { //当前列表没有歌曲播放
-                    this.$store.state.playStyle.num = 0;
-                } else if (this.$store.state.playList.length + 1 == num && num == parseInt(this.$store.state.playStyle.num)) { //删除最后一个元素 并且最后一个元素在播放
-                    this.$store.state.playStyle.num = 1;
-                } else if (num > parseInt(this.$store.state.playStyle.num) || parseInt(this.$store.state.playStyle.num) ==
-                    0) { //删除了正在播放的歌曲 或者当前状态没有歌曲播放
-                } else if (num < parseInt(this.$store.state.playStyle.num)) { //删除正在播放歌曲后面的歌曲
-                    this.$store.state.playStyle.num--;
+//             deleteSong(e) { //在列表中删除歌曲
+//                 event = e.currentTarget;
+//                 let num = event.getAttribute("value"); //歌曲的序号 从1开始
+//                 console.log(num, parseInt(this.$store.state.playStyle.num)) //
+// 
+//                 this.playList.splice(num - 1, 1);
+// 
+//                 if (this.$store.state.playList.length == 0) { //当前列表没有歌曲播放
+//                     this.$store.state.playStyle.num = 0;
+//                 } else if (this.$store.state.playList.length + 1 == num && num == parseInt(this.$store.state.playStyle.num)) { //删除最后一个元素 并且最后一个元素在播放
+//                     this.$store.state.playStyle.num = 1;
+//                 } else if (num > parseInt(this.$store.state.playStyle.num) || parseInt(this.$store.state.playStyle.num) ==
+//                     0) { //删除了正在播放的歌曲 或者当前状态没有歌曲播放
+//                 } else if (num < parseInt(this.$store.state.playStyle.num)) { //删除正在播放歌曲后面的歌曲
+//                     this.$store.state.playStyle.num--;
+//                 }
+// 
+//             },
+//             play(e) { //在播放列表中改变播放曲目
+//                 event = e.currentTarget;
+//                 let num = event.getAttribute("value"); //歌曲的序号 从0开始
+// 
+//                 this.$store.state.playStyle.num = (Math.random() + parseInt(num));
+//             },
+            playNextSong(){   //下一首播放
+                // event = e.currentTarget;
+                // let value = event.getAttribute("value");
+                // this.clickElement = value;
+                
+                var array = this.$store.state.playList
+                let flag = -1;
+                for (let i = 0; i < array.length; i++) {
+                    if (array[i].link == this.song.link) {
+                        flag = i;
+                        break;
+                    }
                 }
-
-            },
-            play(e) { //在播放列表中改变播放曲目
-                event = e.currentTarget;
-                let num = event.getAttribute("value"); //歌曲的序号 从0开始
-
-                this.$store.state.playStyle.num = (Math.random() + parseInt(num));
+                
+                 let nextSong={
+                      pic: "",
+                      name: this.song.name,
+                      album: this.song.album,
+                      singer: this.song.singer,
+                      link: this.song.link,
+                 }
+                 
+                 console.log("jhjhj")
+                if(this.$store.state.playList.length==0){  //当前歌单内没有歌曲 加入下一首直接播放
+                //console.log("jhjjkhjk")
+                    this.$store.state.playList.splice(parseInt(this.$store.state.playStyle.num), 0, nextSong);
+                    this.$store.state.playStyle.num=1;
+                    return;
+                }
+                // console.log("和第几个标签相同", flag);
+                // console.log(parseInt(this.$store.state.playStyle.num))
+                else if (flag != -1) { //之前已经存在
+                    // console.log(parseInt(this.$store.state.playStyle.num), flag)
+                    if (parseInt(this.$store.state.playStyle.num) == flag + 1) {
+                        return;
+                    }
+                    if (parseInt(this.$store.state.playStyle.num) > flag + 1) {
+                        this.$store.state.playStyle.num--;
+                    }
+                    array.splice(flag, 1);
+                }
+                console.log(this.$store.state.playList.length);
+                // let song = {
+                //     name: this.song.name,
+                //     singer: this.song.singer,
+                //     album: this.song.album,
+                //     link: this.song.link
+                // }
+                this.$store.commit('nextPlaySong', nextSong);
             }
         },
         props: {

@@ -34,7 +34,7 @@
                     <span v-else-if="playType==3">单曲循环 ( {{playList.length}} )</span>
                     <span v-else-if="playType==4">列表单次播放 ( {{playList.length}} )</span> -->
 
-                    <img class="empty" src="../assets/trash.svg" @click=" allcut()"/>
+                    <img class="empty" src="../assets/trash.svg" @click=" allcut()" />
                 </div>
                 <div v-if="playList.length==0" style="text-align: center;height: 50.5vh;background-color: whitesmoke;">
                     亲。。暂无数据
@@ -59,8 +59,8 @@
     export default {
         data() {
             return {
-                playList: [],
-                display: this.displayed,
+                playList: [], //歌单内容
+                display: this.displayed, //该页的显示
                 playType: NaN //表单播放的类型
             }
         },
@@ -75,7 +75,7 @@
         methods: {
             disappear(e) {
                 event = e.currentTarget;
-                console.log(event)
+                // console.log(event)
                 let value = event.getAttribute("class");
                 if (value == "block") {
                     this.$emit("displayChange", false)
@@ -92,12 +92,12 @@
                     this.$store.state.playStyle.num = 0;
                 } else if (this.$store.state.playList.length + 1 == num && num == parseInt(this.$store.state.playStyle.num)) { //删除最后一个元素 并且最后一个元素在播放
                     this.$store.state.playStyle.num = 1;
-                } else if (num > parseInt(this.$store.state.playStyle.num) || parseInt(this.$store.state.playStyle.num) ==
-                    0) { //删除了正在播放的歌曲 或者当前状态没有歌曲播放
+                } else if (num > parseInt(this.$store.state.playStyle.num) || parseInt(this.$store.state.playStyle.num) ==0) { //删除了正在播放的歌曲 或者当前状态没有歌曲播放
+                    this.$store.state.playStyle.num=parseInt(this.$store.state.playStyle.num)+ Math.random();
                 } else if (num < parseInt(this.$store.state.playStyle.num)) { //删除正在播放歌曲后面的歌曲
                     this.$store.state.playStyle.num--;
                 }
-
+                    console.log(this.$store.state.playStyle.num);
             },
             play(e) { //在播放列表中改变播放曲目
                 event = e.currentTarget;
@@ -105,13 +105,17 @@
 
                 this.$store.state.playStyle.num = (Math.random() + parseInt(num));
             },
-            changePlayType() {   //改变列表播放的类型
+            changePlayType() { //改变列表播放的类型
                 this.playType = this.playType + 1 == 5 ? 1 : this.playType + 1;
                 this.$store.state.playStyle.playType = this.playType;
             },
-            allcut(){
-                this.$store.state.playList=[];
-                this.$store.state.playStyle.num=0
+            allcut() { //删除歌单里面的所有歌曲
+                this.playList = [];
+                this.$store.commit('setData', {
+                    'playList': []
+                });
+
+                this.$store.state.playStyle.num = 0
             }
         },
         props: {

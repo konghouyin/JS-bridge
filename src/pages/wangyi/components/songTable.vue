@@ -14,8 +14,8 @@
                 . . .loading
             </div>
 
-            <div v-else class="item" v-for="(item,index) in getData" @click="addList($event)" :value="item.num-1" :key="item.num-1">
-                <div class="left">
+            <div v-else class="item" v-for="(item,index) in getData" :key="item.num-1">
+                <div class="left" @click="addList($event)" :value="item.num-1">
                     <img src="../assets/播放.svg" v-if="MonitoringData==item.link">
                     <div class="roll" v-else>{{item.num}}</div>
                     <div class="middle">
@@ -143,7 +143,7 @@
                  event = e.currentTarget;
                 let num = event.getAttribute("value"); //歌曲的序号 从0开始
                 // console.log(num)
-                console.log(this.out[num]);
+                // console.log(this.out[num]);
                 
                 this.song={
                      pic: "",
