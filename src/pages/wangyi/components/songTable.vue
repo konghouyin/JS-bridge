@@ -15,11 +15,13 @@
             </div>
 
             <div v-else class="item" v-for="(item,index) in getData" @click="addList($event)" :value="item.num-1" :key="item.num-1">
-                <img src="../assets/播放.svg" v-if="clickElement==(item.num-1)">
-                <div class="roll" v-else>{{item.num}}</div>
-                <div class="middle">
-                    <p>{{item.name}}</p>
-                    <p>{{item.singer}}</p>
+                <div class="left">
+                    <img src="../assets/播放.svg" v-if="MonitoringData==item.link">
+                    <div class="roll" v-else>{{item.num}}</div>
+                    <div class="middle">
+                        <span>{{item.name}}</span>
+                        <span>{{item.singer}}</span>
+                    </div>
                 </div>
                 <img src="../assets/更多-灰.svg" class="more">
             </div>
@@ -99,12 +101,14 @@
                         break;
                     }
                 }
+                console.log("和第几个标签相同", flag);
                 console.log(parseInt(this.$store.state.playStyle.num))
                 if (flag != -1) { //之前已经存在
-                    if (parseInt(this.$store.state.playStyle.num) == flag) {
+                    console.log(parseInt(this.$store.state.playStyle.num), flag)
+                    if (parseInt(this.$store.state.playStyle.num) == flag + 1) {
                         return;
                     }
-                    if (parseInt(this.$store.state.playStyle.num) > flag) {
+                    if (parseInt(this.$store.state.playStyle.num) > flag + 1) {
                         this.$store.state.playStyle.num--;
                     }
                     array.splice(flag, 1);
@@ -131,7 +135,7 @@
             },
             MonitoringData() { //监听vuex中数据的改变
                 //this.clickElement = this.$store.state.playStyle.num;
-                return this.$store.state.playStyle.num;
+                return this.$store.state.playNow.link;
             }
 
         },
@@ -144,13 +148,18 @@
             window.removeEventListener('scroll', this.scrollhandle);
         },
         watch: {
-            MonitoringData() { //监听vuex中数据的改变
-                //this.clickElement = this.$store.state.playStyle.num;
-                // console.log()
-                // console.log(parseInt(this.$store.state.playStyle.num))
-                // this.clickElement= parseInt(this.$store.state.playStyle.num)
-                // for(let i=0;i<)
-            }
+            // MonitoringData() { //监听vuex中数据的改变
+            //     let i = 0;
+            //     for (; i < this.out.length; i++) {
+            //         // console.log(this.out[i].link,this.$store.state.playList[parseInt(this.$store.state.playStyle.num)-1].link)
+            //         if (this.out[i].link == this.$store.state.playList[parseInt(this.$store.state.playStyle.num) - 1].link) {
+            //             this.clickElement = i;
+            //         }
+            //     }
+            //     // if (i == this.out.length) {   ????????
+            //     //     this.clickElement = NaN;
+            //     // }
+            // }
         }
 
     }
@@ -209,23 +218,24 @@
         margin-right: 0.625rem;
 
     }
-
+    .left img{
+        padding: 0 0.625rem;
+    }
     .middle {
         width: 17rem;
         display: inline-block;
-        overflow: hidden;
+        
     }
 
-    .middle p {
+    .left {
+        width: 80vw;
+        display: inline-block;
         overflow: hidden;
+        white-space: nowrap;
         text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        line-height: 1.20rem;
-        -webkit-box-orient: vertical;
     }
 
-    .middle p:nth-of-type(2) {
+    .middle span:nth-of-type(2) {
         color: #AAAAAA
     }
 </style>
