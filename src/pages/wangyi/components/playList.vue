@@ -92,10 +92,12 @@
                     this.$store.state.playStyle.num = 0;
                 } else if (this.$store.state.playList.length + 1 == num && num == parseInt(this.$store.state.playStyle.num)) { //删除最后一个元素 并且最后一个元素在播放
                     this.$store.state.playStyle.num = 1;
-                } else if (num > parseInt(this.$store.state.playStyle.num) || parseInt(this.$store.state.playStyle.num) ==0) { //删除了正在播放的歌曲 或者当前状态没有歌曲播放
-                    this.$store.state.playStyle.num=parseInt(this.$store.state.playStyle.num)+ Math.random();
-                } else if (num < parseInt(this.$store.state.playStyle.num)) { //删除正在播放歌曲后面的歌曲
+                } else if (num > parseInt(this.$store.state.playStyle.num) || parseInt(this.$store.state.playStyle.num) ==0) { //删除了正在播放的歌曲后面的歌曲 或者当前状态没有歌曲播放
+                    
+                } else if (num < parseInt(this.$store.state.playStyle.num)) { //删除正在播放歌曲前面的歌曲
                     this.$store.state.playStyle.num--;
+                }else if(num == parseInt(this.$store.state.playStyle.num)){
+                    this.$store.state.playStyle.num=parseInt(this.$store.state.playStyle.num)+ Math.random();
                 }
                     console.log(this.$store.state.playStyle.num);
             },
