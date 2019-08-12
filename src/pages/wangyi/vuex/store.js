@@ -15,7 +15,7 @@ var state = {
         pic: "",
         url: "",
         name: "",
-        albun: "",
+        album: "",
         singer: "",
         link: "",
         backgroundColor: ""
@@ -25,7 +25,7 @@ var state = {
         playDuration: 0,
         now: 0,
         num: 0,
-        playType: 1
+        playType: 1   //1列表  2随机  3单曲  4.列表单次循环
     },
     playList: []
 }

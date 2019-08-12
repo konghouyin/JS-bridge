@@ -6,47 +6,37 @@
         <transition name="slideDownward">
             <div class="middle">
                 <div class="nav">
-                    <!-- <img src="../assets/loopList.svg"/> -->
-                    <div @click="changePlayType()">
-                        <div v-if="playType==1">
-                            <img src="../assets/loopList.svg" />
-                            <span>循环列表 ( {{playList.length}} )</span>
-                        </div>
-
-                        <div v-else-if="playType==2">
-                            <img src="../assets/randomPlay.svg" />
-                            <span>随机播放 ( {{playList.length}} )</span>
-                        </div>
-
-                        <div v-else-if="playType==3">
-                            <img src="../assets/singleLoop.svg" />
-                            <span>单曲循环 ( {{playList.length}} )</span>
-                        </div>
-
-                        <div v-else-if="playType==4">
-                            <img src="../assets/listLoop.svg" />
-                            <span>列表单次播放 ( {{playList.length}} )</span>
-                        </div>
-
+                    <img src="../assets/loopList.svg" />
+                    <div>
+                        <span>歌曲： ( {{song.name}} )</span>
+                        <p>{{song.singer}}</p>
                     </div>
-                    <!-- <span v-if="playType==1">循环列表 ( {{playList.length}} )</span>
-                    <span v-else-if="playType==2">随机播放 ( {{playList.length}} )</span>
-                    <span v-else-if="playType==3">单曲循环 ( {{playList.length}} )</span>
-                    <span v-else-if="playType==4">列表单次播放 ( {{playList.length}} )</span> -->
-
-                    <img class="empty" src="../assets/trash.svg" @click=" allcut()"/>
                 </div>
-                <div v-if="playList.length==0" style="text-align: center;height: 50.5vh;background-color: whitesmoke;">
+               <!-- <div v-if="song=='{}'" style="text-align: center;height: 50.5vh;background-color: whitesmoke;">
                     亲。。暂无数据
-                </div>
-                <div v-else style="overflow: auto;height: 50.5vh;background-color: whitesmoke;">
-                    <div class="item" v-for="(item,index) in playList" :key="index">
-                        <div style="width: 87vw;" @click="play($event)" :value="index+1">
-                            <img src="../assets/播放.svg" v-if="parseInt($store.state.playStyle.num)==(index+1)">
-                            <!-- {{parseInt($store.state.playStyle.num)}} {{index+1}} -->
-                            <span class="text">{{item.name}}-<span class="singer">{{item.singer}}</span></span>
-                        </div>
-                        <span class="close" :value="index+1" @click="deleteSong($event)">&times;</span>
+                </div> -->
+                <div class="content">
+                    <div>
+                        <img src="../assets/nextSong.svg"/>
+                        <p>下一首播放</p>
+                    </div>
+                    
+                     <div>
+                        <img src="../assets/collection.svg"/>
+                        <p>收藏到歌单</p>
+                    </div>
+                    
+                     <div>
+                        <img src="../assets/download.svg"/>
+                        <p>下载</p>
+                    </div>
+                    <div>
+                        <img src="../assets/singer.svg"/>
+                        <p>歌手: {{song.name}}</p>
+                    </div>
+                    <div>
+                        <img src="../assets/album.svg"/>
+                        <p>专辑: {{song.album}}</p>
                     </div>
                 </div>
             </div>
@@ -61,18 +51,19 @@
             return {
                 playList: [],
                 display: this.displayed,
-                playType: NaN //表单播放的类型
             }
         },
         mounted() {
+            
+            console.log(this.song)
             this.playList = this.$store.state.playList
-            this.playType = this.$store.state.playStyle.playType
 
         },
         computed: {
 
         },
         methods: {
+            
             disappear(e) {
                 event = e.currentTarget;
                 console.log(event)
@@ -104,20 +95,16 @@
                 let num = event.getAttribute("value"); //歌曲的序号 从0开始
 
                 this.$store.state.playStyle.num = (Math.random() + parseInt(num));
-            },
-            changePlayType() {   //改变列表播放的类型
-                this.playType = this.playType + 1 == 5 ? 1 : this.playType + 1;
-                this.$store.state.playStyle.playType = this.playType;
-            },
-            allcut(){
-                this.$store.state.playList=[];
-                this.$store.state.playStyle.num=0
             }
         },
         props: {
             displayed: { //控制子组件的显隐
                 type: Boolean,
                 default: true
+            },
+            song:{
+                type: Object,
+                default: ""
             }
         }
     }
@@ -150,58 +137,59 @@
     .nav {
         display: flex;
         background-color: whitesmoke;
-        border-top: #AAAAAA solid 2px;
-        border-bottom: #AAAAAA solid .5px;
+        border-top: #AAAAAA solid 1px;
+        border-bottom: #AAAAAA solid .1px;
         border-top-right-radius: 1.625rem;
         border-top-left-radius: 1.625rem;
         align-items: center;
+        
     }
-
-    .nav div {
-        display: flex;
-        align-items: center;
+    .nav p{
+        color: #AAAAAA;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
     }
-
     .nav img {
-        width: 1.375rem;
-        padding: 0.75rem;
+        width: 3.125rem;
+        /* padding: 0.625rem; */
+        padding: 1.25rem 0.9375rem;
     }
-
-    .empty {
-        position: absolute;
-        right: 0;
-    }
-
-    .item {
-        padding: 1rem 0.9375rem;
-    }
-
-    .item img {
-        width: 1.25rem;
-        display: inline-block;
-        vertical-align: middle;
-    }
-
-    .text {
-        width: 80vw;
+    .nav span{
+        width: 70vw;
         display: inline-block;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
     }
-
-    .singer {
-        font-size: 0.9375rem;
-        color: #999999;
+    .empty {
+        position: absolute;
+        right: 0;
     }
-
-    .close {
-        color: #999999;
-        font-size: 1.5rem;
-        float: right;
-        line-height: 0;
+    .content{
+        width: 100vw;
+        height: 50vh;
+        background-color: whitesmoke;
     }
-
+    .content div{
+        
+        display: flex;
+        align-items: center; 
+       /* background-color: whitesmoke; */
+    }
+    .content img{
+        width: 1.25rem;
+        padding: 1.0625rem;
+    }
+    .content p{
+        padding: 0.625rem;
+        width: auto;
+        width: 75vw;
+        border-bottom: gainsboro solid .1px;
+        display: inline-block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
     .slideDownward-enter-active {
         transition: all 4s ease;
         bottom: 0;
