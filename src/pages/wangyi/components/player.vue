@@ -8,7 +8,8 @@
         data() {
             return {
                 playnum: -1,
-                firstTime: 0
+                playLink: '',
+                firstTime: 0,
             }
         },
         mounted() {
@@ -29,6 +30,32 @@
                         link: music.link,
                         string: JSON.parse(string).data
                     }).then(res => {
+                        if (res.url == null) {
+                            HN.showModal({
+                                title: '没有这首歌的资源',
+                                content: '我们正在全力获取这首歌的资源，敬请期待',
+                                showCancel: false,
+                                confirmText: '知道了',
+                                confirmColor: '#07c160',
+                                success: (res, style) => {
+                                    this.$store.state.playList.splice(this.$store.state.playStyle
+                                        .num - 1, 1)
+                                    this.$store.state.playStyle.num = this.$store.state.playStyle
+                                        .num - 1 + Math.random()
+                                    if (this.$store.state.playList.length != 0) {
+                                        this.playNext()
+                                    } else {
+                                        this.$store.state.playStyle.num = Math.random()
+                                    }
+                                },
+                                fail: (res, style) => {
+                                    console.log(res)
+                                },
+                                complete: (res, style) => {
+                                    console.log('complete')
+                                }
+                            })
+                        }
                         this.$store.commit('setData', {
                             'playNow': {
                                 pic: res.pic,
@@ -40,16 +67,15 @@
                                 backgroundColor: ""
                             }
                         });
-                        if (this.firstTime != 0) {
+                        try {
                             let obj = this.$store.state.playStyle;
                             obj.playStatus = true
                             this.$store.commit('setData', {
                                 'playStyle': obj
                             })
+                        } catch (e) {
+                            //TODO handle the exception
                         }
-                        this.firstTime = 1;
-
-
 
                         // localStorage.setItem('playNow', {
                         //     pic: res.pic,
@@ -60,7 +86,6 @@
                         //     link: music.link,
                         //     backgroundColor: ""
                         // })
-                        console.log(res, 124)
                     }).catch(error => {
                         console.log('Error', error.message);
                     })
@@ -93,12 +118,40 @@
                 })
             },
             initPlayer() {
-                this.$el.addEventListener('timeupdate',(e)=>{
-                    console.log(e)
+                this.$el.addEventListener('timeupdate', () => {
+                    this.$store.state.playStyle.now = this.$el.currentTime
                 })
-                this.$el.addEventListener('ended',(e)=>{
-                    console.log(e)
+                this.$el.addEventListener('ended', () => {
+                    this.playNext()
                 })
+                this.$el.addEventListener('durationchange', () => {
+                    this.$store.state.playStyle.playDuration = this.$el.duration
+                })
+            },
+            playNext() {
+                if (this.$store.state.playStyle.playType == 1) {
+                    if (Math.floor(this.$store.state.playStyle.num) == this.$store.state.playList.length) {
+                        if (this.$store.state.playList.length == 1) {
+                            this.$store.state.playStyle.playStatus = false
+                            this.$store.state.playStyle.playStatus = true
+                        } else {
+                            this.$store.state.playStyle.num = 1 + Math.random()
+                        }
+                    } else {
+                        this.$store.state.playStyle.num = Math.floor(this.$store.state.playStyle.num) + 1 + Math.random()
+                    }
+                } else if (this.$store.state.playStyle.playType == 2) {
+                    this.$store.state.playStyle.num = Math.random() * (this.$store.state.playList.length) + 1
+                } else if (this.$store.state.playStyle.playType == 3) {
+                    this.$store.state.playStyle.playStatus = false
+                    this.$store.state.playStyle.playStatus = true
+                } else if (this.$store.state.playStyle.playType == 4) {
+                    if (this.$store.state.playStyle.num == this.$store.state.playList.length) {
+                        this.$store.state.playStyle.num = 0 + Math.random()
+                    } else {
+                        this.$store.state.playStyle.num = this.$store.state.playStyle.num + 1 + Math.random()
+                    }
+                }
             },
             initStore() {
                 if (localStorage.playList) {
@@ -110,7 +163,6 @@
                         'playList': []
                     });
                 }
-
                 if (localStorage.playNow) {
                     this.$store.commit('setData', {
                         'playNow': localStorage.playNow
@@ -128,13 +180,13 @@
                         }
                     });
                 }
-
                 if (localStorage.playStyle) {
                     this.$store.commit('setData', {
                         'playStyle': {
                             playStatus: false,
                             playDuration: 0,
                             now: 0,
+                            jump: 0,
                             num: 0,
                             playType: localStorage.playStyle
                         }
@@ -145,6 +197,7 @@
                             playStatus: false,
                             playDuration: 0,
                             now: 0,
+                            jump: 0,
                             num: 0,
                             playType: 1
                         }
@@ -168,18 +221,38 @@
                 return this.$store.state.playNow.url ? this.$store.state.playNow.url : ""
             },
             getStyle() {
-                return this.$store.state.playStyle;
+                return this.$store.state.playStyle.num
+            },
+            getStatus() {
+                return this.$store.state.playStyle.playStatus
+            },
+            getTimeJump() {
+                return this.$store.state.playStyle.jump
             }
         },
         watch: {
-            getStyle() {
-                this.playCtrl()
-                if (this.$store.state.playStyle.num != this.playnum) {
-                    this.playnum = this.$store.state.playStyle.num
-                    this.changeSong()
+            getStatus: {
+                deep: true,
+                handler() {
+                    this.playCtrl()
                 }
+            },
+            getStyle: {
+                deep: true,
+                handler() {
+                    if (this.$store.state.playStyle.num != this.playnum &&
+                        this.$store.state.playList.length > 0 &&
+                        this.playLink != this.$store.state.playList[Math.floor(this.$store.state.playStyle.num) - 1].link
+                    ) {
+                        this.playnum = this.$store.state.playStyle.num
+                        this.playLink = this.$store.state.playList[Math.floor(this.$store.state.playStyle.num) - 1].link
+                        this.changeSong()
+                    }
+
+                }
+            },getTimeJump(e){
+                this.$el.currentTime = e
             }
-            // 是否可以监控具体的某个变量
         }
     }
 </script>

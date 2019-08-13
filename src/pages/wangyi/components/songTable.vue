@@ -23,14 +23,15 @@
                         <span>{{item.singer}}</span>
                     </div>
                 </div>
-                <img src="../assets/更多-灰.svg" class="more" @click="songDetail($event)" :value="item.num-1">  <!-- 点击之后显示纤细歌单 -->
-                
+                <img src="../assets/更多-灰.svg" class="more" @click="songDetail($event)" :value="item.num-1">
+                <!-- 点击之后显示纤细歌单 -->
+
             </div>
-            
+
         </div>
-        
-       <!-- 请求详细的歌单信息 -->
-        <songDetails v-if="showSongDetails"  :song="song" :displayed="showSongDetails" v-on:displayChange="changeDetail($event)"></songDetails>
+
+        <!-- 请求详细的歌单信息 -->
+        <songDetails v-if="showSongDetails" :song="song" :displayed="showSongDetails" v-on:displayChange="changeDetail($event)"></songDetails>
         <!-- <songDetails></songDetails> -->
     </div>
 </template>
@@ -49,9 +50,10 @@
                     start: 1,
                     end: 10,
                 },
+                apilock:0,
                 clickElement: NaN, //播放键当前所点的 下标
-                showSongDetails:false,  //点击显示歌曲的详细信息
-                song:{}   //父向子传值 一个歌曲相信的信息
+                showSongDetails: false, //点击显示歌曲的详细信息
+                song: {} //父向子传值 一个歌曲相信的信息
             }
         },
         props: {
@@ -68,46 +70,46 @@
                 default: 0
             }
         },
-        components:{
+        components: {
             songDetails
         },
         methods: {
             lazyLoad(e) { //懒加载
                 event = e.currentTarget
-                var scrollTop = event.scrollTop;
-
-                if (event.scrollHeight == event.clientHeight + scrollTop) {
-                    this.page.start += 10;
-                    this.page.end += 10;
-                    this.$emit('getPage', this.page);
+                var scrollTop = event.scrollTop
+                if (event.scrollHeight <= event.clientHeight + scrollTop+100 && this.apilock<event.scrollHeight ) {
+                    this.apilock = event.scrollHeight
+                    this.page.start += 10
+                    this.page.end += 10
+                    this.$emit('getPage', this.page)
                 }
             },
             scrollhandle() { //监听屏幕滚动效果
                 if (window.scrollY < 13.7 * 16) {
-                    this.style.overflow = "hidden"
-                    this.style.overflowY = ""
+                    this.style.overflow = 'hidden'
+                    this.style.overflowY = ''
 
                 } else if (window.scrollY > 13.7 * 16) {
-                    this.style.overflow = ""
-                    this.style.overflowY = "auto"
+                    this.style.overflow = ''
+                    this.style.overflowY = 'auto'
                 }
             },
             getScrollHeight() { //获取记算滚动区的高度
                 var h = document.documentElement.clientHeight || document.body.clientHeight;
-                this.divHeight = h - 3.045 * 16;
+                this.divHeight = h - 3.045 * 16
             },
 
             addList(e) { //点击歌曲播放添加到歌单列表
-                event = e.currentTarget;
-                let value = event.getAttribute("value");
-                this.clickElement = value;
+                event = e.currentTarget
+                let value = event.getAttribute('value')
+                this.clickElement = value
 
                 var array = this.$store.state.playList
-                let flag = -1;
+                let flag = -1
                 for (let i = 0; i < array.length; i++) {
                     if (array[i].link == this.out[value].link) {
-                        flag = i;
-                        break;
+                        flag = i
+                        break
                     }
                 }
                 // console.log("和第几个标签相同", flag);
@@ -120,15 +122,16 @@
                     if (parseInt(this.$store.state.playStyle.num) > flag + 1) {
                         this.$store.state.playStyle.num--;
                     }
-                    array.splice(flag, 1);
+                    array.splice(flag, 1)
                 }
-                //console.log(this.$store.state.playList.length);
+                this.$store.state.playStyle.playStatus = true
                 let song = {
                     name: this.out[value].name,
                     singer: this.out[value].singer,
                     album: this.out[value].album,
                     link: this.out[value].link
                 }
+
                 this.$store.commit('addPlayList', song);
 
 
@@ -136,24 +139,26 @@
                 // obj.num = 1+Math.random()
                 // this.$store.commit('setData', {playStyle:obj});
 
-            },changeDetail(e){
+            },
+            changeDetail(e) {
                 // console.log(e)
-                this.showSongDetails=false
-            },songDetail(e){   //请求歌曲的详细信息
-                 event = e.currentTarget;
+                this.showSongDetails = false
+            },
+            songDetail(e) { //请求歌曲的详细信息
+                event = e.currentTarget;
                 let num = event.getAttribute("value"); //歌曲的序号 从0开始
                 // console.log(num)
                 // console.log(this.out[num]);
-                
-                this.song={
-                     pic: "",
-                     name: this.out[num].name,
-                     album: this.out[num].album,
-                     singer: this.out[num].singer,
-                     link: this.out[num].link,
+
+                this.song = {
+                    pic: "",
+                    name: this.out[num].name,
+                    album: this.out[num].album,
+                    singer: this.out[num].singer,
+                    link: this.out[num].link,
                 }
-                
-                this.showSongDetails=true
+
+                this.showSongDetails = true
             }
         },
         computed: {
@@ -245,13 +250,15 @@
         margin-right: 0.625rem;
 
     }
-    .left img{
+
+    .left img {
         padding: 0 0.625rem;
     }
+
     .middle {
         width: 17rem;
         display: inline-block;
-        
+
     }
 
     .left {

@@ -24,6 +24,7 @@ var state = {
         playStatus: false,
         playDuration: 0,
         now: 0,
+		jump:0,
         num: 0,
         playType: 1   //1列表  2随机  3单曲  4.列表单次循环
     },

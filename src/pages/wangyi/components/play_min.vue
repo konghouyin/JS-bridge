@@ -5,17 +5,19 @@
             <marquee class="name message" :text="playName"></marquee>
             <marquee class="album message" :text="playSinger"></marquee>
         </div>
-        <div class="list"></div>
+        <div class="list" @click="showSongList=true"></div>
         <div class="btn" @click="playerCtrl" :style="'backgroundImage:url('+playerCtrlBtn+')'"></div>
+        <playList v-if="showSongList" :displayed="showSongList" v-on:displayChange="changedisplay($event)"></playList>
     </div>
 </template>
 
 <script>
+    import playList from "./playList"
     import marquee from './marquee'
     export default {
         data() {
             return {
-
+                showSongList: false
             }
         },
         computed: {
@@ -47,10 +49,15 @@
                 this.$store.commit('setData', {
                     'playStyle': obj
                 })
+            },
+            changedisplay(e) {
+                // console.log(e)
+                this.showSongList = false
             }
         },
         components: {
-            marquee
+            marquee,
+            playList
         }
     }
 </script>

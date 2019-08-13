@@ -86,7 +86,7 @@ function callbackApply(msg) {
             callbackPool[id].test(id, style)
         }
     }
-    delete callbackPool[id]
+    callbackPool[id]=null
     now--
 }
 
@@ -172,7 +172,7 @@ function clearContinuousCallback(context, callbackId, type, success, fail, compl
             type,
             complete,
             end: function(continuousCallbackId) {
-                delete changePool[continuousCallbackId]
+                changePool[continuousCallbackId]=null
                 nowChange--
             }
         }
