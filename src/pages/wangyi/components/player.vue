@@ -38,10 +38,11 @@
                                 confirmText: '知道了',
                                 confirmColor: '#07c160',
                                 success: (res, style) => {
-                                    this.playList.splice(this.$store.state.playStyle.num - 1, 1);
-                                    if(this.$store.state.playList.length!=0){
-                                         this.playNext()
-                                    }else{
+                                    this.$store.state.playList.splice(this.$store.state.playStyle.num - 1, 1)
+                                    this.$store.state.playStyle.num = this.$store.state.playStyle.num-1+Math.random()
+                                    if (this.$store.state.playList.length != 0) {
+                                        this.playNext()
+                                    } else {
                                         this.$store.state.playStyle.num = Math.random()
                                     }
                                 },
@@ -126,13 +127,19 @@
             playNext() {
                 if (this.$store.state.playStyle.playType == 1) {
                     if (Math.floor(this.$store.state.playStyle.num) == this.$store.state.playList.length) {
-                        this.$store.state.playStyle.num = 1 + Math.random()
+                        if (this.$store.state.playList.length == 1) {
+                            this.$store.state.playStyle.playStatus = false
+                            this.$store.state.playStyle.playStatus = true
+                        } else {
+                            this.$store.state.playStyle.num = 1 + Math.random()
+                        }
                     } else {
                         this.$store.state.playStyle.num = Math.floor(this.$store.state.playStyle.num) + 1 + Math.random()
                     }
                 } else if (this.$store.state.playStyle.playType == 2) {
-                    this.$store.state.playStyle.num = Math.random() * (this.$store.state.playList.length + 1)
+                    this.$store.state.playStyle.num = Math.random() * (this.$store.state.playList.length)+1
                 } else if (this.$store.state.playStyle.playType == 3) {
+                    this.$store.state.playStyle.playStatus = false
                     this.$store.state.playStyle.playStatus = true
                 } else if (this.$store.state.playStyle.playType == 4) {
                     if (this.$store.state.playStyle.num == this.$store.state.playList.length) {
