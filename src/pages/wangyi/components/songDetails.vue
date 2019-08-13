@@ -6,7 +6,8 @@
         <transition name="slideDownward">
             <div class="middle">
                 <div class="nav">
-                    <img src="../assets/loopList.svg" />
+                    <img v-if="pic==''" src="../assets/music_logo.svg"/>
+                    <img v-else :src="pic" />
                     <div>
                         <span>歌曲： ( {{song.name}} )</span>
                         <p>{{song.singer}}</p>
@@ -46,21 +47,37 @@
 </template>
 
 <script>
+        import Axios from '../axios'
     export default {
         data() {
             return {
                 playList: [],
                 display: this.displayed,
+                pic:""
+                // pic:require("../assets/loopList.svg")
             }
         },
         mounted() {
-            
+            console.log(this.getSongPic)
             // console.log(this.song)
             this.playList = this.$store.state.playList
 
         },
         computed: {
-
+            getSongPic(){  //查询歌曲的图片
+                var api = "http://132.232.169.227:1531/path//getSongPic?link=" + this.song.link
+                console.log(api)
+                Axios.send(api, 'get').then(res => {
+                    // console.log(res);
+                  // return({pic:res.pic});
+                  // return res;
+                  
+                  console.log(res.pic);
+                  this.pic=res.pic
+                }).catch(error => {
+                    console.log('Error', error.message);
+                })
+            }
         },
         methods: {
             
@@ -109,7 +126,7 @@
                         break;
                     }
                 }
-                
+                 // getSongPic()
                  let nextSong={
                       pic: "",
                       name: this.song.name,
@@ -118,7 +135,7 @@
                       link: this.song.link,
                  }
                  
-                 console.log("jhjhj")
+                 // console.log("jhjhj")
                 if(this.$store.state.playList.length==0){  //当前歌单内没有歌曲 加入下一首直接播放
                 //console.log("jhjjkhjk")
                     this.$store.state.playList.splice(parseInt(this.$store.state.playStyle.num), 0, nextSong);
@@ -145,7 +162,8 @@
                 //     link: this.song.link
                 // }
                 this.$store.commit('nextPlaySong', nextSong);
-            }
+            },
+            
         },
         props: {
             displayed: { //控制子组件的显隐
@@ -186,6 +204,7 @@
 
     .nav {
         display: flex;
+        height: 5.625rem;
         background-color: whitesmoke;
         border-top: #AAAAAA solid 1px;
         border-bottom: #AAAAAA solid .1px;

@@ -7,7 +7,7 @@
             <div class="right">{{titleRight}}</div>
         </div>
         <div class="show" v-if="getMessageList.length==0">loading...</div>
-        <songsBlock v-bind:messageList="getMessageList" :showNum="showNum"></songsBlock>
+        <songsBlock v-bind:messageList="getMessageList" :showNum="showNum" :type="type"></songsBlock>
     </div>
 </template>
 

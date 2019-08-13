@@ -1,106 +1,118 @@
- .nav {
-        padding: 0.7375rem 0;
-        color: white;
-        display: flex;
-        top: 0;
-        align-items: center;
-        position: fixed;
-        background: rgba(0, 0, 0, 0.1);
-        font-size: 1.125rem;
-        justify-content: center;
-        width: 100%;
-        z-index: .5;
-    }
+.nav {
+     padding: 0.7375rem 0;
+     color: white;
+     display: flex;
+     top: 0;
+     align-items: center;
+     position: fixed;
+     background: rgba(0, 0, 0, 0.1);
+     font-size: 1.125rem;
+     justify-content: center;
+     width: 100%;
+     z-index: .5;
+ }
 
-    .nav span,
-    marquee {
-        width: 75%;
-        margin: 0 0.5625rem;
-        text-align: left;
-    }
+ .nav span,
+ marquee {
+     width: 75%;
+     margin: 0 0.5625rem;
+     text-align: left;
+ }
 
-    .nav img {
-        width: 1.25rem;
-        z-index: 5;
-        vertical-align: center;
-    }
+ .nav img {
+     width: 1.25rem;
+     z-index: 5;
+     vertical-align: center;
+ }
 
-    .roll {
-        white-space: nowrap;
-        animation: 30s wordsLoop linear infinite normal;
-    }
+ .roll {
+     white-space: nowrap;
+     animation: 30s wordsLoop linear infinite normal;
+ }
 
-    .bg-blur {
-        height: 18.75rem;
-        width: 100%;
-        background-repeat: no-repeat;
-         /* background-color: rgba(0,0,0,1); */
-        background-position: center;
-        background-size: cover;
-        -webkit-filter: blur(0.733rem);
-        -moz-filter: blur(0.733rem);
-        -o-filter: blur(0.733rem);
-        -ms-filter: blur(0.733rem);
-        filter: blur(0.733rem);
-    }
+ .bg-blur {
+     height: 18.75rem;
+     width: 100%;
+     background-repeat: no-repeat;
+     /* background-color: rgba(0,0,0,1); */
+     background-position: center;
+     background-size: cover;
+     -webkit-filter: blur(0.733rem);
+     -moz-filter: blur(0.733rem);
+     -o-filter: blur(0.733rem);
+     -ms-filter: blur(0.733rem);
+     filter: blur(0.733rem);
+ }
 
-    .top {
-        padding: 1.9375rem 0.625rem;
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-around;
-        margin-top:3.75rem
-    }
+ .top {
+     padding: 1.9375rem 0.625rem;
+     display: flex;
+     align-items: flex-start;
+     justify-content: space-around;
+     margin-top: 3.75rem
+ }
 
-    .content-front {
-        position: absolute;
-        width: 100%;
-        height: 19.75rem;
-        background-color: rgba(0,0,0,.05);
-        top: 0rem;
-       
-    }
+ .content-front {
+     position: absolute;
+     width: 100%;
+     height: 19.75rem;
+     background-color: rgba(0, 0, 0, .05);
+     top: 0rem;
 
-    .titlePic {
-        width: 9.375rem;
-        height: 9.375rem;
-        display: inline-block;
-        /* background-size: 0 auto; */
-        background-size:100% 100%;
-        
-    }
+ }
 
-    .titlePic img {
-        width: 1.25rem;
-        height: 1.25rem;
-        float: right;
-        margin-top: 0.3125rem;
-    }
+ .titlePic {
+     width: 8.75rem;
+     height: 8.75rem;
+     display: inline-block;
+     /* background-size: 0 auto; */
+     background-size: 100% 100%;
 
-    .titlePic span {
-        float: right;
-        margin: 0.4375rem 0.4375rem 0 0;
-        color: white;
-    }
+ }
 
-    .title {
-        width: 9.375rem;
-    }
+ .titlePic img {
+     width: 1.25rem;
+     height: 1.25rem;
+     float: right;
+     margin-top: 0.3125rem;
+ }
 
-    .title img {
-        width: 1.3625rem;
-        margin: 1.7375rem 0.9375rem 0.3125rem;
-    }
+ .titlePic span {
+     float: right;
+     margin: 0.4375rem 0.4375rem 0 0;
+     color: white;
+ }
 
-    .title span {
-        color: white;
-        margin: 0 0.755rem 0.3125rem;
-        font-size: 0.87rem;
-        opacity: .7;
-    }
+ .title {
+     width: 9.375rem;
+ }
 
-    .title p {
-        font-size: 1.05rem;
-        color: white;
-       line-height: 1.75rem;
-    }
+ .title img {
+     width: 1.3625rem;
+     margin: 1.7375rem 0.9375rem 0.3125rem;
+ }
+
+ .title span {
+     color: white;
+     margin: 0 0.755rem 0.3125rem;
+     font-size: 0.87rem;
+     opacity: .7;
+ }
+
+ .title p {
+     font-size: 1.05rem;
+     color: white;
+     line-height: 1.75rem;
+ }
+
+ .top-title,.top-second {
+     width: 100%;
+     display: inline-block;
+     overflow: hidden;
+     white-space: nowrap;
+     text-overflow: ellipsis;
+ }
+#top-second{
+    font-size: 0.875rem;
+    color: lightgray;
+}

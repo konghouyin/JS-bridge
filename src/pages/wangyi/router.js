@@ -7,7 +7,8 @@ import rankingList from './components/rankingList'
 import taste from './components/taste'
 import songList from './components/songList'
 import swiper from './components/swiper.vue'
-
+import moreNewDisks from './components/moreNewDisks'
+import lyricsSquare from './components/lyricsSquare.vue'
 
 
 Vue.use(Router)
@@ -39,5 +40,13 @@ export default new Router({
         path: '/songList',
         name: 'songList',
         component: songList,
+    },{
+        path: '/moreNewDisks',
+        name: 'moreNewDisks',
+        component: moreNewDisks,
+    },{
+        path: '/lyricsSquare',
+        name: 'lyricsSquare',
+        component: lyricsSquare,
     }]
 })

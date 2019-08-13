@@ -30,6 +30,10 @@
             showNum: {
                 type: Boolean,
                 default: true
+            },
+            type:{
+                type:String,
+                default:'playList'
             }
         },
         methods: {
@@ -38,7 +42,8 @@
                 this.$router.replace({
                     path: '/songList',
                     query: {
-                        id: target
+                        id: target,
+                        type:this.type,
                     }
                 });
             }
