@@ -38,8 +38,10 @@
                                 confirmText: '知道了',
                                 confirmColor: '#07c160',
                                 success: (res, style) => {
-                                    this.$store.state.playList.splice(this.$store.state.playStyle.num - 1, 1)
-                                    this.$store.state.playStyle.num = this.$store.state.playStyle.num-1+Math.random()
+                                    this.$store.state.playList.splice(this.$store.state.playStyle
+                                        .num - 1, 1)
+                                    this.$store.state.playStyle.num = this.$store.state.playStyle
+                                        .num - 1 + Math.random()
                                     if (this.$store.state.playList.length != 0) {
                                         this.playNext()
                                     } else {
@@ -84,7 +86,6 @@
                         //     link: music.link,
                         //     backgroundColor: ""
                         // })
-                        console.log(res, 124)
                     }).catch(error => {
                         console.log('Error', error.message);
                     })
@@ -117,11 +118,14 @@
                 })
             },
             initPlayer() {
-                this.$el.addEventListener('timeupdate', (e) => {
-                    this.$store.state.playStyle.now = e.timeStamp
+                this.$el.addEventListener('timeupdate', () => {
+                    this.$store.state.playStyle.now = this.$el.currentTime
                 })
-                this.$el.addEventListener('ended', (e) => {
+                this.$el.addEventListener('ended', () => {
                     this.playNext()
+                })
+                this.$el.addEventListener('durationchange', () => {
+                    this.$store.state.playStyle.playDuration = this.$el.duration
                 })
             },
             playNext() {
@@ -137,7 +141,7 @@
                         this.$store.state.playStyle.num = Math.floor(this.$store.state.playStyle.num) + 1 + Math.random()
                     }
                 } else if (this.$store.state.playStyle.playType == 2) {
-                    this.$store.state.playStyle.num = Math.random() * (this.$store.state.playList.length)+1
+                    this.$store.state.playStyle.num = Math.random() * (this.$store.state.playList.length) + 1
                 } else if (this.$store.state.playStyle.playType == 3) {
                     this.$store.state.playStyle.playStatus = false
                     this.$store.state.playStyle.playStatus = true
@@ -159,7 +163,6 @@
                         'playList': []
                     });
                 }
-
                 if (localStorage.playNow) {
                     this.$store.commit('setData', {
                         'playNow': localStorage.playNow
@@ -177,13 +180,13 @@
                         }
                     });
                 }
-
                 if (localStorage.playStyle) {
                     this.$store.commit('setData', {
                         'playStyle': {
                             playStatus: false,
                             playDuration: 0,
                             now: 0,
+                            jump: 0,
                             num: 0,
                             playType: localStorage.playStyle
                         }
@@ -194,6 +197,7 @@
                             playStatus: false,
                             playDuration: 0,
                             now: 0,
+                            jump: 0,
                             num: 0,
                             playType: 1
                         }
@@ -221,6 +225,9 @@
             },
             getStatus() {
                 return this.$store.state.playStyle.playStatus
+            },
+            getTimeJump() {
+                return this.$store.state.playStyle.jump
             }
         },
         watch: {
@@ -233,7 +240,6 @@
             getStyle: {
                 deep: true,
                 handler() {
-                    console.log('changeernum')
                     if (this.$store.state.playStyle.num != this.playnum &&
                         this.$store.state.playList.length > 0 &&
                         this.playLink != this.$store.state.playList[Math.floor(this.$store.state.playStyle.num) - 1].link
@@ -244,6 +250,8 @@
                     }
 
                 }
+            },getTimeJump(e){
+                this.$el.currentTime = e
             }
         }
     }
