@@ -54,8 +54,8 @@
                 Axios.send(api, 'get').then(res => {
 
                     this.allnumber = res.all;
-                    // this.getMessageList = res.list
                     res.list.forEach((data) => {
+                        data.pic+="?param=140y140par"
                         this.getMessageList.push(data)
                     })
                     this.load=false;
@@ -70,13 +70,13 @@
                 // console.log(event.scrollHeight, event.clientHeight, scrollTop + 100, this.apilock)
                 if (event.scrollHeight <= event.clientHeight + scrollTop + 100 && this.apilock < event.scrollHeight) {
                     this.apilock = event.scrollHeight
-                    this.page.start += 30 
+                    this.page.start += 30
                     this.page.end += 30
                     this.send(this.content.type);
                     // this.$emit('getPage', this.page)
                 }
             },
-           
+
         },
         mounted() {
             // console.log(this.$route.query.moreContent)
