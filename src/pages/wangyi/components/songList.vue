@@ -13,17 +13,17 @@
                     <marquee v-else> <span direction=left scrollamount=.1 scrolldelay=500>{{title.name}}</span>
                     </marquee>
 
-                    <img src="../assets/搜索-白.svg" />
+                    <img src="../assets/搜索-白.svg"/>
                 </div>
                 <div class="top">
                     <div class="titlePic" :style="{backgroundImage:'url('+title.pic+')'}">
                         <span>{{title.num}}</span>
-                        <img src="../assets/播放.svg" v-if="type=='playList'" />
+                        <img src="../assets/播放.svg" v-if="type!='album'" />
                     </div>
 
                     <div class="title">
-                        <p v-if="type=='playList'">{{title.name}}</p>
-                        <div v-if="type=='album'">
+                        <p v-if="type!='album'">{{title.name}}</p>
+                        <div v-else>
                             <p class="top-title">{{title.name}}</p>
                             <p id="top-second">歌手: {{out[0].singer}}</p>
                         </div>
@@ -70,12 +70,12 @@
                 showSongList: false,
                 showType: {
                     album: "getAlbumListMain",
-                    swiper: "",
+                    topList: "getTopListMain",
                     playList: "getPlayListMain"
                 },
                 topTitle: {
                     album: "专辑",
-                    swiper: "",
+                    topList: "歌单",
                     playList: "歌单"
                 },
                 type: ""

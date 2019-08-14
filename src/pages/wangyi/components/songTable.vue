@@ -50,7 +50,7 @@
                     start: 1,
                     end: 10,
                 },
-                apilock:0,
+                apilock:0,  //移动的锁
                 clickElement: NaN, //播放键当前所点的 下标
                 showSongDetails: false, //点击显示歌曲的详细信息
                 song: {} //父向子传值 一个歌曲相信的信息

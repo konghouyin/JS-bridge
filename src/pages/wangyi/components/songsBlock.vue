@@ -2,7 +2,7 @@
 
 
 <template>
-    <div class="main">
+    <div class="main" @scroll="lazyLoad($event)">
         <div class="item" v-for="(each,index) in messageList" :key="index" @click="routerSongList(each.link)">
             <div class="pic" :style="'background-image: url('+ each.pic +');'"></div>
             <div class="name">{{each.name}}</div>

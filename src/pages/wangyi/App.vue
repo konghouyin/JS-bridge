@@ -4,7 +4,7 @@
         <transition name="component-fade" mode="out-in">
             <router-view />
         </transition>
-        <player></player>
+       <!-- <player></player> -->
     </div>
 </template>
 
@@ -33,3 +33,7 @@
         opacity: 0;
     }
 </style>
+
+
+<!-- ('b'+'a'+ + 'a'+'a').toLowerCase()
+"banana" -->

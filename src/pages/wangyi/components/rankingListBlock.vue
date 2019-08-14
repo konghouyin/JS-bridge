@@ -1,6 +1,6 @@
 <template>
     <div class="wrap">
-        <div class="each" v-for="(item,index) in messageList" :key="index">
+        <div class="each" v-for="(item,index) in messageList" :key="index" @click="routerSongList(item.link)">
             <div class="pic" :style="'background-image:url('+ item.pic +');'"></div>
             <div class="message">
                 <div class="item">{{"1."+item.msg[0].name+" - "+item.msg[0].album}}</div>
@@ -17,6 +17,18 @@
             return {
 
             }
+        },
+        methods:{
+          routerSongList(target) {
+              // console.log(target)
+              this.$router.replace({
+                  path: '/songList',
+                  query: {
+                      id: target,
+                      type:'topList',
+                  }
+              });
+          }  
         },
         props: {
             messageList: {

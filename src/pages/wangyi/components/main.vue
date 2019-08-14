@@ -34,7 +34,7 @@
         },
         methods: {
             switchVue(event) {
-                console.log(event.target.getAttribute("value"), this.value)
+                // console.log(event.target.getAttribute("value"), this.value)
                 if (event.target.getAttribute("value") > this.value) {
                     this.transName = "slide-left" //左转
                 } else {

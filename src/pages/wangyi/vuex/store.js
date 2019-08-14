@@ -24,7 +24,6 @@ var state = {
         playStatus: false,
         playDuration: 0,
         now: 0,
-		jump:0,
         num: 0,
         playType: 1   //1列表  2随机  3单曲  4.列表单次循环
     },
@@ -64,7 +63,7 @@ var mutations = {
 
         state.playList.splice(parseInt(state.playStyle.num), 0, msg);
         state.playStyle.num = parseInt(state.playStyle.num) + 1 + Math.random();
-         console.log(state.playList,state.playStyle.num);
+         // console.log(state.playList,state.playStyle.num);
     },
     nextPlaySong: function(content, msg) { //添加到正在播放歌曲的后面，并设置为正在播放
 

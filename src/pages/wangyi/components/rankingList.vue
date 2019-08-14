@@ -3,7 +3,7 @@
         <div class="title">推荐榜单</div>
         <rankingListBlock :messageList="sixList"></rankingListBlock>
         <div class="title">全部榜单</div>
-        <songsBlock v-bind:messageList="topList.taste" :showNum="false"></songsBlock>
+        <songsBlock v-bind:messageList="topList.taste" :showNum="false" type="topList"></songsBlock>
     </div>
 </template>
 

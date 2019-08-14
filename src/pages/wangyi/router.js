@@ -7,9 +7,8 @@ import rankingList from './components/rankingList'
 import taste from './components/taste'
 import songList from './components/songList'
 import swiper from './components/swiper.vue'
-import moreNewDisks from './components/moreNewDisks'
-import lyricsSquare from './components/lyricsSquare.vue'
-
+import moreContent from './components/moreContent'
+import recommendSong from './components/recommendSong'
 
 Vue.use(Router)
 
@@ -41,12 +40,12 @@ export default new Router({
         name: 'songList',
         component: songList,
     },{
-        path: '/moreNewDisks',
-        name: 'moreNewDisks',
-        component: moreNewDisks,
+        path: '/moreContent',
+        name: 'moreContent',
+        component: moreContent,
     },{
-        path: '/lyricsSquare',
-        name: 'lyricsSquare',
-        component: lyricsSquare,
+        path: '/recommendSong',
+        name: 'recommendSong',
+        component: recommendSong,
     }]
 })
