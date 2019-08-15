@@ -10,12 +10,13 @@
             <songsBlock :messageList="getMessageList" :showNum="content.showNum" :type="content.type"></songsBlock>
             <div v-if="load" class="load">....loading</div>
         </div>
-
+        <cardturn :autoplay="false"></cardturn>
     </div>
 </template>
 
 <script>
     import songsBlock from "./songsBlock"
+    import cardturn from "./cardturn"
     import Axios from '../axios'
     export default {
         data() {
@@ -89,7 +90,7 @@
         },
         components: {
             songsBlock,
-
+            cardturn
         }
     }
 </script>
