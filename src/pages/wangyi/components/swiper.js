@@ -80,14 +80,14 @@ export default class VueTouch {
         let _angle = this.getAngle(_disX, _disY)
         if ((_dis > 60 && _timeDis < 350) || _dis > 200) {
             if (_angle <= 20 && _angle >= -20) {
-                g.callBack.end(e, -1)
+                g.callBack.end(e, -1,_timeDis)
             } else if ((_angle <= -160 && _angle > -180) || (_angle >= 160 && _angle <= 180)) {
-                g.callBack.end(e, 1)
+                g.callBack.end(e, 1,_timeDis)
             } else {
-                g.callBack.end(e, 0)
+                g.callBack.end(e, 0,_timeDis)
             }
         } else {
-            g.callBack.end(e, 0)
+            g.callBack.end(e, 0,_timeDis)
         }
     }
 
