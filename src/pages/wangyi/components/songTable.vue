@@ -14,7 +14,7 @@
                 . . .loading
             </div>
 
-            <div v-else class="item" v-for="(item,index) in getData" :key="item.num-1">
+            <div v-else class="item" v-for="(item) in getData" :key="item.num-1">
                 <div class="left" @click="addList($event)" :value="item.num-1">
                     <img src="../assets/播放.svg" v-if="MonitoringData==item.link">
                     <div class="roll" v-else>{{item.num}}</div>
@@ -37,29 +37,28 @@
 </template>
 
 <script>
-    import songDetails from "./songDetails"
+    import songDetails from './songDetails'
     export default {
         data() {
             return {
                 divHeight: 0,
                 style: {
-                    overflowY: "",
-                    overflow: "hidden"
+                    overflowY: '',
+                    overflow: 'hidden'
                 },
                 page: {
                     start: 1,
-                    end: 10,
+                    end: 10
                 },
-                apilock:0,  //移动的锁
-                clickElement: NaN, //播放键当前所点的 下标
-                showSongDetails: false, //点击显示歌曲的详细信息
-                song: {} //父向子传值 一个歌曲相信的信息
+                apilock: 0, // 移动的锁
+                clickElement: NaN, // 播放键当前所点的 下标
+                showSongDetails: false, // 点击显示歌曲的详细信息
+                song: {} // 父向子传值 一个歌曲相信的信息
             }
         },
         props: {
             out: {
-                type: Array,
-                default: [],
+                type: Array
             },
             lazyloaded: {
                 type: Boolean,
@@ -74,33 +73,32 @@
             songDetails
         },
         methods: {
-            lazyLoad(e) { //懒加载
-                event = e.currentTarget
+            lazyLoad(e) { // 懒加载
+                let event = e.currentTarget
                 var scrollTop = event.scrollTop
-                if (event.scrollHeight <= event.clientHeight + scrollTop+100 && this.apilock<event.scrollHeight ) {
+                if (event.scrollHeight <= event.clientHeight + scrollTop + 100 && this.apilock < event.scrollHeight) {
                     this.apilock = event.scrollHeight
                     this.page.start += 10
                     this.page.end += 10
                     this.$emit('getPage', this.page)
                 }
             },
-            scrollhandle() { //监听屏幕滚动效果
+            scrollhandle() { // 监听屏幕滚动效果
                 if (window.scrollY < 13.7 * 16) {
                     this.style.overflow = 'hidden'
                     this.style.overflowY = ''
-
                 } else if (window.scrollY > 13.7 * 16) {
                     this.style.overflow = ''
                     this.style.overflowY = 'auto'
                 }
             },
-            getScrollHeight() { //获取记算滚动区的高度
-                var h = document.documentElement.clientHeight || document.body.clientHeight;
+            getScrollHeight() { // 获取记算滚动区的高度
+                var h = document.documentElement.clientHeight || document.body.clientHeight
                 this.divHeight = h - 3.045 * 16
             },
 
-            addList(e) { //点击歌曲播放添加到歌单列表
-                event = e.currentTarget
+            addList(e) { // 点击歌曲播放添加到歌单列表
+                let event = e.currentTarget
                 let value = event.getAttribute('value')
                 this.clickElement = value
 
@@ -114,13 +112,13 @@
                 }
                 // console.log("和第几个标签相同", flag);
                 // console.log(parseInt(this.$store.state.playStyle.num))
-                if (flag != -1) { //之前已经存在
+                if (flag != -1) { // 之前已经存在
                     // console.log(parseInt(this.$store.state.playStyle.num), flag)
                     if (parseInt(this.$store.state.playStyle.num) == flag + 1) {
-                        return;
+                        return
                     }
                     if (parseInt(this.$store.state.playStyle.num) > flag + 1) {
-                        this.$store.state.playStyle.num--;
+                        this.$store.state.playStyle.num--
                     }
                     array.splice(flag, 1)
                 }
@@ -131,31 +129,28 @@
                     album: this.out[value].album,
                     link: this.out[value].link
                 }
-
-                this.$store.commit('addPlayList', song);
-
+                this.$store.commit('addPlayList', song)
 
                 // let obj = this.$store.state.playStyle;
                 // obj.num = 1+Math.random()
                 // this.$store.commit('setData', {playStyle:obj});
-
             },
             changeDetail(e) {
                 // console.log(e)
                 this.showSongDetails = false
             },
-            songDetail(e) { //请求歌曲的详细信息
-                event = e.currentTarget;
-                let num = event.getAttribute("value"); //歌曲的序号 从0开始
+            songDetail(e) { // 请求歌曲的详细信息
+                let event = e.currentTarget
+                let num = event.getAttribute('value') // 歌曲的序号 从0开始
                 // console.log(num)
                 // console.log(this.out[num]);
 
                 this.song = {
-                    pic: "",
+                    pic: '',
                     name: this.out[num].name,
                     album: this.out[num].album,
                     singer: this.out[num].singer,
-                    link: this.out[num].link,
+                    link: this.out[num].link
                 }
 
                 this.showSongDetails = true
@@ -165,19 +160,18 @@
             getData() {
                 return (this.out)
             },
-            MonitoringData() { //监听vuex中数据的改变
-                //this.clickElement = this.$store.state.playStyle.num;
-                return this.$store.state.playNow.link;
+            MonitoringData() { // 监听vuex中数据的改变
+                // this.clickElement = this.$store.state.playStyle.num;
+                return this.$store.state.playNow.link
             }
 
         },
         mounted() {
-            window.addEventListener('scroll', this.scrollhandle);
+            window.addEventListener('scroll', this.scrollhandle)
             this.getScrollHeight()
-
         },
         beforeDestroy() {
-            window.removeEventListener('scroll', this.scrollhandle);
+            window.removeEventListener('scroll', this.scrollhandle)
         },
         watch: {
             // MonitoringData() { //监听vuex中数据的改变
@@ -206,12 +200,13 @@
     .all {
         height: 41.25rem;
         width: 100%;
+        margin-bottom: 2.5rem;
         border-top: #AAAAAA solid 2px;
         border-top-right-radius: 1.625rem;
         border-top-left-radius: 1.625rem;
         overflow: hidden;
         background-color: #F8F8F8;
-        /* z-index: 4; */
+        position: relative;
     }
 
     .all::-webkit-scrollbar {

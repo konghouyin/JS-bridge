@@ -1,25 +1,33 @@
 <template>
     <div class="wrap" v-swiper="{move,end}">
-        <div class="card" :style="styleList['style'+(index%3)]" ref="card1">1</div>
-        <div class="card" :style="styleList['style'+((index+1)%3)]" ref="card2">2</div>
-        <div class="card" :style="styleList['style'+((index+2)%3)]" ref="card3">3</div>
+        <div class="card" :style="styleList['style'+(index%3)]" ref="card1">
+            <cardMain :message="message[0]" :type="type"></cardMain>
+        </div>
+        <div class="card" :style="styleList['style'+((index+1)%3)]" ref="card2">
+            <cardMain :message="message[1]" :type="type"></cardMain>
+        </div>
+        <div class="card" :style="styleList['style'+((index+2)%3)]" ref="card3">
+            <cardMain :message="message[2]" :type="type"></cardMain>
+        </div>
     </div>
 </template>
 
 <script>
+    import cardMain from './cardMain'
     export default {
         data() {
             return {
                 styleList: {
-                    "style0": {
+                    'style0': {
                         transform: 'scale(1.3)',
-                        opacity: '1'
+                        opacity: '1',
+                        zIndex: '2'
                     },
-                    "style1": {
+                    'style1': {
                         transform: 'translateX(-25vw)',
                         opacity: '0.5'
                     },
-                    "style2": {
+                    'style2': {
                         transform: 'translateX(25vw)',
                         opacity: '0.5'
                     }
@@ -28,6 +36,12 @@
             }
         },
         props: {
+            type: {
+                type: String
+            },
+            message: {
+                type: Array
+            },
             autoplay: {
                 type: Boolean,
                 default: false
@@ -66,44 +80,43 @@
                 this.index += num
             },
             animation(num) {
-                let step = num / 300;
+                let step = num / 300
                 if (num < 0) {
                     this.styleList = Object.assign({}, {
-                        "style0": {
-                            transform: 'scale(' + (1.3 - Math.abs(step) * 0.3 < 1 ? "1" : 1.3 - Math.abs(step) *
-                                0.3 + "") + ') translateX(' + (step * 25 < -25 ? '-25' : step * 25) + 'vw)',
-                            opacity: 1 - Math.abs(step) * 0.5 < 0.5 ? "0.5" : 1 - Math.abs(step) * 0.5 + ""
+                        'style0': {
+                            transform: 'scale(' + (1.3 - Math.abs(step) * 0.3 < 1 ? '1' : 1.3 - Math.abs(step) *
+                                0.3 + '') + ') translateX(' + (step * 25 < -25 ? '-25' : step * 25) + 'vw)',
+                            opacity: 1 - Math.abs(step) * 0.5 < 0.5 ? '0.5' : 1 - Math.abs(step) * 0.5 + ''
                         },
-                        "style1": {
+                        'style1': {
                             transform: 'translateX(' + (-step * 50 - 25 > 25 ? '25' : -step * 50 - 25) + 'vw)',
                             opacity: '0.5'
                         },
-                        "style2": {
-                            transform: 'scale(' + (1 + Math.abs(step) * 0.3 > 1.3 ? "1.3" : 1 + Math.abs(step) *
-                                    0.3 + "") + ') translateX(' + (25 + step * 25 < 0 ? '0' : 25 + step * 25) +
+                        'style2': {
+                            transform: 'scale(' + (1 + Math.abs(step) * 0.3 > 1.3 ? '1.3' : 1 + Math.abs(step) *
+                                    0.3 + '') + ') translateX(' + (25 + step * 25 < 0 ? '0' : 25 + step * 25) +
                                 'vw)',
-                            opacity: 0.5 + Math.abs(step) * 0.5 > 1 ? "1" : 0.5 + Math.abs(step) * 0.5 + ""
+                            opacity: 0.5 + Math.abs(step) * 0.5 > 1 ? '1' : 0.5 + Math.abs(step) * 0.5 + ''
                         }
                     })
                 } else {
                     this.styleList = Object.assign({}, {
-                        "style0": {
-                            transform: 'scale(' + (1.3 - Math.abs(step) * 0.3 < 1 ? "1" : 1.3 - Math.abs(step) *
-                                0.3 + "") + ') translateX(' + (step * 25 > 25 ? '25' : step * 25) + 'vw)',
-                            opacity: 1 - Math.abs(step) * 0.5 < 0.5 ? "0.5" : 1 - Math.abs(step) * 0.5 + ""
+                        'style0': {
+                            transform: 'scale(' + (1.3 - Math.abs(step) * 0.3 < 1 ? '1' : 1.3 - Math.abs(step) *
+                                0.3 + '') + ') translateX(' + (step * 25 > 25 ? '25' : step * 25) + 'vw)',
+                            opacity: 1 - Math.abs(step) * 0.5 < 0.5 ? '0.5' : 1 - Math.abs(step) * 0.5 + ''
                         },
-                        "style1": {
-                            transform: 'scale(' + (1 + Math.abs(step) * 0.3 > 1.3 ? "1.3" : 1 + Math.abs(step) *
-                                    0.3 + "") + ') translateX(' + (-25 + step * 25 > 0 ? '0' : -25 + step * 25) +
+                        'style1': {
+                            transform: 'scale(' + (1 + Math.abs(step) * 0.3 > 1.3 ? '1.3' : 1 + Math.abs(step) *
+                                    0.3 + '') + ') translateX(' + (-25 + step * 25 > 0 ? '0' : -25 + step * 25) +
                                 'vw)',
-                            opacity: 0.5 + Math.abs(step) * 0.5 > 1 ? "1" : 0.5 + Math.abs(step) * 0.5 + ""
+                            opacity: 0.5 + Math.abs(step) * 0.5 > 1 ? '1' : 0.5 + Math.abs(step) * 0.5 + ''
                         },
-                        "style2": {
+                        'style2': {
                             transform: 'translateX(' + (25 - step * 50 < -25 ? '-25' : 25 - step * 50) + 'vw)',
                             opacity: '0.5'
                         }
                     })
-
                 }
             },
             stopTransition() {
@@ -118,36 +131,39 @@
             },
             initStyle() {
                 this.styleList = Object.assign({}, {
-                    "style0": {
+                    'style0': {
                         transform: 'scale(1.3)',
-                        opacity: '1'
+                        opacity: '1',
+                        zIndex: '2'
                     },
-                    "style1": {
+                    'style1': {
                         transform: 'translateX(-25vw)',
                         opacity: '0.5'
                     },
-                    "style2": {
+                    'style2': {
                         transform: 'translateX(25vw)',
                         opacity: '0.5'
                     }
                 })
             }
+        },
+        components: {
+            cardMain
         }
     }
 </script>
 
-<style>
+<style scoped>
     .wrap {
-        margin-top: 30vw;
         position: relative;
         overflow: hidden;
-        height: 40vw;
+        height: 73vw;
     }
 
     .card {
         height: 30vw;
         width: 30vw;
-        background-color: #42B983;
+        background-color: #F8F8F8;
         position: absolute;
         left: 50%;
         top: 50%;

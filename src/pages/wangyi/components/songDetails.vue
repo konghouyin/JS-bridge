@@ -7,7 +7,7 @@
             <div class="middle">
                 <div class="nav">
                     <img v-if="pic==''" src="../assets/music_logo.svg"/>
-                    <img v-else :src="pic" />
+                    <img v-else :src="pic.split('?')[0]+'?param=40y40'" />
                     <div>
                         <span>歌曲： ( {{song.name}} )</span>
                         <p>{{song.singer}}</p>
@@ -21,12 +21,12 @@
                         <img src="../assets/nextSong.svg"/>
                         <p>下一首播放</p>
                     </div>
-                    
+
                      <div>
                         <img src="../assets/collection.svg"/>
                         <p>收藏到歌单</p>
                     </div>
-                    
+
                      <div>
                         <img src="../assets/download.svg"/>
                         <p>下载</p>
@@ -54,7 +54,6 @@
                 playList: [],
                 display: this.displayed,
                 pic:""
-                // pic:require("../assets/loopList.svg")
             }
         },
         mounted() {
@@ -71,7 +70,7 @@
                     // console.log(res);
                   // return({pic:res.pic});
                   // return res;
-                  
+
                   console.log(res.pic);
                   this.pic=res.pic
                 }).catch(error => {
@@ -80,7 +79,7 @@
             }
         },
         methods: {
-            
+
             disappear(e) {
                 event = e.currentTarget;
                 // console.log(event)
@@ -93,9 +92,9 @@
 //                 event = e.currentTarget;
 //                 let num = event.getAttribute("value"); //歌曲的序号 从1开始
 //                 console.log(num, parseInt(this.$store.state.playStyle.num)) //
-// 
+//
 //                 this.playList.splice(num - 1, 1);
-// 
+//
 //                 if (this.$store.state.playList.length == 0) { //当前列表没有歌曲播放
 //                     this.$store.state.playStyle.num = 0;
 //                 } else if (this.$store.state.playList.length + 1 == num && num == parseInt(this.$store.state.playStyle.num)) { //删除最后一个元素 并且最后一个元素在播放
@@ -105,19 +104,19 @@
 //                 } else if (num < parseInt(this.$store.state.playStyle.num)) { //删除正在播放歌曲后面的歌曲
 //                     this.$store.state.playStyle.num--;
 //                 }
-// 
+//
 //             },
 //             play(e) { //在播放列表中改变播放曲目
 //                 event = e.currentTarget;
 //                 let num = event.getAttribute("value"); //歌曲的序号 从0开始
-// 
+//
 //                 this.$store.state.playStyle.num = (Math.random() + parseInt(num));
 //             },
             playNextSong(){   //下一首播放
                 // event = e.currentTarget;
                 // let value = event.getAttribute("value");
                 // this.clickElement = value;
-                
+
                 var array = this.$store.state.playList
                 let flag = -1;
                 for (let i = 0; i < array.length; i++) {
@@ -134,7 +133,7 @@
                       singer: this.song.singer,
                       link: this.song.link,
                  }
-                 
+
                  // console.log("jhjhj")
                 if(this.$store.state.playList.length==0){  //当前歌单内没有歌曲 加入下一首直接播放
                 //console.log("jhjjkhjk")
@@ -163,7 +162,7 @@
                 // }
                 this.$store.commit('nextPlaySong', nextSong);
             },
-            
+
         },
         props: {
             displayed: { //控制子组件的显隐
@@ -211,7 +210,7 @@
         border-top-right-radius: 1.625rem;
         border-top-left-radius: 1.625rem;
         align-items: center;
-        
+
     }
     .nav p{
         color: #AAAAAA;
@@ -240,9 +239,9 @@
         background-color: whitesmoke;
     }
     .content div{
-        
+
         display: flex;
-        align-items: center; 
+        align-items: center;
        /* background-color: whitesmoke; */
     }
     .content img{

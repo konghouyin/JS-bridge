@@ -4,7 +4,7 @@
 <template>
     <div class="main" @scroll="lazyLoad($event)">
         <div class="item" v-for="(each,index) in messageList" :key="index" @click="routerSongList(each.link)">
-            <div class="pic" :style="'background-image: url('+ each.pic +');'"></div>
+            <div class="pic" :style="'background-image: url('+ each.pic.split('?')[0]+'?param=140y140);'"></div>
             <div class="name">{{each.name}}</div>
             <div v-if="showNum" class="num">▷ {{each.num}}</div>
         </div>
@@ -39,7 +39,7 @@
         methods: {
             routerSongList(target) {
                 // console.log(target)
-                this.$router.replace({
+                this.$router.push({
                     path: '/songList',
                     query: {
                         id: target,

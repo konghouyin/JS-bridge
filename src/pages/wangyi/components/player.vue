@@ -9,7 +9,7 @@
             return {
                 playnum: -1,
                 playLink: '',
-                firstTime: 0,
+                firstTime: 0
             }
         },
         mounted() {
@@ -20,12 +20,12 @@
             async changeSong() {
                 if (Math.floor(this.$store.state.playStyle.num) - 1 >= 0 && this.$store.state.playList[Math.floor(
                         this.$store.state.playStyle.num) - 1]) {
-                    //确保歌曲列表中有此音乐
-                    console.log("changemore")
-                    let music = this.$store.state.playList[Math.floor(this.$store.state.playStyle.num) - 1];
+                    // 确保歌曲列表中有此音乐
+                    console.log('changemore')
+                    let music = this.$store.state.playList[Math.floor(this.$store.state.playStyle.num) - 1]
                     let string = await this.JSgetString(music.link.split('id=')[1]) // 进行js-bridge 通信
-                    let api = "http://132.232.169.227:1531/path/getSongMain"
-                    console.log("send")
+                    let api = 'http://132.232.169.227:1531/path/getSongMain'
+                    console.log('send')
                     Axios.send(api, 'post', {
                         link: music.link,
                         string: JSON.parse(string).data
@@ -64,17 +64,17 @@
                                 albun: music.album,
                                 singer: music.singer,
                                 link: music.link,
-                                backgroundColor: ""
+                                backgroundColor: ''
                             }
-                        });
+                        })
                         try {
-                            let obj = this.$store.state.playStyle;
+                            let obj = this.$store.state.playStyle
                             obj.playStatus = true
                             this.$store.commit('setData', {
                                 'playStyle': obj
                             })
                         } catch (e) {
-                            //TODO handle the exception
+                            // TODO handle the exception
                         }
 
                         // localStorage.setItem('playNow', {
@@ -87,20 +87,20 @@
                         //     backgroundColor: ""
                         // })
                     }).catch(error => {
-                        console.log('Error', error.message);
+                        console.log('Error', error.message)
                     })
                 } else {
                     this.$store.commit('setData', {
                         'playNow': {
-                            pic: "",
-                            url: "",
-                            name: "",
-                            albun: "",
-                            singer: "",
-                            link: "",
-                            backgroundColor: ""
+                            pic: '',
+                            url: '',
+                            name: '',
+                            albun: '',
+                            singer: '',
+                            link: '',
+                            backgroundColor: ''
                         }
-                    });
+                    })
                 }
             },
             JSgetString(songid) {
@@ -157,28 +157,28 @@
                 if (localStorage.playList) {
                     this.$store.commit('setData', {
                         'playList': localStorage.playList
-                    });
+                    })
                 } else {
                     this.$store.commit('setData', {
                         'playList': []
-                    });
+                    })
                 }
                 if (localStorage.playNow) {
                     this.$store.commit('setData', {
                         'playNow': localStorage.playNow
-                    });
+                    })
                 } else {
                     this.$store.commit('setData', {
                         'playNow': {
-                            pic: "",
-                            url: "",
-                            name: "",
-                            albun: "",
-                            singer: "",
-                            link: "",
-                            backgroundColor: ""
+                            pic: '',
+                            url: '',
+                            name: '',
+                            albun: '',
+                            singer: '',
+                            link: '',
+                            backgroundColor: ''
                         }
-                    });
+                    })
                 }
                 if (localStorage.playStyle) {
                     this.$store.commit('setData', {
@@ -190,7 +190,7 @@
                             num: 0,
                             playType: localStorage.playStyle
                         }
-                    });
+                    })
                 } else {
                     this.$store.commit('setData', {
                         'playStyle': {
@@ -201,7 +201,7 @@
                             num: 0,
                             playType: 1
                         }
-                    });
+                    })
                 }
             },
             playCtrl() {
@@ -218,9 +218,10 @@
         },
         computed: {
             getUrl() {
-                return this.$store.state.playNow.url ? this.$store.state.playNow.url : ""
+                return this.$store.state.playNow.url ? this.$store.state.playNow.url : ''
             },
             getStyle() {
+                console.log('numChange')
                 return this.$store.state.playStyle.num
             },
             getStatus() {
@@ -248,9 +249,9 @@
                         this.playLink = this.$store.state.playList[Math.floor(this.$store.state.playStyle.num) - 1].link
                         this.changeSong()
                     }
-
                 }
-            },getTimeJump(e){
+            },
+            getTimeJump(e) {
                 this.$el.currentTime = e
             }
         }

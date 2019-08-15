@@ -1,7 +1,7 @@
 <!-- 首页的歌单 -->
 
 <template>
-    <div >
+    <div>
         <div class="title">
             <div class="left">{{titleLeft}}</div>
             <div class="right" @click="moreContentRouter()">{{titleRight}}</div>
@@ -12,48 +12,41 @@
 </template>
 
 <script>
-    import songsBlock from "./songsBlock"
+    import songsBlock from './songsBlock'
     export default {
         data() {
-            return {
-                // mainMessage: []
-                moreContent:{  //请求更多的信息
-                    name:this.titleRight,
-                    showNum:this.showNum,
-                    type:this.type
-                },
-                apilock:0,
-            }
+            return {}
         },
         mounted() {
-            
+
         },
-        methods:{
-            moreContentRouter(){
-                // console.log(this.moreRouter[this.titleRight])
-                // console.log(this.moreContent)
-                this.$router.replace({path:'/moreContent',query:{moreContent:this.moreContent}});
-                // this.$router.replace({path:'/moreContent',query:{moreContent:this.moreContent}});
-            },send(strType) { //发送数据请求
-            
+        methods: {
+            moreContentRouter() {
+                this.$router.push({
+                    path: '/moreContent',
+                    query: {
+                        type: this.type,
+                        name: this.titleRight
+                    }
+                })
+            },
+            send(strType) { // 发送数据请求
                 // if (this.page.end >= this.title.all) { //请求的最大页 超出
                 //     this.page.end = this.title.all
                 //     //this.lazyloaded = false; //阻止了懒加载滑动事件的监听
                 // }
                 // console.log(this.sendType.playList,this.content)
-                var api = "http://132.232.169.227:1531/path/" + this.sendType[this.content.type] + "?start=" +
+                var api = 'http://132.232.169.227:1531/path/' + this.sendType[this.content.type] + '?start=' +
                     this.page.start +
-                    "&end=" + this.page.end
+                    '&end=' + this.page.end
                 // console.log(api)
                 Axios.send(api, 'get').then(res => {
-
-                    this.allnumber =res.all;
-                    this.getMessageList=res.list
-
+                    this.allnumber = res.all
+                    this.getMessageList = res.list
                 }).catch(error => {
-                    console.log('Error', error.message);
+                    console.log('Error', error.message)
                 })
-            },
+            }
         },
         computed: {
             getMessageList() {
