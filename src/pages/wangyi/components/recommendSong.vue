@@ -1,6 +1,6 @@
 <!-- 歌单详细上面的轮播图 -->
 <template>
-    <div class="one">
+    <div>
         <rotaryRoll></rotaryRoll>
     </div>
 </template>
@@ -22,7 +22,7 @@
 
 <style scoped>
     .one div {
-        width: 30vw;
-        background-color: #000000;
+      /*  width: 30vw;
+        background-color: #000000; */
     }
 </style>

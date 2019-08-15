@@ -43,6 +43,21 @@
     }
 </script>
 
+<!-- 
+HN.webviewConnect({
+                        num: 2,
+                        msg: `jx("search",${songid},0)`,   //1页30   第一次  无参数
+                        success: function(res, type) {
+                            resolve(res, type)
+                        },
+                        fail: function(res, type) {
+                            console.log(res, type)
+                        }
+                    })
+ -->
+
+
+
 <style scoped>
     .swiper_item {
         background-size: 100% 100% !important;
