@@ -6,16 +6,16 @@
                 <li name="find" v-bind:class="click=='find'?'active':''" value="2" @click="switchVue($event)">发现</li>
                 <li name="recommendSong" v-bind:class="click=='recommendSong'?'active':''" value="3" @click="switchVue($event)">推荐</li>
                 <li name="rankingList" v-bind:class="click=='rankingList'?'active':''" value="4" @click="switchVue($event)">热度</li>
-                <li><img src="../assets/搜索-灰.svg" /></li>
+                <li><img src="../assets/搜索-灰.svg" @click="search()" /></li>
             </ul>
         </div>
-		<div class="wrap">
-			<transition v-bind:name="transName">
-			    <keep-alive>
-			        <router-view></router-view>
-			    </keep-alive>
-			</transition>
-		</div>
+        <div class="wrap">
+            <transition v-bind:name="transName">
+                <keep-alive>
+                    <router-view></router-view>
+                </keep-alive>
+            </transition>
+        </div>
         <playMin></playMin>
     </div>
 </template>
@@ -23,6 +23,8 @@
 <script>
     import songSheet from "./songSheet"
     import playMin from "./play_min"
+    import search from "./search"
+    
     export default {
         data() {
             return {
@@ -48,6 +50,11 @@
                 this.$router.push({
                     path: this.click
                 })
+            },
+            search() {
+                this.$router.push({
+                    path: "/search",
+                })
             }
         },
         computed: {
@@ -57,7 +64,8 @@
 
         },
         components: {
-            playMin
+            playMin,
+            search,
         }
     }
 </script>
@@ -65,8 +73,8 @@
 <style scoped>
     .nav {
         position: fixed;
-        top:0;
-        width:100vw;
+        top: 0;
+        width: 100vw;
         background-color: #f8f8f8;
         z-index: 2;
     }
@@ -136,7 +144,8 @@
         position: absolute;
         opacity: 0;
     }
-	.wrap{
-		margin: 2.5rem 0;
-	}
+
+    .wrap {
+        margin: 2.5rem 0;
+    }
 </style>

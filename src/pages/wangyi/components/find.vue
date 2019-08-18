@@ -34,7 +34,7 @@
                         'mainMessage': res
                     })
                 }).catch(error => {
-                    console.log('Error', error.message);
+                    // console.log('Error', error.message);
                 })
             } else {
                 this.allData = this.$store.state.mainMessage;
