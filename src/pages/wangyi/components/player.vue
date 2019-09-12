@@ -61,7 +61,7 @@
                                 pic: res.pic,
                                 url: res.url,
                                 name: music.name,
-                                albun: music.album,
+                                album: music.album,
                                 singer: music.singer,
                                 link: music.link,
                                 backgroundColor: ''
@@ -77,15 +77,15 @@
                             // TODO handle the exception
                         }
 
-                        // localStorage.setItem('playNow', {
-                        //     pic: res.pic,
-                        //     url: res.url,
-                        //     name: music.name,
-                        //     albun: music.album,
-                        //     singer: music.singer,
-                        //     link: music.link,
-                        //     backgroundColor: ""
-                        // })
+                        localStorage.setItem('playNow', JSON.stringify({
+                            pic: res.pic,
+                            url: res.url,
+                            name: music.name,
+                            album: music.album,
+                            singer: music.singer,
+                            link: music.link,
+                            backgroundColor: ''
+                        }))
                     }).catch(error => {
                         console.log('Error', error.message)
                     })
@@ -95,7 +95,7 @@
                             pic: '',
                             url: '',
                             name: '',
-                            albun: '',
+                            album: '',
                             singer: '',
                             link: '',
                             backgroundColor: ''
@@ -156,7 +156,7 @@
             initStore() {
                 if (localStorage.playList) {
                     this.$store.commit('setData', {
-                        'playList': localStorage.playList
+                        'playList': JSON.parse(localStorage.playList)
                     })
                 } else {
                     this.$store.commit('setData', {
@@ -165,7 +165,7 @@
                 }
                 if (localStorage.playNow) {
                     this.$store.commit('setData', {
-                        'playNow': localStorage.playNow
+                        'playNow': JSON.parse(localStorage.playNow)
                     })
                 } else {
                     this.$store.commit('setData', {
@@ -173,7 +173,7 @@
                             pic: '',
                             url: '',
                             name: '',
-                            albun: '',
+                            album: '',
                             singer: '',
                             link: '',
                             backgroundColor: ''
@@ -221,7 +221,6 @@
                 return this.$store.state.playNow.url ? this.$store.state.playNow.url : ''
             },
             getStyle() {
-                console.log('numChange')
                 return this.$store.state.playStyle.num
             },
             getStatus() {
@@ -243,6 +242,7 @@
                 handler() {
                     if (this.$store.state.playStyle.num != this.playnum &&
                         this.$store.state.playList.length > 0 &&
+                        this.$store.state.playList[Math.floor(this.$store.state.playStyle.num) - 1] &&
                         this.playLink != this.$store.state.playList[Math.floor(this.$store.state.playStyle.num) - 1].link
                     ) {
                         this.playnum = this.$store.state.playStyle.num

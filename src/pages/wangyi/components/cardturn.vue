@@ -86,17 +86,19 @@
                         'style0': {
                             transform: 'scale(' + (1.3 - Math.abs(step) * 0.3 < 1 ? '1' : 1.3 - Math.abs(step) *
                                 0.3 + '') + ') translateX(' + (step * 25 < -25 ? '-25' : step * 25) + 'vw)',
-                            opacity: 1 - Math.abs(step) * 0.5 < 0.5 ? '0.5' : 1 - Math.abs(step) * 0.5 + ''
+                            opacity: 1 - Math.abs(step) * 0.5 < 0.5 ? '0.5' : 1 - Math.abs(step) * 0.5 + '',
+                            zIndex: '2'
                         },
                         'style1': {
                             transform: 'translateX(' + (-step * 50 - 25 > 25 ? '25' : -step * 50 - 25) + 'vw)',
-                            opacity: '0.5'
+                            opacity: '0.5',
                         },
                         'style2': {
                             transform: 'scale(' + (1 + Math.abs(step) * 0.3 > 1.3 ? '1.3' : 1 + Math.abs(step) *
                                     0.3 + '') + ') translateX(' + (25 + step * 25 < 0 ? '0' : 25 + step * 25) +
                                 'vw)',
-                            opacity: 0.5 + Math.abs(step) * 0.5 > 1 ? '1' : 0.5 + Math.abs(step) * 0.5 + ''
+                            opacity: 0.5 + Math.abs(step) * 0.5 > 1 ? '1' : 0.5 + Math.abs(step) * 0.5 + '',
+                            zIndex: '1'
                         }
                     })
                 } else {
@@ -104,13 +106,15 @@
                         'style0': {
                             transform: 'scale(' + (1.3 - Math.abs(step) * 0.3 < 1 ? '1' : 1.3 - Math.abs(step) *
                                 0.3 + '') + ') translateX(' + (step * 25 > 25 ? '25' : step * 25) + 'vw)',
-                            opacity: 1 - Math.abs(step) * 0.5 < 0.5 ? '0.5' : 1 - Math.abs(step) * 0.5 + ''
+                            opacity: 1 - Math.abs(step) * 0.5 < 0.5 ? '0.5' : 1 - Math.abs(step) * 0.5 + '',
+                            zIndex: '2'
                         },
                         'style1': {
                             transform: 'scale(' + (1 + Math.abs(step) * 0.3 > 1.3 ? '1.3' : 1 + Math.abs(step) *
                                     0.3 + '') + ') translateX(' + (-25 + step * 25 > 0 ? '0' : -25 + step * 25) +
                                 'vw)',
-                            opacity: 0.5 + Math.abs(step) * 0.5 > 1 ? '1' : 0.5 + Math.abs(step) * 0.5 + ''
+                            opacity: 0.5 + Math.abs(step) * 0.5 > 1 ? '1' : 0.5 + Math.abs(step) * 0.5 + '',
+                            zIndex: '1'
                         },
                         'style2': {
                             transform: 'translateX(' + (25 - step * 50 < -25 ? '-25' : 25 - step * 50) + 'vw)',

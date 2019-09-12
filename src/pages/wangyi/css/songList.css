@@ -103,6 +103,7 @@
      font-size: 1.05rem;
      color: white;
      line-height: 1.75rem;
+	 word-break: break-all;
  }
 
  .top-title,.top-second {

@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import index from '@/components/index'
-import show from '@/components/show'
+
 
 Vue.use(Router)
 
@@ -9,14 +8,20 @@ export default new Router({
     routes: [{
         path: '/',
         name: 'index',
-        component: index
+        component: function(resolve){
+            require(['@/components/index'], resolve)
+        }
     }, {
         path: '/show',
         name: 'show',
-        component: show
+        component: function(resolve){
+            require(['@/components/show'], resolve)
+        }
     }, {
         path: '*',
         name: 'index',
-        component: index
+        component: function(resolve){
+            require(['@/components/index'], resolve)
+        }
     }]
 })

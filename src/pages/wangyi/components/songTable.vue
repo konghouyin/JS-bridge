@@ -122,7 +122,6 @@
                     }
                     array.splice(flag, 1)
                 }
-                this.$store.state.playStyle.playStatus = true
                 let song = {
                     name: this.out[value].name,
                     singer: this.out[value].singer,

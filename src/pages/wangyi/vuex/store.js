@@ -47,19 +47,11 @@ var mutations = {
                     state[item] = Object.assign({}, msg[item])
                 }
             })
-
-        // console.log(state)
     },
     addPlayList: function(content, msg) { // 添加到正在播放歌曲的后面，并设置为正在播放
-        // console.log(msg)
-        // if(parseInt(state.playStyle.num)==0){
-        //     state.playList.splice(parseInt(state.playStyle.num)+1,0,msg);
-        //     state.playStyle.num=parseInt(state.playStyle.num)+1+Math.random();
-        // }
-        console.log('vuex')
         state.playList.splice(parseInt(state.playStyle.num), 0, msg)
         state.playStyle.num = parseInt(state.playStyle.num) + 1 + Math.random()
-         // console.log(state.playList,state.playStyle.num);
+        localStorage.setItem('playList', JSON.stringify(state.playList))
     },
     nextPlaySong: function(content, msg) { // 添加到正在播放歌曲的后面，并设置为正在播放
         state.playList.splice(parseInt(state.playStyle.num), 0, msg)

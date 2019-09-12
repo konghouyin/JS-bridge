@@ -19,6 +19,8 @@ Vue.directive("swiper", {
     }
 });
 
+
+
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

@@ -61,7 +61,6 @@
                             link: link
                         }
                         this.$store.commit('addPlayList', song)
-                        this.$store.state.playStyle.playStatus = true
                     }).catch(error => {
                         console.log('Error', error.message)
                     })
