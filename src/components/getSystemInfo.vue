@@ -95,29 +95,29 @@
         methods: {
             getSystemInfo() {
                 this.show = true
-                // HN.getSystemInfo({
-                //     success: (res, style) => {
-                //         console.log(res)
-                //         this.msg = Object.assign({}, res)
-                //     },
-                //     fail: (res, style) => {
-                //         this.err = true
-                //         this.errMessage = res.err
-                //     },
-                //     complete: (res, style) => {
-                //         console.log('complete')
-                //     }
-                // })
-                HN.webviewConnect({
-                    num: 2,
-                    msg: `jx("songMain",1325897190,0)`,
-                    success: function(res, type) {
-                        console.log(res, type)
+                HN.getSystemInfo({
+                    success: (res, style) => {
+                        console.log(res)
+                        this.msg = Object.assign({}, res)
                     },
-                    fail: function(res, type) {
-                        console.log(res, type)
+                    fail: (res, style) => {
+                        this.err = true
+                        this.errMessage = res.err
+                    },
+                    complete: (res, style) => {
+                        console.log('complete')
                     }
                 })
+                // HN.webviewConnect({
+                //     num: 2,
+                //     msg: `jx("songMain",1325897190,0)`,
+                //     success: function(res, type) {
+                //         console.log(res, type)
+                //     },
+                //     fail: function(res, type) {
+                //         console.log(res, type)
+                //     }
+                // })
             }
         }
     }

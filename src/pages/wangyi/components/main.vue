@@ -9,7 +9,10 @@
                 <li><img src="../assets/搜索-灰.svg" /></li>
             </ul>
         </div>
+		<div class="btn">开始下载</div><div class="btn">请求</div>
 		<div class="wrap">
+            <div class="btn" @click="startLoad()">开始下载</div>
+            <div class="btn" @click="startAns()">请求</div>
 			<transition v-bind:name="transName">
 			    <keep-alive>
 			        <router-view></router-view>
@@ -48,6 +51,31 @@
                 this.$router.push({
                     path: this.click
                 })
+            },
+            startLoad(){
+                HN.downLoad({
+                    name:'Summer',
+                    singer:'Joe Hisaishi',
+                    url:'http://www.konghouy.cn/H5-app/Joe%20Hisaishi-Summer.mp3',
+                    success: (res, style) => {
+                        console.log(res)
+                    },
+                    complete: (res, style) => {
+                        console.log('complete')
+                    }
+                })
+            },
+            startAns(){
+                setInterval(()=>{
+                    HN.downLoadNow({
+                        success: (res, style) => {
+                            console.log(res)
+                        },
+                        complete: (res, style) => {
+                            console.log('complete')
+                        }
+                    })
+                },1000)
             }
         },
         computed: {
@@ -63,6 +91,14 @@
 </script>
 
 <style scoped>
+    .btn{
+        text-align: center;
+        display: inline-block;
+        width: 40%;
+        border: 1px solid #ccc;
+        padding: 5px;
+        margin: 10px auto;
+    }
     .nav {
         position: fixed;
         top:0;

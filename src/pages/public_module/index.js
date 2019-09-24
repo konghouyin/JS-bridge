@@ -2,6 +2,8 @@ import getSystemInfo from './getSystemInfo'
 import showModal from './showModal'
 import {startAccelerometer,stopAccelerometer} from './accelerometer'
 import webviewConnect from './webviewConnect'
+import downLoad from './downLoad'
+import downLoadNow from './downLoadNow'
 
 import {
     callbackApply,
@@ -74,3 +76,5 @@ JSBridge.prototype.showModal = showModal
 JSBridge.prototype.startAccelerometer = startAccelerometer
 JSBridge.prototype.stopAccelerometer = stopAccelerometer
 JSBridge.prototype.webviewConnect = webviewConnect
+JSBridge.prototype.downLoad = downLoad
+JSBridge.prototype.downLoadNow = downLoadNow
