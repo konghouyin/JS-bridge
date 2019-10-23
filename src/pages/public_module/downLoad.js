@@ -22,7 +22,8 @@ export default function(obj) {
             name: '无名',
             singer: '未知',
             album: '未知',
-            url: obj.url
+            url: obj.url,
+            songID: obj.songId
         },
         callbackId: callbackId
     }
@@ -37,6 +38,10 @@ export default function(obj) {
     }
     if (obj.url == undefined) {
         throw 'downLoad:url错误'
+        return
+    }
+    if (obj.songId == undefined) {
+        throw 'downLoad:songID错误'
         return
     }
     if (checkFunction(type, obj)) {

@@ -13,7 +13,7 @@
                     <marquee v-else> <span direction=left scrollamount=.1 scrolldelay=500>{{title.name}}</span>
                     </marquee>
 
-                    <img src="../assets/搜索-白.svg"/>
+                    <img src="../assets/搜索-白.svg" />
                 </div>
                 <div class="top">
                     <div class="titlePic" :style="{backgroundImage:'url('+title.pic+')'}">
@@ -27,7 +27,7 @@
                             <p class="top-title">{{title.name}}</p>
                             <p id="top-second">歌手: {{out[0].singer}}</p>
                         </div>
-                        <img src="../assets/下载.svg" />
+                        <img src="../assets/下载.svg" @click="downLoadAll" />
                         <img src="../assets/多选.svg" /> <br />
                         <span>下载</span><span>多选</span>
                     </div>
@@ -82,8 +82,6 @@
             }
         },
         mounted() {
-
-
             this.type = this.$route.query.type
             this.send(this.$route.query.id, this.$route.query.type) //发送请求
             window.addEventListener('scroll', this.scrollhandle); //走马灯
@@ -94,6 +92,76 @@
         },
 
         methods: {
+            JSgetString(songid) {
+                return new Promise(function(resolve, reject) {
+                    HN.webviewConnect({
+                        num: 2,
+                        msg: `jx("songMain",${songid},0)`,
+                        success: function(res, type) {
+                            resolve(res, type)
+                        },
+                        fail: function(res, type) {
+                            console.log(res, type)
+                        }
+                    })
+                })
+            },
+            async download(e) {
+                let string = await this.JSgetString(e.split('id=')[1]) // 进行js-bridge 通信
+                let api = 'http://132.232.169.227:1531/path/getSongMain'
+                console.log('send')
+                Axios.send(api, 'post', {
+                    link: e,
+                    string: JSON.parse(string).data
+                }).then(res => {
+                    if (res.url == null) {
+                        HN.showModal({
+                            title: '没有这首歌的资源',
+                            content: '我们正在全力获取这首歌的资源，敬请期待',
+                            showCancel: false,
+                            confirmText: '知道了',
+                            confirmColor: '#07c160',
+                            success: (res, style) => {
+                                console.log(res)
+                            },
+                            fail: (res, style) => {
+                                console.log(res)
+                            },
+                            complete: (res, style) => {
+                                console.log('complete')
+                            }
+                        })
+                    } else {
+                        HN.downLoad({
+                            name: this.song.name,
+                            singer: this.song.singer,
+                            album: this.song.album,
+                            url: res.url,
+                            songId: e.split('id=')[1],
+                            success: (res, style) => {
+                                console.log(res)
+                            },
+                            complete: (res, style) => {
+                                console.log('complete')
+                            }
+                        })
+
+                    }
+                })
+            },
+            downLoadAll() {
+                var api = "http://132.232.169.227:1531/path/" + this.showType[this.type] + "?link=" + this.$route.query
+                    .id + "&start=1&end=5000"
+                console.log(api)
+                Axios.send(api, 'get').then(res => {
+                    // console.log(res);
+                    res.list.forEach((data) => {
+                        this.download(data.link);
+                    })
+                }).catch(error => {
+                    console.log('Error', error.message);
+                })
+            },
             scrollhandle() { //走马灯效果的监听
                 if (window.scrollY > 60) { //文档当前垂直滚动的像素
                     this.upSlide = false

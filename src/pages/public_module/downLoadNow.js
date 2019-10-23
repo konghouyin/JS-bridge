@@ -15,7 +15,7 @@ import checkFunction from './checkFunction'
  */
 export default function(obj) {
     let callbackId = Math.floor(Math.random() * 2000000000)
-    let type = 'downLoad'
+    let type = 'downLoadNow'
     let send = {
         type: type,
         data: null,

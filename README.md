@@ -169,11 +169,9 @@ NAtive回调函数
 HN.getSystemInfo({
     success: (res, style) => {
         console.log(res)
-        this.msg = Object.assign({}, res)
     },
     fail: (res, style) => {
-        this.err = true
-        this.errMessage = res.err
+        console.log(res)
     },
     complete: (res, style) => {
         console.log('complete')

@@ -9,54 +9,56 @@
                 <li><img src="../assets/搜索-灰.svg" /></li>
             </ul>
         </div>
-		<div class="btn">开始下载</div><div class="btn">请求</div>
-		<div class="wrap">
+        <div class="btn">开始下载</div>
+        <div class="btn">请求</div>
+        <div class="wrap">
             <div class="btn" @click="startLoad()">开始下载</div>
             <div class="btn" @click="startAns()">请求</div>
-			<transition v-bind:name="transName">
-			    <keep-alive>
-			        <router-view></router-view>
-			    </keep-alive>
-			</transition>
-		</div>
+            <transition v-bind:name="transName">
+                <keep-alive>
+                    <router-view></router-view>
+                </keep-alive>
+            </transition>
+        </div>
         <playMin></playMin>
     </div>
 </template>
 
 <script>
-    import songSheet from "./songSheet"
-    import playMin from "./play_min"
+    import songSheet from './songSheet'
+    import playMin from './play_min'
     export default {
         data() {
             return {
-                click: "find", //当前学则路由的名字
-                value: "2", //当前的选取路由的id值
-                transName: "slide-left", //当前动画的名称
-                allData: {},
+                click: 'find', // 当前学则路由的名字
+                value: '2', // 当前的选取路由的id值
+                transName: 'slide-left', // 当前动画的名称
+                allData: {}
             }
         },
         methods: {
             switchVue(event) {
                 // console.log(event.target.getAttribute("value"), this.value)
-                if (event.target.getAttribute("value") > this.value) {
-                    this.transName = "slide-left" //左转
+                if (event.target.getAttribute('value') > this.value) {
+                    this.transName = 'slide-left' // 左转
                 } else {
-                    this.transName = "slide-right" //右转
+                    this.transName = 'slide-right' // 右转
                 }
-                this.value = event.target.getAttribute("value");
+                this.value = event.target.getAttribute('value')
 
-                this.click = (event.target.getAttribute("name"));
-
+                this.click = (event.target.getAttribute('name'))
 
                 this.$router.push({
                     path: this.click
                 })
             },
-            startLoad(){
+            startLoad() {
                 HN.downLoad({
-                    name:'Summer',
-                    singer:'Joe Hisaishi',
-                    url:'http://www.konghouy.cn/H5-app/Joe%20Hisaishi-Summer.mp3',
+                    name: 'httpg',
+                    singer: 'http',
+                    album: 'JoeHisa',
+                    url: 'http://www.konghouy.cn/H5-app/Joe%20Hisaishi-Summer.mp3',
+                    songId: 12580,
                     success: (res, style) => {
                         console.log(res)
                     },
@@ -65,8 +67,8 @@
                     }
                 })
             },
-            startAns(){
-                setInterval(()=>{
+            startAns() {
+                setInterval(() => {
                     HN.downLoadNow({
                         success: (res, style) => {
                             console.log(res)
@@ -75,13 +77,28 @@
                             console.log('complete')
                         }
                     })
-                },1000)
+                }, 1000)
             }
         },
         computed: {
 
         },
         mounted() {
+
+            // var a = {
+            //     name: "String",
+            //     number: 123123.345,
+            //     Array: [123123, "string", {
+            //         name: "String",
+            //         number: 123123.345,
+            //     },[123123, "string", {
+            //         name: "String",
+            //         number: 123123.345,
+            //     }]],
+            //     boolean: true,
+            //     type:null
+            // }
+            // "{"name":"String","number":123123.345,"Array":[123123,"string",{"name":"String","number":123123.345},[123123,"string",{"name":"String","number":123123.345}]],"boolean":true,"type":null}"
 
         },
         components: {
@@ -91,7 +108,7 @@
 </script>
 
 <style scoped>
-    .btn{
+    .btn {
         text-align: center;
         display: inline-block;
         width: 40%;
@@ -99,10 +116,11 @@
         padding: 5px;
         margin: 10px auto;
     }
+
     .nav {
         position: fixed;
-        top:0;
-        width:100vw;
+        top: 0;
+        width: 100vw;
         background-color: #f8f8f8;
         z-index: 2;
     }
@@ -172,7 +190,8 @@
         position: absolute;
         opacity: 0;
     }
-	.wrap{
-		margin: 2.5rem 0;
-	}
+
+    .wrap {
+        margin: 2.5rem 0;
+    }
 </style>

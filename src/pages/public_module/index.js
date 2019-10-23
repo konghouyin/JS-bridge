@@ -27,6 +27,7 @@ window.JSBridge = JSBridge
  * @throws 无
  */
 window.jsCallBack = function(message) {
+    console.log(message)
     callbackApply(message)
 }
 
@@ -64,10 +65,17 @@ JSBridge.prototype.jsCallNative = function(send) {
     }
 }
 
-JSBridge.prototype.jsCallAndroid = function (msg) {9
+JSBridge.prototype.jsCallAndroid = function (msg) {
     window._android.postMessage(JSON.stringify(msg))
 }
 JSBridge.prototype.jsCalliOS = function (msg) {
+	console.log(msg)
+    for(let each in msg.data){
+        if(each!='url' && 'string' == typeof each){
+            each+="\0"
+        }
+    }
+    console.log(msg)
     window.webkit.messageHandlers.JSObject.postMessage(msg)
 }
 
