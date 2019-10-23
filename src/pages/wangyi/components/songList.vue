@@ -107,37 +107,37 @@
                 })
             },
             async download(e) {
-                let string = await this.JSgetString(e.split('id=')[1]) // 进行js-bridge 通信
+                let string = await this.JSgetString(e.link.split('id=')[1]) // 进行js-bridge 通信
                 let api = 'http://132.232.169.227:1531/path/getSongMain'
                 console.log('send')
                 Axios.send(api, 'post', {
-                    link: e,
+                    link: e.link,
                     string: JSON.parse(string).data
                 }).then(res => {
                     if (res.url == null) {
-                        HN.showModal({
-                            title: '没有这首歌的资源',
-                            content: '我们正在全力获取这首歌的资源，敬请期待',
-                            showCancel: false,
-                            confirmText: '知道了',
-                            confirmColor: '#07c160',
-                            success: (res, style) => {
-                                console.log(res)
-                            },
-                            fail: (res, style) => {
-                                console.log(res)
-                            },
-                            complete: (res, style) => {
-                                console.log('complete')
-                            }
-                        })
+                        // HN.showModal({
+                        //     title: '没有这首歌的资源',
+                        //     content: '我们正在全力获取这首歌的资源，敬请期待',
+                        //     showCancel: false,
+                        //     confirmText: '知道了',
+                        //     confirmColor: '#07c160',
+                        //     success: (res, style) => {
+                        //         console.log(res)
+                        //     },
+                        //     fail: (res, style) => {
+                        //         console.log(res)
+                        //     },
+                        //     complete: (res, style) => {
+                        //         console.log('complete')
+                        //     }
+                        // })
                     } else {
                         HN.downLoad({
-                            name: this.song.name,
-                            singer: this.song.singer,
-                            album: this.song.album,
+                            name: e.name,
+                            singer: e.singer,
+                            album: e.album,
                             url: res.url,
-                            songId: e.split('id=')[1],
+                            songId: e.link.split('id=')[1],
                             success: (res, style) => {
                                 console.log(res)
                             },
@@ -145,18 +145,18 @@
                                 console.log('complete')
                             }
                         })
-
                     }
                 })
             },
             downLoadAll() {
+                var that = this
                 var api = "http://132.232.169.227:1531/path/" + this.showType[this.type] + "?link=" + this.$route.query
                     .id + "&start=1&end=5000"
                 console.log(api)
                 Axios.send(api, 'get').then(res => {
-                    // console.log(res);
+                     console.log(res);
                     res.list.forEach((data) => {
-                        this.download(data.link);
+                        that.download(data);
                     })
                 }).catch(error => {
                     console.log('Error', error.message);
