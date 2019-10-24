@@ -1,5 +1,6 @@
 <template>
-    <audio :src="getUrl" controls></audio>
+    <audio :src="getUrl"></audio>
+    <!-- <audio :src="getUrl" controls></audio> -->
 </template>
 
 <script>

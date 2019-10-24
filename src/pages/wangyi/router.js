@@ -9,7 +9,7 @@ import songList from './components/songList'
 import swiper from './components/swiper.vue'
 import moreContent from './components/moreContent'
 import recommendSong from './components/recommendSong'
-
+import search from './components/search'
 Vue.use(Router)
 
 export default new Router({
@@ -39,6 +39,10 @@ export default new Router({
         path: '/songList',
         name: 'songList',
         component: songList,
+    }, {
+        path: '/search',
+        name: 'search',
+        component: search,
     },{
         path: '/moreContent',
         name: 'moreContent',

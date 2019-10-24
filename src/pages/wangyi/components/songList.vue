@@ -115,22 +115,20 @@
                     string: JSON.parse(string).data
                 }).then(res => {
                     if (res.url == null) {
-                        // HN.showModal({
-                        //     title: '没有这首歌的资源',
-                        //     content: '我们正在全力获取这首歌的资源，敬请期待',
-                        //     showCancel: false,
-                        //     confirmText: '知道了',
-                        //     confirmColor: '#07c160',
-                        //     success: (res, style) => {
-                        //         console.log(res)
-                        //     },
-                        //     fail: (res, style) => {
-                        //         console.log(res)
-                        //     },
-                        //     complete: (res, style) => {
-                        //         console.log('complete')
-                        //     }
-                        // })
+                       HN.downLoad({
+                           name: e.name,
+                           singer: e.singer,
+                           album: e.album,
+                           url: "not exist",
+                           songId: e.link.split('id=')[1],
+                           success: (res, style) => {
+                               console.log(res)
+                           },
+                           complete: (res, style) => {
+                               console.log('complete')
+                           }
+                       })
+                        //  发送特殊的downLoad，让vip内容添加到下载队列
                     } else {
                         HN.downLoad({
                             name: e.name,

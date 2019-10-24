@@ -71,7 +71,7 @@ JSBridge.prototype.jsCallAndroid = function (msg) {
 JSBridge.prototype.jsCalliOS = function (msg) {
 	console.log(msg)
     for(let each in msg.data){
-        if(each!='url' && 'string' == typeof each){
+        if(each!='url' && 'string' == typeof  msg.data[each]){
             each+="\0"
         }
     }

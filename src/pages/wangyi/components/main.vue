@@ -6,11 +6,9 @@
                 <li name="find" v-bind:class="click=='find'?'active':''" value="2" @click="switchVue($event)">发现</li>
                 <li name="recommendSong" v-bind:class="click=='recommendSong'?'active':''" value="3" @click="switchVue($event)">推荐</li>
                 <li name="rankingList" v-bind:class="click=='rankingList'?'active':''" value="4" @click="switchVue($event)">热度</li>
-                <li><img src="../assets/搜索-灰.svg" /></li>
+                <li @click="search"><img src="../assets/搜索-灰.svg" /></li>
             </ul>
         </div>
-        <div class="btn">开始下载</div>
-        <div class="btn">请求</div>
         <div class="wrap">
             <div class="btn" @click="startLoad()">开始下载</div>
             <div class="btn" @click="startAns()">请求</div>
@@ -37,6 +35,11 @@
             }
         },
         methods: {
+            search(){
+                this.$router.push({
+                    path: 'search'
+                })
+            },
             switchVue(event) {
                 // console.log(event.target.getAttribute("value"), this.value)
                 if (event.target.getAttribute('value') > this.value) {
@@ -55,8 +58,8 @@
             startLoad() {
                 HN.downLoad({
                     name: 'httpg',
-                    singer: 'http',
-                    album: 'JoeHisa',
+                    singer: 'RA',
+                    album: 'RA',
                     url: 'http://www.konghouy.cn/H5-app/Joe%20Hisaishi-Summer.mp3',
                     songId: 12580,
                     success: (res, style) => {
@@ -84,21 +87,6 @@
 
         },
         mounted() {
-
-            // var a = {
-            //     name: "String",
-            //     number: 123123.345,
-            //     Array: [123123, "string", {
-            //         name: "String",
-            //         number: 123123.345,
-            //     },[123123, "string", {
-            //         name: "String",
-            //         number: 123123.345,
-            //     }]],
-            //     boolean: true,
-            //     type:null
-            // }
-            // "{"name":"String","number":123123.345,"Array":[123123,"string",{"name":"String","number":123123.345},[123123,"string",{"name":"String","number":123123.345}]],"boolean":true,"type":null}"
 
         },
         components: {
@@ -128,7 +116,8 @@
     .nav ul {
         display: flex;
         color: #AAAAAA;
-        justify-content: center;
+        justify-content: space-around;
+        padding: 0 3rem;
         height: 40px;
     }
 
