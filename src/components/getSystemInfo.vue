@@ -108,16 +108,6 @@
                         console.log('complete')
                     }
                 })
-                // HN.webviewConnect({
-                //     num: 2,
-                //     msg: `jx("songMain",1325897190,0)`,
-                //     success: function(res, type) {
-                //         console.log(res, type)
-                //     },
-                //     fail: function(res, type) {
-                //         console.log(res, type)
-                //     }
-                // })
             }
         }
     }

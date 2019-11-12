@@ -10,6 +10,14 @@
                 <img class="icon" :src="each.icon" alt="">
             </router-link>
         </div>
+        <div class="list">
+            <a href="http://www.konghouy.cn/H5-app/wangyi.html">
+                <div class="each">
+                    <div class="tittle" style="color: #333333;">网易云音乐</div>
+                    <img class="icon" :src="musicImg" alt="">
+                </div>
+            </a>
+        </div>
     </div>
 </template>
 
@@ -18,7 +26,8 @@
         name: 'index',
         data() {
             return {
-                list: []
+                list: [],
+                musicImg: require('@/assets/music_logo.svg')
             }
         },
         methods: {

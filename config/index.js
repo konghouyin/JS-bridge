@@ -50,7 +50,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/H5-app',
+    assetsPublicPath: '/H5-app/',
 
     /**
      * Source Maps
