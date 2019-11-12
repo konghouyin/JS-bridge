@@ -69,13 +69,13 @@ JSBridge.prototype.jsCallAndroid = function (msg) {
     window._android.postMessage(JSON.stringify(msg))
 }
 JSBridge.prototype.jsCalliOS = function (msg) {
-	console.log(msg)
+	//console.log(msg)
     for(let each in msg.data){
         if(each!='url' && 'string' == typeof  msg.data[each]){
             each+="\0"
         }
     }
-    console.log(msg)
+    //console.log(msg)
     window.webkit.messageHandlers.JSObject.postMessage(msg)
 }
 

@@ -2,7 +2,7 @@
     <div class="all">
         <div class="nav">
             <ul>
-                <li name="mine" v-bind:class="click=='mine'?'active':''" value="1" @click="switchVue($event)">我的</li>
+                <li name="mine" v-bind:class="click=='mine'?'active':''" value="1" @click="switchVue($event)">下载</li>
                 <li name="find" v-bind:class="click=='find'?'active':''" value="2" @click="switchVue($event)">发现</li>
                 <li name="recommendSong" v-bind:class="click=='recommendSong'?'active':''" value="3" @click="switchVue($event)">推荐</li>
                 <li name="rankingList" v-bind:class="click=='rankingList'?'active':''" value="4" @click="switchVue($event)">热度</li>
@@ -10,8 +10,8 @@
             </ul>
         </div>
         <div class="wrap">
-            <div class="btn" @click="startLoad()">开始下载</div>
-            <div class="btn" @click="startAns()">请求</div>
+<!--            <div class="btn" @click="startLoad()">开始下载</div>
+            <div class="btn" @click="startAns()">请求</div> -->
             <transition v-bind:name="transName">
                 <keep-alive>
                     <router-view></router-view>
